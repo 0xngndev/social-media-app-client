@@ -1,0 +1,139 @@
+//TODO: Find a way to properly center the form
+//In the page
+//Also, add Svgs at the sides
+//And loading
+
+import React, { useState } from "react";
+import * as Yup from "yup";
+import { ErrorDiv } from "./styles/ErrorDiv";
+import { useFormik } from "formik";
+import { useRouter } from "next/router";
+import { gql, useMutation } from "@apollo/client";
+import { FormStyles, MainWrapper } from "./styles/FormStyles";
+
+const LOGIN_ACCOUNT_MUTATION = gql`
+  mutation login($username: String!, $password: String!) {
+    login(username: $username, password: $password) {
+      username
+      email
+      token
+    }
+  }
+`;
+
+const LoginForm = () => {
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
+  const [register] = useMutation(LOGIN_ACCOUNT_MUTATION);
+  const router = useRouter();
+  const formik = useFormik({
+    initialValues: {
+      username: "",
+      password: "",
+    },
+    validationSchema: Yup.object({
+      username: Yup.string().required("Username must be provided."),
+      password: Yup.string().required("Password must be provided"),
+    }),
+    onSubmit: async (values) => {
+      const { username, password } = values;
+
+      try {
+        const { data } = await register({
+          variables: {
+            username,
+            password,
+          },
+        });
+
+        setSuccessMessage(`Success! Redirecting...`);
+        setTimeout(() => {
+          setSuccessMessage(null);
+          router.push("/feed");
+        }, 3000);
+      } catch (error) {
+        setErrorMessage(error.message.replace("GraphQL error: ", ""));
+      }
+    },
+  });
+
+  const showErrorMessage = () => {
+    return (
+      <ErrorDiv>
+        <p>{errorMessage}</p>
+      </ErrorDiv>
+    );
+  };
+
+  const showSuccessMessage = () => {
+    return (
+      <ErrorDiv style={{ backgroundColor: "#46a049", color: "#fff" }}>
+        <p>{successMessage}</p>
+      </ErrorDiv>
+    );
+  };
+
+  return (
+    <MainWrapper>
+      <FormStyles onSubmit={formik.handleSubmit}>
+        <div className="div-logo">
+          <div>
+            <span>F</span>
+          </div>
+          <span>
+            500<span>Fables</span>
+          </span>
+        </div>
+        <h2>Login</h2>
+        <div className="div-divider"></div>
+        <fieldset>
+          {errorMessage && showErrorMessage()}
+          {successMessage && showSuccessMessage()}
+          {formik.touched.email && formik.errors.email ? (
+            <ErrorDiv>
+              <p>{"ERROR: " + formik.errors.email}</p>
+            </ErrorDiv>
+          ) : null}
+          <label htmlFor="username">
+            Username
+            <input
+              required
+              id="username"
+              placeholder="Username"
+              type="text"
+              name="username"
+              value={formik.values.username}
+              onChange={formik.handleChange}
+            />
+          </label>
+
+          {formik.touched.username && formik.errors.username ? (
+            <ErrorDiv>
+              <p>{"ERROR: " + formik.errors.username}</p>
+            </ErrorDiv>
+          ) : null}
+
+          <label htmlFor="password">
+            Password
+            <input
+              id="password"
+              placeholder="Password"
+              type="password"
+              name="password"
+              value={formik.values.password}
+              onChange={formik.handleChange}
+            />
+          </label>
+          {formik.touched.password && formik.errors.password ? (
+            <ErrorDiv>
+              <p>{"ERROR: " + formik.errors.password}</p>
+            </ErrorDiv>
+          ) : null}
+          <button type="submit">Login</button>
+        </fieldset>
+      </FormStyles>
+    </MainWrapper>
+  );
+};
+
+export default LoginForm;
