@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Router, useRouter } from "next/router";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -14,14 +15,6 @@ export const Wrapper = styled.div`
   width: 25%;
 
   box-shadow: var(--bs);
-  transition: 0.3s;
-
-  &:hover {
-    transition: 0.3s;
-    transform: translateY(-10px);
-    border: 3px solid var(--lowOpBlue);
-    border-top: 50px solid var(--lowOpBlue);
-  }
 
   h3 {
     font-size: 1.4rem;
@@ -29,11 +22,29 @@ export const Wrapper = styled.div`
     margin: 0;
     padding: 0;
     font-weight: 500;
+    cursor: pointer;
+    transition: 0.3s;
+
+    &:hover {
+      transition: 0.3s;
+
+      border-radius: 4px;
+      padding: 0 1.5rem;
+      background-color: var(--primaryColor);
+      color: #fff;
+    }
   }
 
   h2 {
     margin: 0;
     font-size: 1.5rem;
+    cursor: pointer;
+    transition: 0.3s;
+
+    &:hover {
+      transition: 0.3s;
+      transform: translateY(-5px);
+    }
   }
 
   p {
@@ -43,11 +54,25 @@ export const Wrapper = styled.div`
     color: #949494;
   }
 
+  span {
+    display: flex;
+    cursor: pointer;
+    background: var(--primaryColor);
+    color: #fff;
+    border-radius: 4px;
+    margin: 0;
+    padding: 0.5rem 1rem;
+    width: fit-content;
+    font-size: 1.2rem;
+    margin: 0;
+  }
+
   .div-author {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     height: 30px;
+    align-items: center;
   }
 
   .div-divider-small {
@@ -76,15 +101,21 @@ export const Wrapper = styled.div`
 `;
 
 const Fable = ({ fable }) => {
+  const router = useRouter();
+
+  const handleRouting = (folder, id) => {
+    router.push(`/${folder}/${id}`);
+  };
+
   return (
     <Wrapper>
       <div className="div-author">
         <h3>{fable?.author}</h3>
-        <p>Follow +</p>
+        <span>Follow +</span>
       </div>
-      <p>321 Followers</p>
+      <p style={{ cursor: "pointer" }}>321 Followers</p>
       <div className="div-divider-short"></div>
-      <h2>{fable?.title}</h2>
+      <h2 onClick={() => handleRouting("fables", fable.id)}>{fable?.title}</h2>
       <div className="div-divider-small"></div>
       <p>{fable?.body}</p>
       <div className="div-likes">
