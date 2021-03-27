@@ -45,17 +45,18 @@ export const GlobalStyles = createGlobalStyle`
 const PageWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  height: 100%;
 `;
 
 const Layout = ({ children }) => {
   return (
-    <div>
+    <>
       <PageWrapper>
         <GlobalStyles />
         <SideMenu />
         {children}
       </PageWrapper>
-    </div>
+    </>
   );
 };
 

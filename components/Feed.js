@@ -9,7 +9,7 @@ export const FeedMainWrapper = styled.div`
   width: 100%;
 
   .div-feed {
-    width: 90%;
+    width: 85%;
     h1 {
       color: var(--primaryColor);
       font-size: 3rem;

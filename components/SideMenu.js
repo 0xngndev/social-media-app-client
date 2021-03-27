@@ -3,13 +3,22 @@
 
 import styled from "styled-components";
 
+export const FakeSideMenu = styled.aside`
+  width: 15%;
+  background: var(--primaryColor);
+`;
+
 export const SideMenuWrapper = styled.aside`
+  position: fixed;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 15%;
   background: var(--primaryColor);
-  height: 100vh;
+  bottom: 0;
+  top: 0;
+
   box-shadow: var(--bs);
 
   .div-logo {
@@ -71,20 +80,23 @@ export const SideMenuWrapper = styled.aside`
 
 const SideMenu = () => {
   return (
-    <SideMenuWrapper>
-      <div className="div-logo">
-        <h1>F</h1>
-      </div>
-      <div className="div-list">
-        <ul>
-          <li>
-            <h3>FEED</h3>
-            <h3>CREATE</h3>
-            <h3>ABOUT</h3>
-          </li>
-        </ul>
-      </div>
-    </SideMenuWrapper>
+    <>
+      <FakeSideMenu></FakeSideMenu>
+      <SideMenuWrapper>
+        <div className="div-logo">
+          <h1>F</h1>
+        </div>
+        <div className="div-list">
+          <ul>
+            <li>
+              <h3>FEED</h3>
+              <h3>CREATE</h3>
+              <h3>ABOUT</h3>
+            </li>
+          </ul>
+        </div>
+      </SideMenuWrapper>
+    </>
   );
 };
 

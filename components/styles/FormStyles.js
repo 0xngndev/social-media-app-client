@@ -5,7 +5,7 @@ export const MainWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 8rem;
+  width: 100%;
 `;
 
 export const FormStyles = styled.form`
@@ -67,6 +67,7 @@ export const FormStyles = styled.form`
     height: 1px;
     background-color: #b4b4b4;
     width: 100%;
+    opacity: 50%;
     margin-bottom: 2.5rem;
   }
 
