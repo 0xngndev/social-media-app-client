@@ -1,11 +1,12 @@
-import React from "react";
+import SingleFablePage from "../../components/SingleFablePage";
 
 const FablePage = ({ query }) => {
+  const { id } = query;
+
   return (
-    <div>
-      <h1>Hello</h1>
-      <h2>{query.id}</h2>
-    </div>
+    <>
+      <SingleFablePage id={id} />
+    </>
   );
 };
 

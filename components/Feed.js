@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Fables from "./Fables";
+import FablesFeed from "./FablesFeed";
 
 export const FeedMainWrapper = styled.div`
   display: flex;
@@ -32,7 +32,7 @@ const Feed = () => {
         <h1>FEED</h1>
         <div className="div-divider"></div>
         <div>
-          <Fables />
+          <FablesFeed />
         </div>
       </div>
     </FeedMainWrapper>

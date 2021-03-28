@@ -1,5 +1,5 @@
 import { gql, useQuery } from "@apollo/client";
-import Fable from "./Fable";
+import FableFeed from "./FableFeed";
 import styled from "styled-components/";
 
 const FableWrapper = styled.div`
@@ -16,7 +16,9 @@ const QUERY_ALL_FABLES = gql`
       id
       body
       title
-      author
+      author {
+        username
+      }
       commentCount
       likeCount
       createdAt
@@ -37,7 +39,7 @@ const Fables = () => {
     <FableWrapper>
       {error}
       {getPosts.map((fable) => {
-        return <Fable key={fable.id} fable={fable} />;
+        return <FableFeed key={fable.id} fable={fable} />;
       })}
     </FableWrapper>
   );
