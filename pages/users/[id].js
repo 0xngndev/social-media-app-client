@@ -1,11 +1,13 @@
 import React from "react";
+import SingleUserPage from "../../components/SingleUserPage";
 
-const UserPage = ({ id }) => {
+const UserPage = ({ query }) => {
+  const { id } = query;
+
   return (
-    <div>
-      <h2>{id}</h2>
-      <h1>Hello</h1>
-    </div>
+    <>
+      <SingleUserPage id={id} />
+    </>
   );
 };
 

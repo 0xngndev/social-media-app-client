@@ -12,7 +12,9 @@ const Fable = ({ fable }) => {
   return (
     <Wrapper>
       <div className="div-author">
-        <h3>{fable?.author.username}</h3>
+        <h3 onClick={() => handleRouting("users", fable.author.id)}>
+          {fable?.author.username}
+        </h3>
         <span>Follow +</span>
       </div>
       <p style={{ cursor: "pointer" }}>321 Followers</p>

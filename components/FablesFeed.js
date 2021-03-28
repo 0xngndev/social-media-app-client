@@ -18,6 +18,7 @@ const QUERY_ALL_FABLES = gql`
       title
       author {
         username
+        id
       }
       commentCount
       likeCount

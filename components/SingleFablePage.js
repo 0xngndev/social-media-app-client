@@ -6,7 +6,9 @@ const QUERY_SINGLE_POST = gql`
     getPost(postId: $postId) {
       title
       body
-      author
+      author {
+        username
+      }
       createdAt
       likeCount
       commentCount
