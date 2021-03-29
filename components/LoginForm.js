@@ -2,6 +2,8 @@
 //In the page
 //Also, add Svgs at the sides
 //And loading
+//Add error if user is already logged in
+//Add "X" upper right corner and give it the close function
 
 import React, { useState } from "react";
 import * as Yup from "yup";
@@ -21,7 +23,7 @@ const LOGIN_ACCOUNT_MUTATION = gql`
   }
 `;
 
-const LoginForm = () => {
+const LoginForm = ({ close }) => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
   const [register] = useMutation(LOGIN_ACCOUNT_MUTATION);
@@ -50,6 +52,7 @@ const LoginForm = () => {
         setTimeout(() => {
           setSuccessMessage(null);
           router.push("/feed");
+          close();
         }, 3000);
       } catch (error) {
         setErrorMessage(error.message.replace("GraphQL error: ", ""));

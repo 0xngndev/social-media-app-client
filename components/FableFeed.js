@@ -1,13 +1,9 @@
 import React from "react";
-import { useRouter } from "next/router";
 import { Wrapper } from "./styles/FableStyles";
+import useRedirect from "../hooks/useRedirect";
 
 const Fable = ({ fable }) => {
-  const router = useRouter();
-
-  const handleRouting = (folder, id) => {
-    router.push(`/${folder}/${id}`);
-  };
+  const handleRouting = useRedirect();
 
   return (
     <Wrapper>

@@ -2,6 +2,27 @@
 //ADD SVG AT THE BOTTOM
 
 import styled from "styled-components";
+import Popup from "reactjs-popup";
+import LoginForm from "./LoginForm";
+import RegisterForm from "./RegisterForm";
+
+export const StyledPopup = styled(Popup)`
+  &-overlay {
+    position: fixed;
+    inset: 0px;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    z-index: 999;
+    pointer-events: auto;
+  }
+  &-content {
+    position: relative;
+    margin: auto;
+    pointer-events: auto;
+    background: white;
+    border-radius: 12px 12px 6px 6px;
+  }
+`;
 
 export const FakeSideMenu = styled.aside`
   width: 15%;
@@ -92,6 +113,12 @@ const SideMenu = () => {
               <h3>FEED</h3>
               <h3>CREATE</h3>
               <h3>ABOUT</h3>
+              <StyledPopup trigger={<h3> LOGIN </h3>} modal>
+                {(close) => <LoginForm close={close} />}
+              </StyledPopup>
+              <StyledPopup trigger={<h3> SIGN UP </h3>} modal>
+                {(close) => <RegisterForm close={close} />}
+              </StyledPopup>
             </li>
           </ul>
         </div>

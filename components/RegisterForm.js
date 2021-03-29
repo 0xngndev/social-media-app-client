@@ -5,7 +5,6 @@
 
 import React, { useState } from "react";
 import * as Yup from "yup";
-
 import { MainWrapper, FormStyles } from "./styles/FormStyles";
 import { ErrorDiv } from "./styles/ErrorDiv";
 import { useFormik } from "formik";
@@ -22,7 +21,7 @@ const REGISTER_ACCOUNT_MUTATION = gql`
   }
 `;
 
-const RegisterForm = () => {
+const RegisterForm = ({ close }) => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
   const [register] = useMutation(REGISTER_ACCOUNT_MUTATION);
@@ -57,11 +56,12 @@ const RegisterForm = () => {
         });
 
         setSuccessMessage(
-          `User ${data.register.username} has been successfully created. Redirecting to login page...`
+          `User ${data.register.username} has been successfully created. You can now login...`
         );
         setTimeout(() => {
           setSuccessMessage(null);
-          router.push("/login");
+          router.push("/");
+          close();
         }, 3000);
       } catch (error) {
         setErrorMessage(error.message.replace("GraphQL error: ", ""));
@@ -100,7 +100,7 @@ const RegisterForm = () => {
         <div className="div-divider"></div>
         <fieldset>
           {errorMessage && showErrorMessage()}
-          {errorMessage && showSuccessMessage()}
+          {successMessage && showSuccessMessage()}
           <label htmlFor="email">
             Email
             <input
