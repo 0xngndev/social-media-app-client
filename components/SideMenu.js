@@ -7,6 +7,7 @@ import Popup from "reactjs-popup";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 import { useRouter } from "next/router";
+import CreatePost from "./CreatePost";
 
 export const StyledPopup = styled(Popup)`
   &-overlay {
@@ -115,12 +116,14 @@ const SideMenu = () => {
           <ul>
             <li>
               <h3 onClick={() => router.push(`/feed`)}>FEED</h3>
-              <h3>CREATE</h3>
+              <StyledPopup trigger={<h3>CREATE</h3>} modal>
+                {(close) => <CreatePost close={close} />}
+              </StyledPopup>
               <h3>ABOUT</h3>
-              <StyledPopup trigger={<h3> LOGIN </h3>} modal>
+              <StyledPopup trigger={<h3>LOGIN</h3>} modal>
                 {(close) => <LoginForm close={close} />}
               </StyledPopup>
-              <StyledPopup trigger={<h3> SIGN UP </h3>} modal>
+              <StyledPopup trigger={<h3>SIGN UP</h3>} modal>
                 {(close) => <RegisterForm close={close} />}
               </StyledPopup>
             </li>

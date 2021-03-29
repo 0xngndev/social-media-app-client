@@ -94,6 +94,19 @@ export const FormStyles = styled.form`
           outline: none;
         }
       }
+
+      textarea {
+        display: block;
+        margin-bottom: 2rem;
+        min-width: 500px;
+        border: 1px solid #b4b4b4;
+        border-radius: 2px;
+        min-height: 80px;
+
+        &:focus {
+          outline: none;
+        }
+      }
     }
 
     button {
