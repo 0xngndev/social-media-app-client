@@ -1,10 +1,12 @@
-//TODO
+//TODO:
 //ADD SVG AT THE BOTTOM
+//Modularize Styles
 
 import styled from "styled-components";
 import Popup from "reactjs-popup";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
+import { useRouter } from "next/router";
 
 export const StyledPopup = styled(Popup)`
   &-overlay {
@@ -100,17 +102,19 @@ export const SideMenuWrapper = styled.aside`
 `;
 
 const SideMenu = () => {
+  const router = useRouter();
+
   return (
     <>
       <FakeSideMenu></FakeSideMenu>
       <SideMenuWrapper>
         <div className="div-logo">
-          <h1>F</h1>
+          <h1 onClick={() => router.push(`/`)}>F</h1>
         </div>
         <div className="div-list">
           <ul>
             <li>
-              <h3>FEED</h3>
+              <h3 onClick={() => router.push(`/feed`)}>FEED</h3>
               <h3>CREATE</h3>
               <h3>ABOUT</h3>
               <StyledPopup trigger={<h3> LOGIN </h3>} modal>

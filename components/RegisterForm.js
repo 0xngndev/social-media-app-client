@@ -2,6 +2,7 @@
 //In the page
 //Also, add Svgs at the sides
 //And loading
+//When refactoring, turn the errors into a custom hook
 
 import React, { useState } from "react";
 import * as Yup from "yup";
