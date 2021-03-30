@@ -30,9 +30,11 @@ const GET_FABLE_BY_ID = gql`
 const PostByUserStyles = styled.div`
   display: flex;
   flex-direction: column;
-  border: 2px solid var(--primaryColor);
-  margin: 2rem 0;
+  border: 3px solid var(--primaryColor);
+  border-radius: 4px;
+  border-left: 30px solid var(--primaryColor);
   padding: 1.5rem;
+  box-shadow: var(--bs);
 
   h3 {
     display: flex;
@@ -45,7 +47,6 @@ const PostByUserStyles = styled.div`
   }
 
   p {
-    display: flex;
     align-self: flex-start;
     margin: 0;
     font-size: 1.2rem;
@@ -53,10 +54,9 @@ const PostByUserStyles = styled.div`
     color: #949494;
     white-space: normal;
     justify-self: flex-start;
-    cursor: pointer;
   }
 
-  div {
+  .div-comment {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -86,8 +86,18 @@ const PostByUser = ({ id }) => {
     <PostByUserStyles>
       {error && <p>{error}</p>}
       <h3 onClick={() => handleRouting("fables", id)}>{getPost?.title}</h3>
-      <p onClick={() => handleRouting("fables", id)}>{getPost?.excerpt}</p>
-      <div>
+
+      <p>
+        {getPost?.excerpt + "..."}
+        <p
+          style={{ cursor: "pointer", textDecoration: "underline" }}
+          onClick={() => handleRouting("fables", id)}
+        >
+          Read more
+        </p>
+      </p>
+
+      <div className="div-comment">
         <span>{getPost?.likeCount + " Likes"}</span>
         <span>{getPost?.commentCount + " Comments"}</span>
       </div>
