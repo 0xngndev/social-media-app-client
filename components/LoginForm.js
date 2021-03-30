@@ -5,7 +5,7 @@
 //Add error if user is already logged in
 //Add "X" upper right corner and give it the close function
 
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import * as Yup from "yup";
 import { ErrorDiv } from "./styles/ErrorDiv";
 import { useFormik } from "formik";
@@ -26,7 +26,7 @@ const LOGIN_ACCOUNT_MUTATION = gql`
 const LoginForm = ({ close }) => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
-  const [register] = useMutation(LOGIN_ACCOUNT_MUTATION);
+  const [authenticateUser] = useMutation(LOGIN_ACCOUNT_MUTATION);
   const router = useRouter();
   const formik = useFormik({
     initialValues: {
@@ -41,7 +41,7 @@ const LoginForm = ({ close }) => {
       const { username, password } = values;
 
       try {
-        const { data } = await register({
+        const { data } = await authenticateUser({
           variables: {
             username,
             password,
@@ -49,8 +49,13 @@ const LoginForm = ({ close }) => {
         });
 
         setSuccessMessage(`Success! Redirecting...`);
+
+        const { token } = data.login;
+        localStorage.setItem("token", token);
+
         setTimeout(() => {
           setSuccessMessage(null);
+
           router.push("/feed");
           close();
         }, 3000);

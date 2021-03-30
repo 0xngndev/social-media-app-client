@@ -8,6 +8,7 @@ import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 import { useRouter } from "next/router";
 import CreatePost from "./CreatePost";
+import Logout from "./Logout";
 
 export const StyledPopup = styled(Popup)`
   &-overlay {
@@ -126,6 +127,7 @@ const SideMenu = () => {
               <StyledPopup trigger={<h3>SIGN UP</h3>} modal>
                 {(close) => <RegisterForm close={close} />}
               </StyledPopup>
+              <Logout />
             </li>
           </ul>
         </div>
