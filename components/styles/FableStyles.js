@@ -50,6 +50,8 @@ export const Wrapper = styled.div`
     font-size: 1.2rem;
     font-weight: 400;
     color: #949494;
+    word-break: break-all; //TODO: AFTER USING EXCERPT FOR BODIES ELIMINATE THIS
+    white-space: normal;
   }
 
   span {

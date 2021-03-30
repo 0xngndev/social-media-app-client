@@ -63,7 +63,7 @@ const RegisterForm = ({ close }) => {
           setSuccessMessage(null);
           router.push("/");
           close();
-        }, 3000);
+        }, 2000);
       } catch (error) {
         setErrorMessage(error.message.replace("GraphQL error: ", ""));
       }

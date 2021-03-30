@@ -3,6 +3,7 @@
 //Modularize Styles
 
 import styled from "styled-components";
+
 import Popup from "reactjs-popup";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";

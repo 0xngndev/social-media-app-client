@@ -10,7 +10,7 @@ const FableWrapper = styled.div`
   align-items: center;
 `;
 
-const QUERY_ALL_FABLES = gql`
+export const QUERY_ALL_FABLES = gql`
   query getPosts {
     getPosts {
       id
@@ -23,6 +23,7 @@ const QUERY_ALL_FABLES = gql`
       commentCount
       likeCount
       createdAt
+      excerpt
     }
   }
 `;

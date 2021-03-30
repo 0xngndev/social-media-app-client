@@ -12,6 +12,7 @@ import { Field, useFormik, FormikProvider } from "formik";
 import { useRouter } from "next/router";
 import { gql, useMutation } from "@apollo/client";
 import { FormStyles, MainWrapper } from "./styles/FormStyles";
+import { QUERY_ALL_FABLES } from "./FablesFeed";
 
 const LOGIN_ACCOUNT_MUTATION = gql`
   mutation createPost($body: String!, $title: String!) {
@@ -30,7 +31,9 @@ const LOGIN_ACCOUNT_MUTATION = gql`
 const CreatePost = ({ close }) => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
-  const [register] = useMutation(LOGIN_ACCOUNT_MUTATION);
+  const [register] = useMutation(LOGIN_ACCOUNT_MUTATION, {
+    refetchQueries: [{ query: QUERY_ALL_FABLES }],
+  });
   const router = useRouter();
   const formik = useFormik({
     initialValues: {
@@ -52,12 +55,12 @@ const CreatePost = ({ close }) => {
           },
         });
 
-        setSuccessMessage(`Success! Redirecting...`);
+        setSuccessMessage(`Success! Creating Post...`);
         setTimeout(() => {
           setSuccessMessage(null);
           router.push("/feed");
           close();
-        }, 3000);
+        }, 2000);
       } catch (error) {
         setErrorMessage(error.message.replace("GraphQL error: ", ""));
       }

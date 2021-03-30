@@ -17,7 +17,15 @@ const Fable = ({ fable }) => {
       <div className="div-divider-short"></div>
       <h2 onClick={() => handleRouting("fables", fable.id)}>{fable?.title}</h2>
       <div className="div-divider-small"></div>
-      <p>{fable?.body}</p>
+      <p>
+        {fable?.excerpt + "..."}
+        <p
+          style={{ cursor: "pointer", textDecoration: "underline" }}
+          onClick={() => handleRouting("fables", fable.id)}
+        >
+          Read more
+        </p>
+      </p>
       <div className="div-likes">
         <h3>{fable?.likeCount + " Likes"}</h3>
         <h3>{fable?.commentCount + " Comments"}</h3>
