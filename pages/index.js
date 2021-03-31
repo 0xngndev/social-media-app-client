@@ -12,7 +12,7 @@ export default function Home() {
     <>
       <HomeStyles>
         <Hero />
-        {/* <DiscoverHome /> */}
+        <DiscoverHome />
       </HomeStyles>
     </>
   );

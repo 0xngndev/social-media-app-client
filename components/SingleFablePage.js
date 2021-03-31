@@ -33,7 +33,7 @@ const SingleFableStyles = styled.div`
     flex-direction: column;
     align-items: center;
     width: 55%;
-    padding-top: 5rem;
+    padding-top: 7rem;
 
     h1 {
       font-size: 4rem;

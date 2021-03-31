@@ -8,22 +8,13 @@ export const HeroStyles = styled.div`
   align-items: center;
   width: 100%;
 
-  img {
-    position: absolute;
-    z-index: -2;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    width: 100%;
-  }
-
   div {
     display: flex;
     flex-direction: column;
     width: 100%;
     justify-content: center;
     align-items: center;
+    padding-top: 2rem;
 
     h1 {
       font-size: 7rem;
@@ -62,6 +53,8 @@ export const HeroStyles = styled.div`
       align-items: flex-start;
       justify-content: space-around;
       width: 88%;
+      padding: 0;
+      margin-bottom: 7rem;
 
       button {
         height: 25px;
@@ -84,12 +77,11 @@ export const HeroStyles = styled.div`
   .div-spacer {
     display: flex;
     width: 500px;
-
+    padding: 0;
     align-items: center;
     justify-content: center;
-    background: var(--primaryColor);
-    margin-top: 10rem;
-    margin-bottom: 2rem;
+    background: #000;
+    margin-bottom: 1rem;
   }
 
   .div-right {

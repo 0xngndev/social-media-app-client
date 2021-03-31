@@ -18,9 +18,9 @@ export const FeedMainWrapper = styled.div`
   }
 
   .div-divider {
-    height: 1px;
-    background-color: #b4b4b4;
-    width: 100%;
+    height: 2px;
+    background-color: var(--primaryColor);
+    width: 60%;
     margin-bottom: 2.5rem;
   }
 `;

@@ -1,12 +1,11 @@
 import React from "react";
-import Image from "next/image";
 import { StyledPopup } from "./styles/StyledPopup";
-import { HeroStyles, ImageWrap, StyledImage } from "./styles/HeroStyles";
+import { HeroStyles } from "./styles/HeroStyles";
+import RegisterForm from "./RegisterForm";
 
 const Hero = () => {
   return (
     <HeroStyles>
-      <img src="/assets/wave.svg" alt="wave" />
       <div>
         <div className="div-spacer"></div>
         <h1>WELCOME TO</h1>
@@ -20,7 +19,9 @@ const Hero = () => {
           Read enchanting tales. Dive deep into the world of short fiction.
         </span>
         <div>
-          <button>START HERE</button>
+          <StyledPopup trigger={<button>START HERE</button>} modal>
+            <RegisterForm />
+          </StyledPopup>
         </div>
         <div
           className="div-spacer"

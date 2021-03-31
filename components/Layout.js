@@ -46,6 +46,22 @@ const PageWrapper = styled.div`
   display: flex;
   flex-direction: row;
   height: 100%;
+
+  img {
+    position: absolute;
+    z-index: -2;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+  }
+`;
+
+const SecondWrapper = styled.div`
+  height: 100%;
+  padding-top: 8rem;
+  width: 100%;
 `;
 
 const Layout = ({ children }) => {
@@ -53,8 +69,9 @@ const Layout = ({ children }) => {
     <>
       <PageWrapper>
         <GlobalStyles />
+        <img src="/assets/wave.svg" alt="wave" />
         <SideMenu />
-        {children}
+        <SecondWrapper>{children}</SecondWrapper>
       </PageWrapper>
     </>
   );
