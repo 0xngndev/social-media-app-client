@@ -3,16 +3,23 @@
 import gql from "graphql-tag";
 import styled from "styled-components";
 import useRedirect from "../hooks/useRedirect";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { FaRegComment } from "react-icons/fa";
 import { useQuery } from "@apollo/client";
+import useUser from "./User";
 
 const QUERY_SINGLE_POST = gql`
   query getPost($postId: ID!) {
     getPost(postId: $postId) {
+      id
       title
+      likes {
+        username
+      }
       body
       author {
-        username
         id
+        username
       }
       createdAt
       likeCount
@@ -56,8 +63,22 @@ const SingleFableStyles = styled.div`
     div {
       display: flex;
       flex-direction: row;
-      justify-content: space-between;
+      justify-content: space-around;
       padding: 0;
+
+      div {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+
+        svg {
+          padding-right: 0.5rem;
+          height: 20px;
+          width: 20px;
+          cursor: pointer;
+          color: var(--primaryColor);
+        }
+      }
     }
   }
   .div-divider {
@@ -72,6 +93,7 @@ const SingleFableStyles = styled.div`
 
 const SingleFablePage = ({ id }) => {
   const handleRouting = useRedirect();
+  const user = useUser();
   const { data, loading, error } = useQuery(QUERY_SINGLE_POST, {
     variables: {
       postId: id,
@@ -81,6 +103,14 @@ const SingleFablePage = ({ id }) => {
   if (loading) return <p>Loading...</p>;
 
   const { getPost } = data;
+
+  const userLikedPost = getPost?.likes?.map(
+    (liker) => liker.username === user.username
+  ) ? (
+    <AiFillHeart />
+  ) : (
+    <AiOutlineHeart />
+  );
 
   return (
     <SingleFableStyles>
@@ -93,8 +123,14 @@ const SingleFablePage = ({ id }) => {
         <h2>{getPost?.body}</h2>
         <div className="div-divider"></div>
         <div>
-          <h3>{getPost.likeCount + " Likes"}</h3>
-          <h3>{getPost.commentCount + " Comments"}</h3>
+          <div>
+            {userLikedPost}
+            <h3>{getPost.likeCount + " Likes"}</h3>
+          </div>
+          <div style={{ justifyContent: "flex-end" }}>
+            {<FaRegComment />}
+            <h3>{getPost.commentCount + " Comments"}</h3>
+          </div>
         </div>
       </div>
     </SingleFableStyles>

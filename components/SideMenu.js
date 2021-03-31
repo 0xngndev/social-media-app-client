@@ -103,7 +103,6 @@ const SideMenu = () => {
               <StyledPopup trigger={<h3>CREATE</h3>} modal>
                 {(close) => <CreatePost close={close} />}
               </StyledPopup>
-              <h3>ABOUT</h3>
               <StyledPopup trigger={<h3>LOGIN</h3>} modal>
                 {(close) => <LoginForm close={close} />}
               </StyledPopup>
