@@ -5,7 +5,7 @@ import styled from "styled-components";
 export const GlobalStyles = createGlobalStyle`
 
     html {
-        --primaryColor: #152252;
+        --primaryColor: #8946FF;
         --secondaryColor: #39BC9D;
         --lowOpBlue: rgba(57, 188, 157, 0.53);
         --black: #393939;
