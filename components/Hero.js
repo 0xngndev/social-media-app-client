@@ -3,19 +3,27 @@ import styled from "styled-components";
 import Image from "next/image";
 
 export const HeroStyles = styled.div`
+  position: relative;
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
 
   padding-left: 2rem;
   width: 100%;
 
-  .div-left {
+  img {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+  }
+
+  div {
     display: flex;
     flex-direction: column;
-    width: 55%;
-    padding-left: 8rem;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
 
     h1 {
       font-size: 7rem;
@@ -23,40 +31,36 @@ export const HeroStyles = styled.div`
       margin: 0;
       line-height: 1.5;
     }
-    p {
+
+    span {
+      padding-top: 2rem;
       font-size: 2rem;
       color: #949494;
-      width: 90%;
-      padding-left: 0.5rem;
+      width: 55%;
+      text-align: center;
     }
 
-    .div-logo {
+    p {
       display: flex;
-      flex-direction: row;
-      justify-content: flex-start;
-      align-items: center;
+      padding: 0;
+      margin: 0;
+      font-weight: bold;
+      font-size: 8rem;
+      color: var(--primaryColor);
+      line-height: 1;
 
-      span {
-        display: flex;
+      p {
+        color: black;
         padding: 0;
         margin: 0;
-        font-weight: bold;
-        font-size: 7rem;
-        color: var(--primaryColor);
-        line-height: 1;
-
-        span {
-          color: black;
-          padding: 0;
-          margin: 0;
-        }
       }
     }
+
     div {
       display: flex;
       flex-direction: row;
       align-items: flex-start;
-      justify-content: space-between;
+      justify-content: space-around;
       width: 88%;
 
       button {
@@ -79,11 +83,11 @@ export const HeroStyles = styled.div`
   .div-spacer {
     display: flex;
     width: 500px;
-    height: 10px;
+
     align-items: center;
     justify-content: center;
     background: var(--primaryColor);
-    margin-top: 5rem;
+    margin-top: 10rem;
     margin-bottom: 2rem;
   }
 
@@ -97,29 +101,27 @@ export const HeroStyles = styled.div`
 const Hero = () => {
   return (
     <HeroStyles>
-      <div className="div-left">
+      <Image src="/assets/wave.svg" alt="wave" layout="fill" />
+      <div>
         <div className="div-spacer"></div>
         <h1>WELCOME TO</h1>
-        <div className="div-logo">
-          <span>
-            500<span>Fables</span>
-          </span>
-        </div>
+
         <p>
+          500<p>Fables</p>
+        </p>
+
+        <span>
           Share your stories in 500 words or less. Discover talented authors.
           Read enchanting tales. Dive deep into the world of short fiction.
-        </p>
-        <p style={{ margin: "0", lineHeight: "0.5" }}>
-          What are you waiting for?
-        </p>
+        </span>
+
         <div>
-          <button>LOGIN</button>
-          <button>SIGN UP</button>
+          <button>START HERE</button>
         </div>
-      </div>
-      <div className="div-right">
-        <Image src="/assets/dude.png" width={500} height={400} />
-        <div className="div-spacer"></div>
+        <div
+          className="div-spacer"
+          style={{ height: "5px", width: "50px" }}
+        ></div>
       </div>
     </HeroStyles>
   );
