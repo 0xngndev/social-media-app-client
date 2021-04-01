@@ -9,6 +9,8 @@ import { useQuery } from "@apollo/client";
 import useUser from "./User";
 import useLike from "../hooks/useLike";
 import CommentPage from "./CommentPage";
+import LeaveComment from "./LeaveComment";
+import { StyledPopup } from "./styles/StyledPopup";
 
 export const QUERY_SINGLE_POST = gql`
   query getPost($postId: ID!) {
@@ -56,6 +58,17 @@ const SingleFableStyles = styled.div`
     flex-direction: column;
     align-items: center;
     width: 55%;
+
+    button {
+      outline: none;
+      border: none;
+      border-radius: 4px;
+      background-color: var(--primaryColor);
+      color: #fff;
+      padding: 1rem 2rem;
+      margin-bottom: 3rem;
+      font-weight: 600;
+    }
 
     h1 {
       font-size: 4rem;
@@ -155,7 +168,12 @@ const SingleFablePage = ({ id }) => {
           </div>
         </div>
         <div className="div-divider"></div>
+        <LeaveComment postId={getPost?.id} />
         <h3>Comments</h3>
+        {/* <StyledPopup trigger={<button>Leave Comment</button>} modal>
+          {(close) => <LeaveComment postId={getPost?.id} close={close} />}
+        <LeaveComment postId={getPost?.id} />
+        </StyledPopup> */}
       </div>
       <div className="div-comments">
         {getPost?.comments?.map((comment) => {

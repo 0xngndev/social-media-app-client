@@ -37,8 +37,8 @@ const CommentPage = ({ comment }) => {
 
   return (
     <CommentPageStyles>
-      <h3>{comment.username}</h3>
-      <p>{comment.body}</p>
+      <h3>{username}</h3>
+      <p>{body}</p>
     </CommentPageStyles>
   );
 };
