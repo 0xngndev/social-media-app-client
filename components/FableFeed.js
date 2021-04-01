@@ -1,8 +1,10 @@
 import React from "react";
 import { Wrapper } from "./styles/FableStyles";
 import useRedirect from "../hooks/useRedirect";
+import useFollow, { isFollowing } from "../hooks/useFollow";
 
 const Fable = ({ fable }) => {
+  const handleFollow = useFollow(fable.author.id);
   const handleRouting = useRedirect();
 
   return (
@@ -11,7 +13,7 @@ const Fable = ({ fable }) => {
         <h3 onClick={() => handleRouting("users", fable.author.id)}>
           {fable?.author.username}
         </h3>
-        <span>Follow +</span>
+        <span onClick={handleFollow}>Follow</span>
       </div>
       <p style={{ cursor: "pointer" }}>321 Followers</p>
       <div className="div-divider-short"></div>
