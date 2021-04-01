@@ -40,7 +40,7 @@ const Fables = () => {
   return (
     <FableWrapper>
       {error}
-      {getPosts.map((fable) => {
+      {getPosts?.map((fable) => {
         return <FableFeed key={fable.id} fable={fable} />;
       })}
     </FableWrapper>

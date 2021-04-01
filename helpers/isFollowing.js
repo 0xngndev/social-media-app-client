@@ -1,7 +1,7 @@
 import { gql, useQuery } from "@apollo/client";
 import useUser from "../components/User";
 
-const GET_FOLLOWERS_QUERY = gql`
+export const GET_FOLLOWERS_QUERY = gql`
   query getUserById($userId: ID!) {
     getUserById(userId: $userId) {
       followers {
@@ -11,6 +11,7 @@ const GET_FOLLOWERS_QUERY = gql`
     }
   }
 `;
+
 const isFollowingFunc = (userId) => {
   const user = useUser();
   const { data, loading, error } = useQuery(GET_FOLLOWERS_QUERY, {
@@ -33,7 +34,7 @@ const isFollowingFunc = (userId) => {
     return true;
   };
 
-  return isFollowing;
+  return isFollowing();
 };
 
 export default isFollowingFunc;
