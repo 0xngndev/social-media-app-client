@@ -7,16 +7,23 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { FaRegComment } from "react-icons/fa";
 import { useQuery } from "@apollo/client";
 import useUser from "./User";
+import useLike from "../hooks/useLike";
+import CommentPage from "./CommentPage";
 
-const QUERY_SINGLE_POST = gql`
+export const QUERY_SINGLE_POST = gql`
   query getPost($postId: ID!) {
     getPost(postId: $postId) {
       id
       title
+      body
       likes {
         username
       }
-      body
+      comments {
+        id
+        body
+        username
+      }
       author {
         id
         username
@@ -34,13 +41,21 @@ const SingleFableStyles = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
+  margin-top: 7rem;
+
+  .div-comments {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 80%;
+  }
 
   div {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 55%;
-    padding-top: 7rem;
 
     h1 {
       font-size: 4rem;
@@ -50,7 +65,6 @@ const SingleFableStyles = styled.div`
     }
     p {
       margin: 0;
-      padding: 0;
     }
     h2 {
       font-size: 1.4rem;
@@ -60,7 +74,7 @@ const SingleFableStyles = styled.div`
       align-self: flex-start;
     }
 
-    div {
+    .div-likes-comments {
       display: flex;
       flex-direction: row;
       justify-content: space-around;
@@ -93,7 +107,9 @@ const SingleFableStyles = styled.div`
 
 const SingleFablePage = ({ id }) => {
   const handleRouting = useRedirect();
+  const handleLikePost = useLike(id);
   const user = useUser();
+
   const { data, loading, error } = useQuery(QUERY_SINGLE_POST, {
     variables: {
       postId: id,
@@ -104,34 +120,47 @@ const SingleFablePage = ({ id }) => {
 
   const { getPost } = data;
 
-  const userLikedPost = getPost?.likes?.map(
-    (liker) => liker.username === user.username
-  ) ? (
-    <AiFillHeart />
-  ) : (
-    <AiOutlineHeart />
-  );
+  const userLikedPost = () => {
+    const userArray = getPost?.likes?.map((liker) =>
+      liker.username.includes(user?.username)
+    );
+    if (userArray.length <= 0) return false;
+    return true;
+  };
+
+  const likesString = getPost?.likeCount === 1 ? " Like" : " Likes";
+  const commentsString = getPost?.commentCount === 1 ? " Comment" : " Comments";
 
   return (
     <SingleFableStyles>
       <div>
         <h1>{getPost.title}</h1>
-        <p onClick={() => handleRouting("users", getPost.author.id)}>
+        <p
+          onClick={() => handleRouting("users", getPost.author.id)}
+          style={{ cursor: "pointer" }}
+        >
           {"by: " + getPost.author.username}
         </p>
         <div className="div-divider"></div>
         <h2>{getPost?.body}</h2>
         <div className="div-divider"></div>
-        <div>
-          <div>
-            {userLikedPost}
-            <h3>{getPost.likeCount + " Likes"}</h3>
+        <div className="div-likes-comments">
+          <div onClick={handleLikePost}>
+            {userLikedPost() ? <AiFillHeart /> : <AiOutlineHeart />}
+            <h3>{getPost.likeCount + likesString}</h3>
           </div>
           <div style={{ justifyContent: "flex-end" }}>
             {<FaRegComment />}
-            <h3>{getPost.commentCount + " Comments"}</h3>
+            <h3>{getPost.commentCount + commentsString}</h3>
           </div>
         </div>
+        <div className="div-divider"></div>
+        <h3>Comments</h3>
+      </div>
+      <div className="div-comments">
+        {getPost?.comments?.map((comment) => {
+          return <CommentPage key={comment.id} comment={comment} />;
+        })}
       </div>
     </SingleFableStyles>
   );
