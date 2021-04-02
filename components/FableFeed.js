@@ -1,13 +1,35 @@
+//TODO: With a clear head, think if you can extract
+//the whole userLikedPost functionality into a helper function
+
 import React from "react";
 import { Wrapper } from "./styles/FableStyles";
 import useRedirect from "../hooks/useRedirect";
 import useFollow from "../hooks/useFollow";
 import isFollowingFunc from "../helpers/isFollowing";
+import { FaRegComment } from "react-icons/fa";
+import useUser from "./User";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
 const Fable = ({ fable }) => {
   const handleFollow = useFollow(fable.author.id);
   const handleRouting = useRedirect();
   const isFollowing = isFollowingFunc(fable.author.id);
+  const user = useUser();
+
+  const followColor = isFollowing
+    ? { backgroundColor: "#b4b4b4" }
+    : { backgroundColor: "" };
+
+  const userLikedPost = () => {
+    const userArray = fable?.likes?.map((liker) =>
+      liker.username.includes(user?.username)
+    );
+    if (userArray.length <= 0) return false;
+    return true;
+  };
+
+  const likesString = fable?.likeCount === 1 ? " Like" : " Likes";
+  const commentsString = fable?.commentCount === 1 ? " Comment" : " Comments";
 
   return (
     <Wrapper>
@@ -15,7 +37,7 @@ const Fable = ({ fable }) => {
         <h3 onClick={() => handleRouting("users", fable.author.id)}>
           {fable?.author.username}
         </h3>
-        <span onClick={handleFollow}>
+        <span onClick={handleFollow} style={followColor}>
           {isFollowing ? "Unfollow -" : "Follow +"}
         </span>
       </div>
@@ -33,8 +55,14 @@ const Fable = ({ fable }) => {
         </p>
       </p>
       <div className="div-likes">
-        <h3>{fable?.likeCount + " Likes"}</h3>
-        <h3>{fable?.commentCount + " Comments"}</h3>
+        <div>
+          {userLikedPost() ? <AiFillHeart /> : <AiOutlineHeart />}
+          <h3>{fable?.likeCount + likesString}</h3>
+        </div>
+        <div>
+          {<FaRegComment />}
+          <h3>{fable?.commentCount + commentsString}</h3>
+        </div>
       </div>
     </Wrapper>
   );

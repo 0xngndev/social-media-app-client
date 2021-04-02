@@ -97,5 +97,20 @@ export const Wrapper = styled.div`
     flex-direction: row;
     justify-content: space-between;
     margin-top: 1rem;
+
+    div {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+
+      svg {
+        padding-right: 0.5rem;
+        height: 20px;
+        width: 20px;
+        cursor: pointer;
+        color: var(--primaryColor);
+      }
+    }
   }
 `;

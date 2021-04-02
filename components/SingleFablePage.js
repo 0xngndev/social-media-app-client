@@ -170,10 +170,6 @@ const SingleFablePage = ({ id }) => {
         <div className="div-divider"></div>
         <LeaveComment postId={getPost?.id} />
         <h3>Comments</h3>
-        {/* <StyledPopup trigger={<button>Leave Comment</button>} modal>
-          {(close) => <LeaveComment postId={getPost?.id} close={close} />}
-        <LeaveComment postId={getPost?.id} />
-        </StyledPopup> */}
       </div>
       <div className="div-comments">
         {getPost?.comments?.map((comment) => {

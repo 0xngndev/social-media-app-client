@@ -24,6 +24,9 @@ export const QUERY_ALL_FABLES = gql`
       likeCount
       createdAt
       excerpt
+      likes {
+        username
+      }
     }
   }
 `;
