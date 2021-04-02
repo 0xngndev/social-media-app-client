@@ -1,6 +1,8 @@
 import { useQuery } from "@apollo/client";
 import gql from "graphql-tag";
 import styled from "styled-components";
+import isFollowingFunc from "../helpers/isFollowing";
+import useFollow from "../hooks/useFollow";
 import PostByUser from "./PostByUser";
 
 const QUERY_SINGLE_USER_ID = gql`
@@ -57,10 +59,33 @@ const UserPageStyles = styled.div`
       padding: 0;
       margin: 3rem 0;
     }
+
+    button {
+      outline: none;
+      border: none;
+      display: flex;
+      cursor: pointer;
+      background: var(--primaryColor);
+      color: #fff;
+      border-radius: 4px;
+      margin: 0;
+      padding: 0.5rem 1rem;
+      width: fit-content;
+      font-size: 1.2rem;
+      margin: 0;
+      transition: 0.3s;
+
+      &:hover {
+        transition: 0.3s;
+        background: var(--secondaryColor);
+      }
+    }
   }
 `;
 
 const SingleUserPage = ({ id }) => {
+  const handleFollow = useFollow(id);
+  const isFollowing = isFollowingFunc(id);
   const { data, loading, error } = useQuery(QUERY_SINGLE_USER_ID, {
     variables: {
       userId: id,
@@ -69,13 +94,23 @@ const SingleUserPage = ({ id }) => {
 
   if (loading) return <p>Loading...</p>;
 
+  const followColor = isFollowing
+    ? { backgroundColor: "#b4b4b4" }
+    : { backgroundColor: "" };
+
   const { getUserById } = data;
+
+  const followersText =
+    getUserById.followerCount === 1 ? " Follower" : " Followers";
 
   return (
     <UserPageStyles>
       <div>
         <h1>{getUserById.username}</h1>
-        <span>{getUserById.followerCount + " Followers"}</span>
+        <span>{getUserById.followerCount + followersText}</span>
+        <button onClick={handleFollow} style={followColor}>
+          {isFollowing ? "Unfollow -" : "Follow +"}
+        </button>
         <div className="div-divider"></div>
         <h3>Latest Posts</h3>
         {getUserById.posts.map((postId) => {

@@ -119,4 +119,25 @@ export const Wrapper = styled.div`
       }
     }
   }
+
+  button {
+    outline: none;
+    border: none;
+    display: flex;
+    cursor: pointer;
+    background: var(--primaryColor);
+    color: #fff;
+    border-radius: 4px;
+    margin: 0;
+    padding: 0.5rem 1rem;
+    width: fit-content;
+    font-size: 1.2rem;
+    margin: 0;
+    transition: 0.3s;
+
+    &:hover {
+      transition: 0.3s;
+      background: var(--secondaryColor);
+    }
+  }
 `;

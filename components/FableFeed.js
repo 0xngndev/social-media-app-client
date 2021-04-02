@@ -37,9 +37,9 @@ const Fable = ({ fable }) => {
         <h3 onClick={() => handleRouting("users", fable.author.id)}>
           {fable?.author.username}
         </h3>
-        <span onClick={handleFollow} style={followColor}>
+        <button onClick={handleFollow} style={followColor}>
           {isFollowing ? "Unfollow -" : "Follow +"}
-        </span>
+        </button>
       </div>
       <p style={{ cursor: "pointer" }}>321 Followers</p>
       <div className="div-divider-short"></div>

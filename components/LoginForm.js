@@ -12,6 +12,7 @@ import { useFormik } from "formik";
 import { useRouter } from "next/router";
 import { gql, useMutation } from "@apollo/client";
 import { FormStyles, MainWrapper } from "./styles/FormStyles";
+
 import RegisterForm from "./RegisterForm";
 
 const LOGIN_ACCOUNT_MUTATION = gql`
