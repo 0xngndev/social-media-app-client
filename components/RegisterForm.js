@@ -11,6 +11,7 @@ import { ErrorDiv } from "./styles/ErrorDiv";
 import { useFormik } from "formik";
 import { gql, useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
+import LoginForm from "./LoginForm";
 
 const REGISTER_ACCOUNT_MUTATION = gql`
   mutation register($input: RegisterInput) {
@@ -26,6 +27,7 @@ const RegisterForm = ({ close }) => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
   const [register] = useMutation(REGISTER_ACCOUNT_MUTATION);
+  const [loginOrRegister, setLoginOrRegister] = useState(false);
   const router = useRouter();
   const formik = useFormik({
     initialValues: {
@@ -87,77 +89,89 @@ const RegisterForm = ({ close }) => {
   };
 
   return (
-    <MainWrapper>
-      <FormStyles onSubmit={formik.handleSubmit}>
-        <div className="div-logo">
-          <div>
-            <span>F</span>
-          </div>
-          <span>
-            500<span>Fables</span>
-          </span>
-        </div>
-        <h2>Register</h2>
-        <div className="div-divider"></div>
-        <fieldset>
-          {errorMessage && showErrorMessage()}
-          {successMessage && showSuccessMessage()}
-          <label htmlFor="email">
-            Email
-            <input
-              required
-              id="email"
-              placeholder="Email"
-              type="email"
-              name="email"
-              value={formik.values.email}
-              onChange={formik.handleChange}
-            />
-          </label>
-          {formik.touched.email && formik.errors.email ? (
-            <ErrorDiv>
-              <p>{"ERROR: " + formik.errors.email}</p>
-            </ErrorDiv>
-          ) : null}
-          <label htmlFor="username">
-            Username
-            <input
-              required
-              id="username"
-              placeholder="Username"
-              type="text"
-              name="username"
-              value={formik.values.username}
-              onChange={formik.handleChange}
-            />
-          </label>
+    <>
+      {loginOrRegister ? (
+        <LoginForm />
+      ) : (
+        <MainWrapper>
+          <FormStyles onSubmit={formik.handleSubmit}>
+            <div className="div-logo">
+              <div>
+                <span>F</span>
+              </div>
+              <span>
+                500<span>Fables</span>
+              </span>
+            </div>
+            <h2>Register</h2>
+            <div className="div-divider"></div>
+            <fieldset>
+              {errorMessage && showErrorMessage()}
+              {successMessage && showSuccessMessage()}
+              <label htmlFor="email">
+                Email
+                <input
+                  required
+                  id="email"
+                  placeholder="Email"
+                  type="email"
+                  name="email"
+                  value={formik.values.email}
+                  onChange={formik.handleChange}
+                />
+              </label>
+              {formik.touched.email && formik.errors.email ? (
+                <ErrorDiv>
+                  <p>{"ERROR: " + formik.errors.email}</p>
+                </ErrorDiv>
+              ) : null}
+              <label htmlFor="username">
+                Username
+                <input
+                  required
+                  id="username"
+                  placeholder="Username"
+                  type="text"
+                  name="username"
+                  value={formik.values.username}
+                  onChange={formik.handleChange}
+                />
+              </label>
 
-          {formik.touched.username && formik.errors.username ? (
-            <ErrorDiv>
-              <p>{"ERROR: " + formik.errors.username}</p>
-            </ErrorDiv>
-          ) : null}
+              {formik.touched.username && formik.errors.username ? (
+                <ErrorDiv>
+                  <p>{"ERROR: " + formik.errors.username}</p>
+                </ErrorDiv>
+              ) : null}
 
-          <label htmlFor="password">
-            Password
-            <input
-              id="password"
-              placeholder="Password"
-              type="password"
-              name="password"
-              value={formik.values.password}
-              onChange={formik.handleChange}
-            />
-          </label>
-          {formik.touched.password && formik.errors.password ? (
-            <ErrorDiv>
-              <p>{"ERROR: " + formik.errors.password}</p>
-            </ErrorDiv>
-          ) : null}
-          <button type="submit">Register</button>
-        </fieldset>
-      </FormStyles>
-    </MainWrapper>
+              <label htmlFor="password">
+                Password
+                <input
+                  id="password"
+                  placeholder="Password"
+                  type="password"
+                  name="password"
+                  value={formik.values.password}
+                  onChange={formik.handleChange}
+                />
+              </label>
+              {formik.touched.password && formik.errors.password ? (
+                <ErrorDiv>
+                  <p>{"ERROR: " + formik.errors.password}</p>
+                </ErrorDiv>
+              ) : null}
+              <button type="submit">Register</button>
+              <div className="div-register">
+                <p>
+                  Already have an Account?{" "}
+                  <span onClick={() => setLoginOrRegister(true)}>Login.</span>
+                </p>
+              </div>
+            </fieldset>
+          </FormStyles>
+        </MainWrapper>
+      )}
+    </>
   );
 };
 

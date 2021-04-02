@@ -12,6 +12,7 @@ import { useFormik } from "formik";
 import { useRouter } from "next/router";
 import { gql, useMutation } from "@apollo/client";
 import { FormStyles, MainWrapper } from "./styles/FormStyles";
+import RegisterForm from "./RegisterForm";
 
 const LOGIN_ACCOUNT_MUTATION = gql`
   mutation login($username: String!, $password: String!) {
@@ -27,6 +28,7 @@ const LoginForm = ({ close }) => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
   const [authenticateUser] = useMutation(LOGIN_ACCOUNT_MUTATION);
+  const [loginOrRegister, setLoginOrRegister] = useState(false);
   const router = useRouter();
   const formik = useFormik({
     initialValues: {
@@ -82,65 +84,80 @@ const LoginForm = ({ close }) => {
   };
 
   return (
-    <MainWrapper>
-      <FormStyles onSubmit={formik.handleSubmit}>
-        <div className="div-logo">
-          <div>
-            <span>F</span>
-          </div>
-          <span>
-            500<span>Fables</span>
-          </span>
-        </div>
-        <h2>Login</h2>
-        <div className="div-divider"></div>
-        <fieldset>
-          {errorMessage && showErrorMessage()}
-          {successMessage && showSuccessMessage()}
-          {formik.touched.email && formik.errors.email ? (
-            <ErrorDiv>
-              <p>{"ERROR: " + formik.errors.email}</p>
-            </ErrorDiv>
-          ) : null}
-          <label htmlFor="username">
-            Username
-            <input
-              required
-              id="username"
-              placeholder="Username"
-              type="text"
-              name="username"
-              value={formik.values.username}
-              onChange={formik.handleChange}
-            />
-          </label>
+    <>
+      {loginOrRegister ? (
+        <RegisterForm />
+      ) : (
+        <MainWrapper>
+          <FormStyles onSubmit={formik.handleSubmit}>
+            <div className="div-logo">
+              <div>
+                <span>F</span>
+              </div>
+              <span>
+                500<span>Fables</span>
+              </span>
+            </div>
+            <h2>Login</h2>
+            <div className="div-divider"></div>
+            <fieldset>
+              {errorMessage && showErrorMessage()}
+              {successMessage && showSuccessMessage()}
+              {formik.touched.email && formik.errors.email ? (
+                <ErrorDiv>
+                  <p>{"ERROR: " + formik.errors.email}</p>
+                </ErrorDiv>
+              ) : null}
+              <label htmlFor="username">
+                Username
+                <input
+                  required
+                  id="username"
+                  placeholder="Username"
+                  type="text"
+                  name="username"
+                  value={formik.values.username}
+                  onChange={formik.handleChange}
+                />
+              </label>
 
-          {formik.touched.username && formik.errors.username ? (
-            <ErrorDiv>
-              <p>{"ERROR: " + formik.errors.username}</p>
-            </ErrorDiv>
-          ) : null}
+              {formik.touched.username && formik.errors.username ? (
+                <ErrorDiv>
+                  <p>{"ERROR: " + formik.errors.username}</p>
+                </ErrorDiv>
+              ) : null}
 
-          <label htmlFor="password">
-            Password
-            <input
-              id="password"
-              placeholder="Password"
-              type="password"
-              name="password"
-              value={formik.values.password}
-              onChange={formik.handleChange}
-            />
-          </label>
-          {formik.touched.password && formik.errors.password ? (
-            <ErrorDiv>
-              <p>{"ERROR: " + formik.errors.password}</p>
-            </ErrorDiv>
-          ) : null}
-          <button type="submit">Login</button>
-        </fieldset>
-      </FormStyles>
-    </MainWrapper>
+              <label htmlFor="password">
+                Password
+                <input
+                  id="password"
+                  placeholder="Password"
+                  type="password"
+                  name="password"
+                  value={formik.values.password}
+                  onChange={formik.handleChange}
+                />
+              </label>
+              {formik.touched.password && formik.errors.password ? (
+                <ErrorDiv>
+                  <p>{"ERROR: " + formik.errors.password}</p>
+                </ErrorDiv>
+              ) : null}
+              <button type="submit">Login</button>
+              <div className="div-divider"></div>
+              <div className="div-register">
+                <p>
+                  Don't have an account?{" "}
+                  <span onClick={() => setLoginOrRegister(true)}>
+                    Register now.
+                  </span>
+                </p>
+              </div>
+            </fieldset>
+          </FormStyles>
+        </MainWrapper>
+      )}
+    </>
   );
 };
 

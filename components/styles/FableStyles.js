@@ -50,7 +50,7 @@ export const Wrapper = styled.div`
     font-size: 1.2rem;
     font-weight: 400;
     color: #949494;
-    word-break: break-all; //TODO: AFTER USING EXCERPT FOR BODIES ELIMINATE THIS
+
     white-space: normal;
   }
 
@@ -65,6 +65,12 @@ export const Wrapper = styled.div`
     width: fit-content;
     font-size: 1.2rem;
     margin: 0;
+    transition: 0.3s;
+
+    &:hover {
+      transition: 0.3s;
+      background: var(--secondaryColor);
+    }
   }
 
   .div-author {

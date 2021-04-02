@@ -127,6 +127,33 @@ export const FormStyles = styled.form`
     }
   }
 
+  .div-register {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+
+    p {
+      color: #b4b4b4;
+      font-weight: 400;
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      margin-top: 0;
+
+      span {
+        font-weight: 600;
+        font-size: 1.4rem;
+        color: var(--primaryColor);
+        cursor: pointer;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
   .div-divider-2 {
     margin: auto;
     height: 1px;
