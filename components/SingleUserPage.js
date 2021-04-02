@@ -1,9 +1,12 @@
-import { useQuery } from "@apollo/client";
 import gql from "graphql-tag";
 import styled from "styled-components";
 import isFollowingFunc from "../helpers/isFollowing";
 import useFollow from "../hooks/useFollow";
 import PostByUser from "./PostByUser";
+import { useQuery } from "@apollo/client";
+import { StyledPopup } from "./styles/StyledPopup";
+import CreatePost from "./CreatePost";
+import FollowersList from "./FollowersList";
 
 const QUERY_SINGLE_USER_ID = gql`
   query getUserById($userId: ID!) {
@@ -15,6 +18,7 @@ const QUERY_SINGLE_USER_ID = gql`
       email
       createdAt
       followers {
+        id
         username
       }
       followerCount
@@ -107,7 +111,14 @@ const SingleUserPage = ({ id }) => {
     <UserPageStyles>
       <div>
         <h1>{getUserById.username}</h1>
-        <span>{getUserById.followerCount + followersText}</span>
+        <StyledPopup
+          trigger={<span>{getUserById.followerCount + followersText}</span>}
+          modal
+        >
+          {(close) => (
+            <FollowersList close={close} followers={getUserById?.followers} />
+          )}
+        </StyledPopup>
         <button onClick={handleFollow} style={followColor}>
           {isFollowing ? "Unfollow -" : "Follow +"}
         </button>
