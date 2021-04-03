@@ -27,8 +27,8 @@ const isFollowingFunc = (userId) => {
   } = data;
 
   const isFollowing = () => {
-    const followersArray = followers?.map((follower) =>
-      follower.username.includes(user?.username)
+    const followersArray = followers?.filter(
+      (follower) => follower?.username === user?.username
     );
     if (followersArray.length <= 0) return false;
     return true;

@@ -21,8 +21,8 @@ const Fable = ({ fable }) => {
     : { backgroundColor: "" };
 
   const userLikedPost = () => {
-    const userArray = fable?.likes?.map((liker) =>
-      liker.username.includes(user?.username)
+    const userArray = fable?.likes?.map(
+      (liker) => liker.username === user?.username
     );
     if (userArray.length <= 0) return false;
     return true;

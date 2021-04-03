@@ -10,6 +10,7 @@ import CreatePost from "./CreatePost";
 import Logout from "./Logout";
 import { useRouter } from "next/router";
 import { StyledPopup } from "./styles/StyledPopup";
+import useUser from "./User";
 
 export const FakeSideMenu = styled.aside`
   width: 15%;
@@ -88,6 +89,7 @@ export const SideMenuWrapper = styled.aside`
 
 const SideMenu = () => {
   const router = useRouter();
+  const user = useUser();
 
   return (
     <>
@@ -113,6 +115,7 @@ const SideMenu = () => {
             </li>
           </ul>
         </div>
+        {"Logged in as " + user?.username}
       </SideMenuWrapper>
     </>
   );

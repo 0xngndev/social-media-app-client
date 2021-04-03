@@ -1,6 +1,3 @@
-//TODO: Fix problem in server where follower have different
-//ids than their respective ids.
-
 import { useQuery } from "@apollo/client";
 import gql from "graphql-tag";
 import React from "react";
@@ -9,10 +6,11 @@ import isFollowingFunc from "../helpers/isFollowing";
 import useFollow from "../hooks/useFollow";
 
 const QUERY_FOLLOWER_COUNT = gql`
-  query getUserById($userId: ID!) {
-    getUserById(userId: $userId) {
-      followerCount
+  query getUserByUsername($username: String!) {
+    getUserByUsername(username: $username) {
+      id
       posts
+      followerCount
     }
   }
 `;
@@ -22,35 +20,91 @@ const FollowerItemStyles = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 4px solid var(--primaryColor);
+  border: 3px solid var(--primaryColor);
+  width: 300px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  border-left: 20px solid var(--primaryColor);
+  border-radius: 4px;
+
+  span {
+    font-size: 1.2rem;
+    font-weight: 400;
+    align-self: flex-start;
+    color: #b4b4b4;
+  }
+
+  div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    p {
+      margin: 0;
+    }
+
+    button {
+      outline: none;
+      border: none;
+      display: flex;
+      cursor: pointer;
+      background: var(--primaryColor);
+      color: #fff;
+      border-radius: 4px;
+      margin: 0;
+      padding: 0.5rem 1rem;
+      width: fit-content;
+      font-size: 1.2rem;
+      margin: 0;
+      transition: 0.3s;
+
+      &:hover {
+        transition: 0.3s;
+        background: var(--secondaryColor);
+      }
+    }
+  }
 `;
 
-const FollowerItem = ({ id }) => {
-  //   const handleFollow = useFollow(id);
-  //   const isFollowing = isFollowingFunc(id);
+const FollowerItem = ({ username }) => {
   const { data, loading, error } = useQuery(QUERY_FOLLOWER_COUNT, {
     variables: {
-      userId: id,
+      username,
     },
   });
 
   if (loading) return <p>Loading...</p>;
 
-  //   const followColor = isFollowing
-  //     ? { backgroundColor: "#b4b4b4" }
-  //     : { backgroundColor: "" };
+  const { getUserByUsername } = data;
 
-  console.log(data);
+  const handleFollow = useFollow(getUserByUsername.id);
+  const isFollowing = isFollowingFunc(getUserByUsername.id);
+  const postsText = getUserByUsername.posts.length === 1 ? "post" : "posts";
+  const postsLength = getUserByUsername.posts.length + " " + postsText;
 
-  const { getUserById } = data;
+  const followColor = isFollowing
+    ? { backgroundColor: "#b4b4b4" }
+    : { backgroundColor: "" };
 
   const followersText =
-    getUserById?.followerCount === 1 ? " Follower" : " Followers";
+    getUserByUsername?.followerCount === 1 ? " Follower" : " Followers";
 
   return (
     <FollowerItemStyles>
-      <div>{id}</div>
-      <div>{getUserById?.followerCount}</div>
+      <div>
+        <p>
+          {username}
+          <span>
+            {" | " + getUserByUsername?.followerCount + followersText}
+          </span>{" "}
+          <span>{" | " + postsLength}</span>{" "}
+        </p>
+        <button onClick={handleFollow} style={followColor}>
+          {isFollowing ? "Unfollow -" : "Follow +"}
+        </button>
+      </div>
     </FollowerItemStyles>
   );
 };
