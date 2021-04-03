@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import FollowerItem from "./FollowerItem";
+import { FollowerItemQuery } from "./FollowerItem";
 
 const FollowerListStyles = styled.div`
   display: flex;
@@ -32,7 +32,9 @@ const FollowersList = ({ close, followers }) => {
       <h3>Follower List</h3>
       <div className="div-divider"></div>
       {followers.map((follower) => {
-        return <FollowerItem key={follower.id} username={follower.username} />;
+        return (
+          <FollowerItemQuery key={follower.id} username={follower.username} />
+        );
       })}
     </FollowerListStyles>
   );

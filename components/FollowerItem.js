@@ -8,6 +8,7 @@ import useFollow from "../hooks/useFollow";
 const QUERY_FOLLOWER_COUNT = gql`
   query getUserByUsername($username: String!) {
     getUserByUsername(username: $username) {
+      username
       id
       posts
       followerCount
@@ -68,7 +69,7 @@ const FollowerItemStyles = styled.div`
   }
 `;
 
-const FollowerItem = ({ username }) => {
+export const FollowerItemQuery = ({ username }) => {
   const { data, loading, error } = useQuery(QUERY_FOLLOWER_COUNT, {
     variables: {
       username,
@@ -79,26 +80,33 @@ const FollowerItem = ({ username }) => {
 
   const { getUserByUsername } = data;
 
-  const handleFollow = useFollow(getUserByUsername.id);
-  const isFollowing = isFollowingFunc(getUserByUsername.id);
-  const postsText = getUserByUsername.posts.length === 1 ? "post" : "posts";
-  const postsLength = getUserByUsername.posts.length + " " + postsText;
+  return (
+    <>
+      <FollowerItem follower={getUserByUsername} />
+    </>
+  );
+};
+
+const FollowerItem = ({ follower }) => {
+  const handleFollow = useFollow(follower?.id);
+  const isFollowing = isFollowingFunc(follower?.id);
+
+  const postsText = follower.posts.length === 1 ? "post" : "posts";
+  const postsLength = follower.posts.length + " " + postsText;
 
   const followColor = isFollowing
     ? { backgroundColor: "#b4b4b4" }
     : { backgroundColor: "" };
 
   const followersText =
-    getUserByUsername?.followerCount === 1 ? " Follower" : " Followers";
+    follower?.followerCount === 1 ? " Follower" : " Followers";
 
   return (
     <FollowerItemStyles>
       <div>
         <p>
-          {username}
-          <span>
-            {" | " + getUserByUsername?.followerCount + followersText}
-          </span>{" "}
+          {follower.username}
+          <span>{" | " + follower?.followerCount + followersText}</span>{" "}
           <span>{" | " + postsLength}</span>{" "}
         </p>
         <button onClick={handleFollow} style={followColor}>
