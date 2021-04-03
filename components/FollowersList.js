@@ -8,8 +8,8 @@ const FollowerListStyles = styled.div`
   align-items: flex-start;
   justify-content: center;
   padding: 2rem;
-  overflow: scroll;
-  overflow-x: hidden;
+  max-height: 500px;
+  overflow-y: auto;
 
   h3 {
     font-weight: 500;
@@ -33,7 +33,11 @@ const FollowersList = ({ close, followers }) => {
       <div className="div-divider"></div>
       {followers.map((follower) => {
         return (
-          <FollowerItemQuery key={follower.id} username={follower.username} />
+          <FollowerItemQuery
+            key={follower.id}
+            username={follower.username}
+            close={close}
+          />
         );
       })}
     </FollowerListStyles>

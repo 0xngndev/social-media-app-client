@@ -40,6 +40,13 @@ const UserPageStyles = styled.div`
     width: 65%;
     margin-top: 5rem;
 
+    span {
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
     h1 {
       font-size: 4rem;
       margin: 0;

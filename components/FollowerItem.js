@@ -4,6 +4,7 @@ import React from "react";
 import styled from "styled-components";
 import isFollowingFunc from "../helpers/isFollowing";
 import useFollow from "../hooks/useFollow";
+import { useRouter } from "next/router";
 
 const QUERY_FOLLOWER_COUNT = gql`
   query getUserByUsername($username: String!) {
@@ -69,7 +70,7 @@ const FollowerItemStyles = styled.div`
   }
 `;
 
-export const FollowerItemQuery = ({ username }) => {
+export const FollowerItemQuery = ({ username, close }) => {
   const { data, loading, error } = useQuery(QUERY_FOLLOWER_COUNT, {
     variables: {
       username,
@@ -82,12 +83,13 @@ export const FollowerItemQuery = ({ username }) => {
 
   return (
     <>
-      <FollowerItem follower={getUserByUsername} />
+      <FollowerItem follower={getUserByUsername} close={close} />
     </>
   );
 };
 
-const FollowerItem = ({ follower }) => {
+const FollowerItem = ({ follower, close }) => {
+  const router = useRouter();
   const handleFollow = useFollow(follower?.id);
   const isFollowing = isFollowingFunc(follower?.id);
 
@@ -101,10 +103,15 @@ const FollowerItem = ({ follower }) => {
   const followersText =
     follower?.followerCount === 1 ? " Follower" : " Followers";
 
+  const handleRouting = () => {
+    close();
+    router.push(`/users/${follower.id}`);
+  };
+
   return (
     <FollowerItemStyles>
       <div>
-        <p>
+        <p onClick={handleRouting}>
           {follower.username}
           <span>{" | " + follower?.followerCount + followersText}</span>{" "}
           <span>{" | " + postsLength}</span>{" "}
