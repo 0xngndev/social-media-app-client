@@ -2,6 +2,7 @@ import { gql, useQuery } from "@apollo/client";
 import FableFeed from "./FableFeed";
 import styled from "styled-components/";
 import DiscoveryPost from "./DiscoveryPost";
+import { useState } from "react";
 
 const FableWrapper = styled.div`
   display: flex;
@@ -68,11 +69,14 @@ export const QUERY_FOLLOWS_FABLES = gql`
 `;
 
 const DiscoveryFeed = () => {
+  const [queryLimit, setQueryLimit] = useState(3);
+  const [queryBy, setQueryBy] = useState("NEWEST");
+
   const { data, loading, error, refetch } = useQuery(QUERY_FOLLOWS_FABLES, {
     variables: {
       sortBy: "OLDEST",
       page: 1,
-      limit: 3,
+      limit: queryLimit,
     },
   });
 
@@ -82,10 +86,11 @@ const DiscoveryFeed = () => {
 
   const handleRefetch = () => {
     if (getPostByFollows.next !== null) {
+      setQueryLimit((prevState) => prevState + 3);
       refetch({
         sortBy: "OLDEST",
-        page: 2,
-        limit: 4,
+        page: 1,
+        limit: queryLimit,
       });
     }
   };
@@ -98,7 +103,9 @@ const DiscoveryFeed = () => {
       })}
       <div className="div-load-more">
         <button type="button" onClick={handleRefetch}>
-          LOAD MORE
+          {getPostByFollows.next === null
+            ? "NO MORE FABLES TO FETCH"
+            : "LOAD MORE"}
         </button>
       </div>
     </FableWrapper>
