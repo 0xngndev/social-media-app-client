@@ -68,19 +68,27 @@ export const QUERY_FOLLOWS_FABLES = gql`
 `;
 
 const DiscoveryFeed = () => {
-  const { data, loading, error } = useQuery(QUERY_FOLLOWS_FABLES, {
+  const { data, loading, error, refetch } = useQuery(QUERY_FOLLOWS_FABLES, {
     variables: {
       sortBy: "OLDEST",
       page: 1,
-      limit: 10,
+      limit: 3,
     },
   });
 
   if (loading) return "Loading...";
 
-  console.log(data);
-
   const { getPostByFollows } = data;
+
+  const handleRefetch = () => {
+    if (getPostByFollows.next !== null) {
+      refetch({
+        sortBy: "OLDEST",
+        page: 2,
+        limit: 4,
+      });
+    }
+  };
 
   return (
     <FableWrapper>
@@ -89,7 +97,9 @@ const DiscoveryFeed = () => {
         return <DiscoveryPost key={fable.id} fable={fable} />;
       })}
       <div className="div-load-more">
-        <button type="submit">LOAD MORE</button>
+        <button type="button" onClick={handleRefetch}>
+          LOAD MORE
+        </button>
       </div>
     </FableWrapper>
   );
