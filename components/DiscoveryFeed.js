@@ -4,6 +4,30 @@ import styled from "styled-components/";
 import DiscoveryPost from "./DiscoveryPost";
 import { useState } from "react";
 
+const SortByButtonsStyle = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+
+  button {
+    outline: none;
+    border: none;
+    background: transparent;
+    width: 70px;
+    padding: 1.5rem;
+    font-size: 1.3rem;
+    border: 3px solid var(--primaryColor);
+    font-weight: 600;
+    color: var(--primaryColor);
+    margin: 1rem;
+    margin-left: 0;
+    margin-bottom: 4rem;
+    cursor: pointer;
+  }
+`;
+
 const FableWrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -18,6 +42,7 @@ const FableWrapper = styled.div`
     width: 100%;
 
     button {
+      background: transparent;
       outline: none;
       border: none;
       width: 140px;
@@ -74,7 +99,7 @@ const DiscoveryFeed = () => {
 
   const { data, loading, error, refetch } = useQuery(QUERY_FOLLOWS_FABLES, {
     variables: {
-      sortBy: "OLDEST",
+      sortBy: queryBy,
       page: 1,
       limit: queryLimit,
     },
@@ -88,7 +113,7 @@ const DiscoveryFeed = () => {
     if (getPostByFollows.next !== null) {
       setQueryLimit((prevState) => prevState + 3);
       refetch({
-        sortBy: "OLDEST",
+        sortBy: queryBy,
         page: 1,
         limit: queryLimit,
       });
@@ -96,19 +121,38 @@ const DiscoveryFeed = () => {
   };
 
   return (
-    <FableWrapper>
-      {error}
-      {getPostByFollows.posts?.map((fable) => {
-        return <DiscoveryPost key={fable.id} fable={fable} />;
-      })}
-      <div className="div-load-more">
-        <button type="button" onClick={handleRefetch}>
-          {getPostByFollows.next === null
-            ? "NO MORE FABLES TO FETCH"
-            : "LOAD MORE"}
+    <>
+      <SortByButtonsStyle>
+        <button type="button" onClick={() => setQueryBy("NEWEST")}>
+          NEWEST
         </button>
-      </div>
-    </FableWrapper>
+        <button type="button" onClick={() => setQueryBy("OLDEST")}>
+          OLDEST
+        </button>
+        <button type="button" onClick={() => setQueryBy("VIEWS")}>
+          VIEWS
+        </button>
+        <button type="button" onClick={() => setQueryBy("HOT")}>
+          HOT
+        </button>
+        <button type="button" onClick={() => setQueryBy("TOP")}>
+          TOP
+        </button>
+      </SortByButtonsStyle>
+      <FableWrapper>
+        {error}
+        {getPostByFollows.posts?.map((fable) => {
+          return <DiscoveryPost key={fable.id} fable={fable} />;
+        })}
+        <div className="div-load-more">
+          <button type="button" onClick={handleRefetch}>
+            {getPostByFollows.next === null
+              ? "NO MORE FABLES TO FETCH"
+              : "LOAD MORE"}
+          </button>
+        </div>
+      </FableWrapper>
+    </>
   );
 };
 
