@@ -26,6 +26,22 @@ const SortByButtonsStyle = styled.div`
     margin-bottom: 4rem;
     cursor: pointer;
   }
+
+  .button-selected {
+    outline: none;
+    border: none;
+    background: var(--primaryColor);
+    width: 70px;
+    padding: 1.5rem;
+    font-size: 1.3rem;
+    border: 3px solid var(--primaryColor);
+    font-weight: 600;
+    color: #fff;
+    margin: 1rem;
+    margin-left: 0;
+    margin-bottom: 4rem;
+    cursor: pointer;
+  }
 `;
 
 const FableWrapper = styled.div`
@@ -96,6 +112,9 @@ export const QUERY_FOLLOWS_FABLES = gql`
 const DiscoveryFeed = () => {
   const [queryLimit, setQueryLimit] = useState(3);
   const [queryBy, setQueryBy] = useState("NEWEST");
+  const [activeButton, setActiveButton] = useState();
+
+  const filterButtons = ["NEWEST", "OLDEST", "VIEWS", "HOT", "TOP"];
 
   const { data, loading, error, refetch } = useQuery(QUERY_FOLLOWS_FABLES, {
     variables: {
@@ -120,24 +139,23 @@ const DiscoveryFeed = () => {
     }
   };
 
+  const handleButton = (queryBy) => {
+    setQueryBy(queryBy);
+    setActiveButton(queryBy);
+  };
+
   return (
     <>
       <SortByButtonsStyle>
-        <button type="button" onClick={() => setQueryBy("NEWEST")}>
-          NEWEST
-        </button>
-        <button type="button" onClick={() => setQueryBy("OLDEST")}>
-          OLDEST
-        </button>
-        <button type="button" onClick={() => setQueryBy("VIEWS")}>
-          VIEWS
-        </button>
-        <button type="button" onClick={() => setQueryBy("HOT")}>
-          HOT
-        </button>
-        <button type="button" onClick={() => setQueryBy("TOP")}>
-          TOP
-        </button>
+        {filterButtons.map((filterButton) => (
+          <button
+            className={filterButton === activeButton ? "button-selected" : ""}
+            key={filterButton}
+            onClick={() => handleButton(filterButton)}
+          >
+            {filterButton}
+          </button>
+        ))}
       </SortByButtonsStyle>
       <FableWrapper>
         {error}
