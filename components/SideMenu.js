@@ -102,6 +102,7 @@ const SideMenu = () => {
           <ul>
             <li>
               <h3 onClick={() => router.push(`/feed`)}>FEED</h3>
+              <h3 onClick={() => router.push(`/discovery`)}>DISCOVERY</h3>
               <StyledPopup trigger={<h3>CREATE</h3>} modal>
                 {(close) => <CreatePost close={close} />}
               </StyledPopup>
