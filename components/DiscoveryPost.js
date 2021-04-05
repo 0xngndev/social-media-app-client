@@ -9,6 +9,7 @@ import isFollowingFunc from "../helpers/isFollowing";
 import { FaRegComment } from "react-icons/fa";
 import useUser from "./User";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { BsEye } from "react-icons/bs";
 
 const DiscoveryPost = ({ fable }) => {
   const handleFollow = useFollow(fable.author.id);
@@ -30,6 +31,7 @@ const DiscoveryPost = ({ fable }) => {
 
   const likesString = fable?.likeCount === 1 ? " Like" : " Likes";
   const commentsString = fable?.commentCount === 1 ? " Comment" : " Comments";
+  const viewString = fable?.views === 1 ? " view" : " views";
 
   return (
     <Wrapper>
@@ -62,6 +64,12 @@ const DiscoveryPost = ({ fable }) => {
         <div>
           {<FaRegComment />}
           <h3>{fable?.commentCount + commentsString}</h3>
+        </div>
+      </div>
+      <div className="div-likes">
+        <div>
+          <BsEye />
+          <h3>{fable?.views + viewString}</h3>
         </div>
       </div>
     </Wrapper>
