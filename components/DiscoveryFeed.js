@@ -9,6 +9,26 @@ const FableWrapper = styled.div`
   justify-content: space-between;
   flex-wrap: wrap;
   align-items: center;
+
+  .div-load-more {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    button {
+      outline: none;
+      border: none;
+      width: 140px;
+      padding: 2rem;
+      font-size: 1.5rem;
+      border: 3px solid var(--primaryColor);
+      font-weight: 600;
+      color: var(--primaryColor);
+      margin: 2rem;
+      cursor: pointer;
+    }
+  }
 `;
 
 export const QUERY_FOLLOWS_FABLES = gql`
@@ -68,6 +88,9 @@ const DiscoveryFeed = () => {
       {getPostByFollows.posts?.map((fable) => {
         return <DiscoveryPost key={fable.id} fable={fable} />;
       })}
+      <div className="div-load-more">
+        <button type="submit">LOAD MORE</button>
+      </div>
     </FableWrapper>
   );
 };
