@@ -10,10 +10,14 @@ const GET_FABLE_BY_ID = gql`
   query getPost($postId: ID!) {
     getPost(postId: $postId) {
       id
+      hot
+      views
       title
       likes {
+        id
         username
       }
+      excerpt
       body
       author {
         id
@@ -21,8 +25,13 @@ const GET_FABLE_BY_ID = gql`
       }
       createdAt
       likeCount
+
+      comments {
+        id
+        username
+        body
+      }
       commentCount
-      excerpt
     }
   }
 `;
@@ -77,6 +86,8 @@ const PostByUser = ({ id }) => {
       postId: id,
     },
   });
+
+  console.log(id);
 
   if (loading) return <p>Loading...</p>;
 

@@ -112,7 +112,7 @@ export const QUERY_FOLLOWS_FABLES = gql`
 const DiscoveryFeed = () => {
   const [queryLimit, setQueryLimit] = useState(3);
   const [queryBy, setQueryBy] = useState("NEWEST");
-  const [activeButton, setActiveButton] = useState();
+  const [activeButton, setActiveButton] = useState("NEWEST");
 
   const filterButtons = ["NEWEST", "OLDEST", "VIEWS", "HOT", "TOP"];
 

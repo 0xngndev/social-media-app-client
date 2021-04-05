@@ -103,6 +103,8 @@ const SingleUserPage = ({ id }) => {
     },
   });
 
+  console.log(data);
+
   if (loading) return <p>Loading...</p>;
 
   const followColor = isFollowing
@@ -117,9 +119,9 @@ const SingleUserPage = ({ id }) => {
   return (
     <UserPageStyles>
       <div>
-        <h1>{getUserById.username}</h1>
+        <h1>{getUserById?.username}</h1>
         <StyledPopup
-          trigger={<span>{getUserById.followerCount + followersText}</span>}
+          trigger={<span>{getUserById?.followerCount + followersText}</span>}
           modal
         >
           {(close) => (
@@ -131,7 +133,7 @@ const SingleUserPage = ({ id }) => {
         </button>
         <div className="div-divider"></div>
         <h3>Latest Posts</h3>
-        {getUserById.posts.map((postId) => {
+        {getUserById?.posts.map((postId) => {
           return <PostByUser id={postId} key={postId} />;
         })}
       </div>
