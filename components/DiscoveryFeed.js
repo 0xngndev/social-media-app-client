@@ -4,9 +4,9 @@ import { gql, useQuery } from "@apollo/client";
 import { SortByButtonsStyle } from "./styles/SortByButtonStyle";
 import { useState } from "react";
 
-export const QUERY_FOLLOWS_FABLES = gql`
-  query getPostByFollows($sortBy: SortByType!, $page: Int!, $limit: Int!) {
-    getPostByFollows(sortBy: $sortBy, page: $page, limit: $limit) {
+export const QUERY_ALL_FABLES = gql`
+  query getPaginatedPosts($sortBy: SortByType!, $page: Int!, $limit: Int!) {
+    getPaginatedPosts(sortBy: $sortBy, page: $page, limit: $limit) {
       previous {
         page
         limit
@@ -48,7 +48,7 @@ const DiscoveryFeed = () => {
 
   const filterButtons = ["NEWEST", "OLDEST", "VIEWS", "HOT", "TOP"];
 
-  const { data, loading, error, refetch } = useQuery(QUERY_FOLLOWS_FABLES, {
+  const { data, loading, error, refetch } = useQuery(QUERY_ALL_FABLES, {
     variables: {
       sortBy: queryBy,
       page: 1,
@@ -58,10 +58,10 @@ const DiscoveryFeed = () => {
 
   if (loading) return "Loading...";
 
-  const { getPostByFollows } = data;
+  const { getPaginatedPosts } = data;
 
   const handleRefetch = () => {
-    if (getPostByFollows.next !== null) {
+    if (getPaginatedPosts.next !== null) {
       setQueryLimit((prevState) => prevState + 3);
       refetch({
         sortBy: queryBy,
@@ -91,12 +91,12 @@ const DiscoveryFeed = () => {
       </SortByButtonsStyle>
       <FableWrapper>
         {error}
-        {getPostByFollows.posts?.map((fable) => {
+        {getPaginatedPosts.posts?.map((fable) => {
           return <DiscoveryPost key={fable.id} fable={fable} />;
         })}
         <div className="div-load-more">
           <button type="button" onClick={handleRefetch}>
-            {getPostByFollows.next === null
+            {getPaginatedPosts.next === null
               ? "NO MORE FABLES TO FETCH"
               : "LOAD MORE"}
           </button>

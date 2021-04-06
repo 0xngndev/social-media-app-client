@@ -4,9 +4,9 @@ import FableFeed from "./FableFeed";
 import { FableWrapper } from "./styles/FableWrapperStyles";
 import { SortByButtonsStyle } from "./styles/SortByButtonStyle";
 
-export const QUERY_ALL_FABLES = gql`
-  query getPaginatedPosts($sortBy: SortByType!, $page: Int!, $limit: Int!) {
-    getPaginatedPosts(sortBy: $sortBy, page: $page, limit: $limit) {
+export const QUERY_FOLLOWS_FABLES = gql`
+  query getPostByFollows($sortBy: SortByType!, $page: Int!, $limit: Int!) {
+    getPostByFollows(sortBy: $sortBy, page: $page, limit: $limit) {
       previous {
         page
         limit
@@ -41,14 +41,14 @@ export const QUERY_ALL_FABLES = gql`
   }
 `;
 
-const Fables = () => {
+const FablesFeed = () => {
   const [queryLimit, setQueryLimit] = useState(3);
   const [queryBy, setQueryBy] = useState("NEWEST");
   const [activeButton, setActiveButton] = useState("NEWEST");
 
   const filterButtons = ["NEWEST", "OLDEST", "VIEWS", "HOT", "TOP"];
 
-  const { data, loading, error, refetch } = useQuery(QUERY_ALL_FABLES, {
+  const { data, loading, error, refetch } = useQuery(QUERY_FOLLOWS_FABLES, {
     variables: {
       sortBy: queryBy,
       page: 1,
@@ -58,10 +58,10 @@ const Fables = () => {
 
   if (loading) return "Loading...";
 
-  const { getPaginatedPosts } = data;
+  const { getPostByFollows } = data;
 
   const handleRefetch = () => {
-    if (getPaginatedPosts.next !== null) {
+    if (getPostByFollows.next !== null) {
       setQueryLimit((prevState) => prevState + 3);
       refetch({
         sortBy: queryBy,
@@ -91,12 +91,12 @@ const Fables = () => {
       </SortByButtonsStyle>
       <FableWrapper>
         {error}
-        {getPaginatedPosts.posts?.map((fable) => {
+        {getPostByFollows.posts?.map((fable) => {
           return <FableFeed key={fable.id} fable={fable} />;
         })}
         <div className="div-load-more">
           <button type="button" onClick={handleRefetch}>
-            {getPaginatedPosts.next === null
+            {getPostByFollows.next === null
               ? "NO MORE FABLES TO FETCH"
               : "LOAD MORE"}
           </button>
@@ -106,4 +106,4 @@ const Fables = () => {
   );
 };
 
-export default Fables;
+export default FablesFeed;

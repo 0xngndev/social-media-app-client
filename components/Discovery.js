@@ -5,7 +5,7 @@ const Discovery = () => {
   return (
     <FeedMainWrapper>
       <div className="div-feed">
-        <h1>FEED</h1>
+        <h1>DISCOVERY</h1>
         <div className="div-divider"></div>
         <div>
           <DiscoveryFeed />

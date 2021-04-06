@@ -12,7 +12,7 @@ import { Field, useFormik, FormikProvider } from "formik";
 import { useRouter } from "next/router";
 import { gql, useMutation } from "@apollo/client";
 import { FormStyles, MainWrapper } from "./styles/FormStyles";
-import { QUERY_ALL_FABLES } from "./FablesFeed";
+import { QUERY_ALL_FABLES } from "./DiscoveryFeed";
 
 const LOGIN_ACCOUNT_MUTATION = gql`
   mutation createPost($body: String!, $title: String!) {
