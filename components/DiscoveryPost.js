@@ -1,15 +1,14 @@
 //TODO: With a clear head, think if you can extract
 //the whole userLikedPost functionality into a helper function
 
-import React from "react";
-import { Wrapper } from "./styles/FableStyles";
-import useRedirect from "../hooks/useRedirect";
-import useFollow from "../hooks/useFollow";
 import isFollowingFunc from "../helpers/isFollowing";
-import { FaRegComment } from "react-icons/fa";
+import useFollow from "../hooks/useFollow";
+import useRedirect from "../hooks/useRedirect";
 import useUser from "./User";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { BsEye } from "react-icons/bs";
+import { FaRegComment } from "react-icons/fa";
+import { Wrapper } from "./styles/FableStyles";
 
 const DiscoveryPost = ({ fable }) => {
   const handleFollow = useFollow(fable.author.id);

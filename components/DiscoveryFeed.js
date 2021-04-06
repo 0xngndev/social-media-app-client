@@ -1,77 +1,8 @@
-import { gql, useQuery } from "@apollo/client";
-import FableFeed from "./FableFeed";
-import styled from "styled-components/";
 import DiscoveryPost from "./DiscoveryPost";
+import { FableWrapper } from "./styles/FableWrapperStyles";
+import { gql, useQuery } from "@apollo/client";
+import { SortByButtonsStyle } from "./styles/SortByButtonStyle";
 import { useState } from "react";
-
-const SortByButtonsStyle = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-direction: row;
-  width: 100%;
-
-  button {
-    outline: none;
-    border: none;
-    background: transparent;
-    width: 70px;
-    padding: 1.5rem;
-    font-size: 1.3rem;
-    border: 3px solid var(--primaryColor);
-    font-weight: 600;
-    color: var(--primaryColor);
-    margin: 1rem;
-    margin-left: 0;
-    margin-bottom: 4rem;
-    cursor: pointer;
-  }
-
-  .button-selected {
-    outline: none;
-    border: none;
-    background: var(--primaryColor);
-    width: 70px;
-    padding: 1.5rem;
-    font-size: 1.3rem;
-    border: 3px solid var(--primaryColor);
-    font-weight: 600;
-    color: #fff;
-    margin: 1rem;
-    margin-left: 0;
-    margin-bottom: 4rem;
-    cursor: pointer;
-  }
-`;
-
-const FableWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  align-items: center;
-
-  .div-load-more {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-
-    button {
-      background: transparent;
-      outline: none;
-      border: none;
-      width: 140px;
-      padding: 2rem;
-      font-size: 1.5rem;
-      border: 3px solid var(--primaryColor);
-      font-weight: 600;
-      color: var(--primaryColor);
-      margin: 2rem;
-      cursor: pointer;
-    }
-  }
-`;
 
 export const QUERY_FOLLOWS_FABLES = gql`
   query getPostByFollows($sortBy: SortByType!, $page: Int!, $limit: Int!) {

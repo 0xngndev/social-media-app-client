@@ -1,14 +1,6 @@
 import { gql, useQuery } from "@apollo/client";
 import FableFeed from "./FableFeed";
-import styled from "styled-components/";
-
-const FableWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  align-items: center;
-`;
+import { FableWrapper } from "./styles/FableWrapperStyles";
 
 export const QUERY_ALL_FABLES = gql`
   query getPosts {
