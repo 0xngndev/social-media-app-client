@@ -1,14 +1,14 @@
 //TODO: With a clear head, think if you can extract
 //the whole userLikedPost functionality into a helper function
 
-import React from "react";
-import { Wrapper } from "./styles/FableStyles";
+import isFollowingFunc from "../helpers/isFollowing";
 import useRedirect from "../hooks/useRedirect";
 import useFollow from "../hooks/useFollow";
-import isFollowingFunc from "../helpers/isFollowing";
-import { FaRegComment } from "react-icons/fa";
 import useUser from "./User";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { BsEye } from "react-icons/bs";
+import { FaRegComment } from "react-icons/fa";
+import { Wrapper } from "./styles/FableStyles";
 
 const Fable = ({ fable }) => {
   const handleFollow = useFollow(fable.author.id);
@@ -30,6 +30,7 @@ const Fable = ({ fable }) => {
 
   const likesString = fable?.likeCount === 1 ? " Like" : " Likes";
   const commentsString = fable?.commentCount === 1 ? " Comment" : " Comments";
+  const viewString = fable?.views === 1 ? " view" : " views";
 
   return (
     <Wrapper>
@@ -62,6 +63,12 @@ const Fable = ({ fable }) => {
         <div>
           {<FaRegComment />}
           <h3>{fable?.commentCount + commentsString}</h3>
+        </div>
+      </div>
+      <div className="div-likes">
+        <div>
+          <BsEye />
+          <h3>{fable?.views + viewString}</h3>
         </div>
       </div>
     </Wrapper>

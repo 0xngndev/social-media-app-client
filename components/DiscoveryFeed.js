@@ -22,6 +22,7 @@ export const QUERY_FOLLOWS_FABLES = gql`
           username
         }
         body
+        excerpt
         author {
           id
           username
