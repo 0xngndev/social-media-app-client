@@ -2,6 +2,7 @@
 //the whole userLikedPost functionality into a helper function
 
 import isFollowingFunc from "../helpers/isFollowing";
+import postedAt from "../helpers/postedAt";
 import useRedirect from "../hooks/useRedirect";
 import useFollow from "../hooks/useFollow";
 import useUser from "./User";
@@ -9,6 +10,7 @@ import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { ADD_VIEW } from "../graphql/mutations";
 import { BsEye } from "react-icons/bs";
 import { FaRegComment } from "react-icons/fa";
+import { MdDateRange } from "react-icons/md";
 import { Wrapper } from "./styles/FableStyles";
 import { useMutation } from "@apollo/client";
 
@@ -81,6 +83,10 @@ const Fable = ({ fable }) => {
         <div>
           <BsEye />
           <h3>{fable?.views + viewString}</h3>
+        </div>
+        <div>
+          <MdDateRange />
+          <h3>{postedAt(fable.createdAt) + " ago"}</h3>
         </div>
       </div>
     </Wrapper>
