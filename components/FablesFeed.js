@@ -1,8 +1,9 @@
-import { gql, useQuery } from "@apollo/client";
-import { useState } from "react";
 import FableFeed from "./FableFeed";
 import { FableWrapper } from "./styles/FableWrapperStyles";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import { SortByButtonsStyle } from "./styles/SortByButtonStyle";
+import { useState } from "react";
+import { FaLeaf } from "react-icons/fa";
 
 export const QUERY_FOLLOWS_FABLES = gql`
   query getPostByFollows($sortBy: SortByType!, $page: Int!, $limit: Int!) {

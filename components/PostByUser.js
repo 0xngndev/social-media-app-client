@@ -1,10 +1,11 @@
 //TODO: Add spinner
 
-import { useQuery } from "@apollo/client";
 import gql from "graphql-tag";
 import React from "react";
 import styled from "styled-components";
 import useRedirect from "../hooks/useRedirect";
+import { ADD_VIEW } from "../graphql/mutations";
+import { useMutation, useQuery } from "@apollo/client";
 
 const GET_FABLE_BY_ID = gql`
   query getPost($postId: ID!) {
@@ -86,23 +87,31 @@ const PostByUser = ({ id }) => {
       postId: id,
     },
   });
-
-  console.log(id);
+  const [addView] = useMutation(ADD_VIEW, {
+    variables: {
+      postId: id,
+    },
+  });
 
   if (loading) return <p>Loading...</p>;
 
   const { getPost } = data;
 
+  const handleClick = () => {
+    addView();
+    handleRouting("fables", id);
+  };
+
   return (
     <PostByUserStyles>
       {error && <p>{error}</p>}
-      <h3 onClick={() => handleRouting("fables", id)}>{getPost?.title}</h3>
+      <h3 onClick={handleClick}>{getPost?.title}</h3>
 
       <p>
         {getPost?.excerpt + "..."}
         <p
           style={{ cursor: "pointer", textDecoration: "underline" }}
-          onClick={() => handleRouting("fables", id)}
+          onClick={handleClick}
         >
           Read more
         </p>
