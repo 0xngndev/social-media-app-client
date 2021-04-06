@@ -1,44 +1,108 @@
 import { gql, useQuery } from "@apollo/client";
+import { useState } from "react";
 import FableFeed from "./FableFeed";
 import { FableWrapper } from "./styles/FableWrapperStyles";
+import { SortByButtonsStyle } from "./styles/SortByButtonStyle";
 
 export const QUERY_ALL_FABLES = gql`
-  query getPosts {
-    getPosts {
-      id
-      body
-      title
-      author {
-        username
-        id
+  query getPaginatedPosts($sortBy: SortByType!, $page: Int!, $limit: Int!) {
+    getPaginatedPosts(sortBy: $sortBy, page: $page, limit: $limit) {
+      previous {
+        page
+        limit
       }
-      commentCount
-      likeCount
-      createdAt
-      excerpt
-      likes {
-        username
+      next {
+        page
+        limit
+      }
+      posts {
+        id
+        title
+        likes {
+          username
+        }
+        body
+        excerpt
+        author {
+          id
+          username
+        }
+        createdAt
+        likeCount
+        views
+        comments {
+          id
+          username
+          body
+        }
+        commentCount
       }
     }
   }
 `;
 
 const Fables = () => {
-  const { data, loading, error } = useQuery(QUERY_ALL_FABLES);
+  const [queryLimit, setQueryLimit] = useState(3);
+  const [queryBy, setQueryBy] = useState("NEWEST");
+  const [activeButton, setActiveButton] = useState("NEWEST");
+
+  const filterButtons = ["NEWEST", "OLDEST", "VIEWS", "HOT", "TOP"];
+
+  const { data, loading, error, refetch } = useQuery(QUERY_ALL_FABLES, {
+    variables: {
+      sortBy: queryBy,
+      page: 1,
+      limit: queryLimit,
+    },
+  });
 
   if (loading) return "Loading...";
 
-  console.log(data);
+  const { getPaginatedPosts } = data;
 
-  const { getPosts } = data;
+  const handleRefetch = () => {
+    if (getPaginatedPosts.next !== null) {
+      setQueryLimit((prevState) => prevState + 3);
+      refetch({
+        sortBy: queryBy,
+        page: 1,
+        limit: queryLimit,
+      });
+    }
+  };
+
+  const handleButton = (queryBy) => {
+    setQueryBy(queryBy);
+    setActiveButton(queryBy);
+  };
 
   return (
-    <FableWrapper>
-      {error}
-      {getPosts?.map((fable) => {
-        return <FableFeed key={fable.id} fable={fable} />;
-      })}
-    </FableWrapper>
+    <>
+      <SortByButtonsStyle>
+        {filterButtons.map((filterButton) => (
+          <button
+            className={filterButton === activeButton ? "button-selected" : ""}
+            key={filterButton}
+            onClick={() => handleButton(filterButton)}
+          >
+            {filterButton}
+          </button>
+        ))}
+      </SortByButtonsStyle>
+      <FableWrapper>
+        {error}
+        {getPaginatedPosts.posts?.map((fable) => {
+          return <FableFeed key={fable.id} fable={fable} />;
+        })}
+        <div className="div-load-more">
+          <button type="button" onClick={handleRefetch}>
+            {getPaginatedPosts.next === null
+              ? "NO MORE FABLES TO FETCH"
+              : "LOAD MORE"}
+          </button>
+        </div>
+      </FableWrapper>
+    </>
   );
 };
 
