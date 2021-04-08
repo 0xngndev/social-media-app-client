@@ -58,7 +58,7 @@ const PostByUserStyles = styled.div`
     margin: 0;
     padding: 0;
     justify-content: flex-start;
-    line-height: 2.5;
+    line-height: 2;
     cursor: pointer;
   }
 
@@ -72,12 +72,18 @@ const PostByUserStyles = styled.div`
     justify-self: flex-start;
   }
 
+  .div-sep {
+    margin-top: 1.5rem;
+
+    background-color: #949494;
+    height: 1px;
+  }
+
   .div-comment {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
-    border-top: 1px solid #949494;
     margin-top: 1.5rem;
 
     div {
@@ -85,7 +91,6 @@ const PostByUserStyles = styled.div`
       flex-direction: row;
       justify-content: flex-start;
       align-items: center;
-      margin-top: 1.5rem;
 
       span {
         padding-right: 2rem;
@@ -98,6 +103,10 @@ const PostByUserStyles = styled.div`
         cursor: pointer;
         color: var(--primaryColor);
       }
+    }
+
+    .span-last {
+      padding-right: 0rem;
     }
   }
 `;
@@ -142,7 +151,7 @@ const PostByUser = ({ id }) => {
           Read more
         </p>
       </p>
-
+      <div className="div-sep"></div>
       <div className="div-comment">
         <div>
           <AiFillHeart />
@@ -158,7 +167,9 @@ const PostByUser = ({ id }) => {
         </div>
         <div>
           <MdDateRange />
-          <span>{postedAt(getPost?.createdAt) + " ago"}</span>
+          <span className="span-last">
+            {postedAt(getPost?.createdAt) + " ago"}
+          </span>
         </div>
       </div>
     </PostByUserStyles>
