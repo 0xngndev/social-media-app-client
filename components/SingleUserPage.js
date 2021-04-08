@@ -33,7 +33,7 @@ const UserPageStyles = styled.div`
   align-items: center;
   width: 100%;
 
-  div {
+  .div-user {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -60,6 +60,7 @@ const UserPageStyles = styled.div`
     h3 {
       margin: 0;
       padding: 0;
+      padding-bottom: 1rem;
     }
 
     .div-divider {
@@ -118,7 +119,7 @@ const SingleUserPage = ({ id }) => {
 
   return (
     <UserPageStyles>
-      <div>
+      <div className="div-user">
         <h1>{getUserById?.username}</h1>
         <StyledPopup
           trigger={<span>{getUserById?.followerCount + followersText}</span>}

@@ -5,7 +5,12 @@ import React from "react";
 import styled from "styled-components";
 import useRedirect from "../hooks/useRedirect";
 import { ADD_VIEW } from "../graphql/mutations";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { BsEye } from "react-icons/bs";
+import { FaRegComment } from "react-icons/fa";
+import { MdDateRange } from "react-icons/md";
 import { useMutation, useQuery } from "@apollo/client";
+import postedAt from "../helpers/postedAt";
 
 const GET_FABLE_BY_ID = gql`
   query getPost($postId: ID!) {
@@ -45,6 +50,7 @@ const PostByUserStyles = styled.div`
   border-left: 30px solid var(--primaryColor);
   padding: 1.5rem;
   box-shadow: var(--bs);
+  margin-bottom: 2rem;
 
   h3 {
     display: flex;
@@ -74,8 +80,24 @@ const PostByUserStyles = styled.div`
     border-top: 1px solid #949494;
     margin-top: 1.5rem;
 
-    span {
-      padding-top: 1rem;
+    div {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      margin-top: 1.5rem;
+
+      span {
+        padding-right: 2rem;
+      }
+
+      svg {
+        padding-right: 0.5rem;
+        height: 20px;
+        width: 20px;
+        cursor: pointer;
+        color: var(--primaryColor);
+      }
     }
   }
 `;
@@ -102,6 +124,10 @@ const PostByUser = ({ id }) => {
     handleRouting("fables", id);
   };
 
+  const likesString = getPost?.likeCount === 1 ? " Like" : " Likes";
+  const commentsString = getPost?.commentCount === 1 ? " Comment" : " Comments";
+  const viewString = getPost?.views === 1 ? " view" : " views";
+
   return (
     <PostByUserStyles>
       {error && <p>{error}</p>}
@@ -118,8 +144,22 @@ const PostByUser = ({ id }) => {
       </p>
 
       <div className="div-comment">
-        <span>{getPost?.likeCount + " Likes"}</span>
-        <span>{getPost?.commentCount + " Comments"}</span>
+        <div>
+          <AiFillHeart />
+          <span>{getPost?.likeCount + likesString}</span>
+        </div>
+        <div>
+          <FaRegComment />
+          <span>{getPost?.commentCount + commentsString}</span>
+        </div>
+        <div>
+          <BsEye />
+          <span>{getPost?.views + viewString}</span>
+        </div>
+        <div>
+          <MdDateRange />
+          <span>{postedAt(getPost?.createdAt) + " ago"}</span>
+        </div>
       </div>
     </PostByUserStyles>
   );

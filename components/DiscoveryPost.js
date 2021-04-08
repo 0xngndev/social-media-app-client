@@ -10,9 +10,9 @@ import { ADD_VIEW } from "../graphql/mutations";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { BsEye } from "react-icons/bs";
 import { FaRegComment } from "react-icons/fa";
+import { MdDateRange } from "react-icons/md";
 import { Wrapper } from "./styles/FableStyles";
 import { useMutation } from "@apollo/client";
-import { MdDateRange } from "react-icons/md";
 
 const DiscoveryPost = ({ fable }) => {
   const handleFollow = useFollow(fable.author.id);
