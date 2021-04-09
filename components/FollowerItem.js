@@ -45,6 +45,7 @@ const FollowerItemStyles = styled.div`
 
     p {
       margin: 0;
+      cursor: pointer;
     }
 
     button {

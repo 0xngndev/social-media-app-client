@@ -169,6 +169,7 @@ const SingleUserPage = ({ id }) => {
                 <FollowersList
                   close={close}
                   followers={getUserById?.followers}
+                  follows={false}
                 />
               )}
             </StyledPopup>
@@ -182,7 +183,11 @@ const SingleUserPage = ({ id }) => {
               modal
             >
               {(close) => (
-                <FollowersList close={close} followers={getUserById?.follows} />
+                <FollowersList
+                  close={close}
+                  followers={getUserById?.follows}
+                  follows={true}
+                />
               )}
             </StyledPopup>
           </div>
