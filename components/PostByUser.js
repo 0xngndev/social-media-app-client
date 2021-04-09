@@ -94,6 +94,10 @@ const PostByUserStyles = styled.div`
 
       span {
         padding-right: 2rem;
+        &:hover {
+          text-decoration: none;
+        }
+        cursor: text;
       }
 
       svg {

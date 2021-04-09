@@ -5,6 +5,8 @@ import useFollow from "../hooks/useFollow";
 import PostByUser from "./PostByUser";
 import { useQuery } from "@apollo/client";
 import { StyledPopup } from "./styles/StyledPopup";
+import { AiOutlineUserAdd } from "react-icons/ai";
+import { BiUserCircle } from "react-icons/bi";
 import CreatePost from "./CreatePost";
 import FollowersList from "./FollowersList";
 
@@ -22,6 +24,9 @@ const QUERY_SINGLE_USER_ID = gql`
         username
       }
       followerCount
+      follows {
+        username
+      }
     }
   }
 `;
@@ -40,10 +45,35 @@ const UserPageStyles = styled.div`
     width: 65%;
     margin-top: 5rem;
 
-    span {
-      cursor: pointer;
-      &:hover {
-        text-decoration: underline;
+    .div-follow-direction {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .div-followers {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 3rem;
+      padding-top: 1rem;
+
+      svg {
+        width: 30px;
+        height: 30px;
+        color: var(--primaryColor);
+        align-self: center;
+        justify-content: center;
+        margin-top: 1rem;
+      }
+
+      span {
+        align-self: center;
+        justify-content: center;
+        cursor: pointer;
+        &:hover {
+          text-decoration: underline;
+        }
       }
     }
 
@@ -81,10 +111,11 @@ const UserPageStyles = styled.div`
       color: #fff;
       border-radius: 4px;
       margin: 0;
-      padding: 0.5rem 1rem;
+      padding: 0.5rem 3rem;
       width: fit-content;
       font-size: 1.2rem;
       margin: 0;
+      margin-top: 1rem;
       transition: 0.3s;
 
       &:hover {
@@ -121,17 +152,31 @@ const SingleUserPage = ({ id }) => {
     <UserPageStyles>
       <div className="div-user">
         <h1>{getUserById?.username}</h1>
-        <StyledPopup
-          trigger={<span>{getUserById?.followerCount + followersText}</span>}
-          modal
-        >
-          {(close) => (
-            <FollowersList close={close} followers={getUserById?.followers} />
-          )}
-        </StyledPopup>
         <button onClick={handleFollow} style={followColor}>
           {isFollowing ? "Unfollow -" : "Follow +"}
         </button>
+        <div className="div-follow-direction">
+          <div className="div-followers">
+            <AiOutlineUserAdd />
+            <StyledPopup
+              trigger={
+                <span>{getUserById?.followerCount + followersText}</span>
+              }
+              modal
+            >
+              {(close) => (
+                <FollowersList
+                  close={close}
+                  followers={getUserById?.followers}
+                />
+              )}
+            </StyledPopup>
+          </div>
+          <div className="div-followers">
+            <BiUserCircle />
+            <span>{getUserById?.follows.length + " Following"}</span>
+          </div>
+        </div>
         <div className="div-divider"></div>
         <h3>Latest Posts</h3>
         {getUserById?.posts.map((postId) => {
