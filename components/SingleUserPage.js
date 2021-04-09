@@ -25,6 +25,7 @@ const QUERY_SINGLE_USER_ID = gql`
       }
       followerCount
       follows {
+        id
         username
       }
     }
@@ -174,7 +175,16 @@ const SingleUserPage = ({ id }) => {
           </div>
           <div className="div-followers">
             <BiUserCircle />
-            <span>{getUserById?.follows.length + " Following"}</span>
+            <StyledPopup
+              trigger={
+                <span>{getUserById?.follows.length + " Following"}</span>
+              }
+              modal
+            >
+              {(close) => (
+                <FollowersList close={close} followers={getUserById?.follows} />
+              )}
+            </StyledPopup>
           </div>
         </div>
         <div className="div-divider"></div>
