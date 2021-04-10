@@ -36,13 +36,14 @@ const CreatePost = ({ close }) => {
       {
         query: QUERY_ALL_FABLES,
         variables: {
-          sortBy: "NEWEST",
+          sortBy: "OLDEST",
           page: 1,
-          limit: 5,
+          limit: 6,
         },
       },
     ],
   });
+
   const router = useRouter();
   const formik = useFormik({
     initialValues: {
@@ -67,9 +68,10 @@ const CreatePost = ({ close }) => {
         setSuccessMessage(`Success! Creating Post...`);
         setTimeout(() => {
           setSuccessMessage(null);
-          router.push("/feed");
+          router.push("/discovery");
           close();
         }, 2000);
+        setErrorMessage(null);
       } catch (error) {
         setErrorMessage(error.message.replace("GraphQL error: ", ""));
       }
