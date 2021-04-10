@@ -6,11 +6,14 @@ import useRedirect from "../hooks/useRedirect";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { FaRegComment } from "react-icons/fa";
 import { useQuery } from "@apollo/client";
+import { BsEye } from "react-icons/bs";
+import { MdDateRange } from "react-icons/md";
 import useUser from "./User";
 import useLike from "../hooks/useLike";
 import CommentPage from "./CommentPage";
 import LeaveComment from "./LeaveComment";
 import { StyledPopup } from "./styles/StyledPopup";
+import postedAt from "../helpers/postedAt";
 
 export const QUERY_SINGLE_POST = gql`
   query getPost($postId: ID!) {
@@ -18,6 +21,7 @@ export const QUERY_SINGLE_POST = gql`
       id
       title
       body
+      views
       likes {
         username
       }
@@ -89,21 +93,27 @@ const SingleFableStyles = styled.div`
 
     .div-likes-comments {
       display: flex;
-      flex-direction: row;
-      justify-content: space-around;
+      flex-direction: column;
+      justify-content: space-between;
       padding: 0;
+      width: 100%;
 
-      div {
+      .div-metrics {
         display: flex;
         flex-direction: row;
-        justify-content: flex-start;
 
-        svg {
-          padding-right: 0.5rem;
-          height: 20px;
-          width: 20px;
-          cursor: pointer;
-          color: var(--primaryColor);
+        div {
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-start;
+
+          svg {
+            padding-right: 0.5rem;
+            height: 20px;
+            width: 20px;
+            cursor: pointer;
+            color: var(--primaryColor);
+          }
         }
       }
     }
@@ -143,6 +153,7 @@ const SingleFablePage = ({ id }) => {
 
   const likesString = getPost?.likeCount === 1 ? " Like" : " Likes";
   const commentsString = getPost?.commentCount === 1 ? " Comment" : " Comments";
+  const viewString = getPost?.views === 1 ? " view" : " views";
 
   return (
     <SingleFableStyles>
@@ -158,13 +169,25 @@ const SingleFablePage = ({ id }) => {
         <h2>{getPost?.body}</h2>
         <div className="div-divider"></div>
         <div className="div-likes-comments">
-          <div onClick={handleLikePost}>
-            {userLikedPost() ? <AiFillHeart /> : <AiOutlineHeart />}
-            <h3>{getPost.likeCount + likesString}</h3>
+          <div className="div-metrics">
+            <div onClick={handleLikePost}>
+              {userLikedPost() ? <AiFillHeart /> : <AiOutlineHeart />}
+              <h3>{getPost.likeCount + likesString}</h3>
+            </div>
+            <div>
+              {<FaRegComment />}
+              <h3>{getPost.commentCount + commentsString}</h3>
+            </div>
           </div>
-          <div style={{ justifyContent: "flex-end" }}>
-            {<FaRegComment />}
-            <h3>{getPost.commentCount + commentsString}</h3>
+          <div className="div-metrics">
+            <div>
+              <BsEye />
+              <h3>{getPost?.views + viewString}</h3>
+            </div>
+            <div>
+              <MdDateRange />
+              <h3>{postedAt(getPost.createdAt) + " ago"}</h3>
+            </div>
           </div>
         </div>
         <div className="div-divider"></div>
