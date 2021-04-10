@@ -14,7 +14,7 @@ import { gql, useMutation } from "@apollo/client";
 import { FormStyles, MainWrapper } from "./styles/FormStyles";
 import { QUERY_ALL_FABLES } from "./DiscoveryFeed";
 
-const LOGIN_ACCOUNT_MUTATION = gql`
+const CREATE_POST_MUTATION = gql`
   mutation createPost($body: String!, $title: String!) {
     createPost(body: $body, title: $title) {
       id
@@ -31,7 +31,7 @@ const LOGIN_ACCOUNT_MUTATION = gql`
 const CreatePost = ({ close }) => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
-  const [register] = useMutation(LOGIN_ACCOUNT_MUTATION, {
+  const [createPost] = useMutation(CREATE_POST_MUTATION, {
     refetchQueries: [{ query: QUERY_ALL_FABLES }],
   });
   const router = useRouter();
@@ -48,7 +48,7 @@ const CreatePost = ({ close }) => {
       const { body, title } = values;
 
       try {
-        const { data } = await register({
+        const { data } = await createPost({
           variables: {
             body,
             title,
