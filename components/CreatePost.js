@@ -32,7 +32,16 @@ const CreatePost = ({ close }) => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
   const [createPost] = useMutation(CREATE_POST_MUTATION, {
-    refetchQueries: [{ query: QUERY_ALL_FABLES }],
+    refetchQueries: [
+      {
+        query: QUERY_ALL_FABLES,
+        variables: {
+          sortBy: "NEWEST",
+          page: 1,
+          limit: 5,
+        },
+      },
+    ],
   });
   const router = useRouter();
   const formik = useFormik({
