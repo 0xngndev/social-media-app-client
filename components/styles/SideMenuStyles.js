@@ -31,13 +31,6 @@ export const SideMenuWrapper = styled.aside`
       padding: 0rem 2.5rem;
       max-width: 50px;
       cursor: pointer;
-      transition: 1s;
-
-      &:hover {
-        transition: 1s;
-        box-shadow: var(--bs);
-        transform: rotate(360deg);
-      }
     }
   }
 
