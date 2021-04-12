@@ -9,6 +9,7 @@ import { AiOutlineUserAdd } from "react-icons/ai";
 import { BiUserCircle } from "react-icons/bi";
 import CreatePost from "./CreatePost";
 import FollowersList from "./FollowersList";
+import Spinner from "./Spinner";
 
 const QUERY_SINGLE_USER_ID = gql`
   query getUserById($userId: ID!) {
@@ -138,7 +139,8 @@ const SingleUserPage = ({ id }) => {
 
   console.log(data);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading)
+    return <Spinner type={"spin"} color={"#8946FF"} height={100} width={50} />;
 
   const followColor = isFollowing
     ? { backgroundColor: "#b4b4b4" }

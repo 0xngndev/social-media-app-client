@@ -3,6 +3,7 @@ import { FableWrapper } from "./styles/FableWrapperStyles";
 import { gql, useQuery } from "@apollo/client";
 import { SortByButtonsStyle } from "./styles/SortByButtonStyle";
 import { useState } from "react";
+import Spinner from "./Spinner";
 
 export const QUERY_ALL_FABLES = gql`
   query getPaginatedPosts($sortBy: SortByType!, $page: Int!, $limit: Int!) {
@@ -56,7 +57,8 @@ const DiscoveryFeed = () => {
     },
   });
 
-  if (loading) return "Loading...";
+  if (loading)
+    return <Spinner type={"spin"} color={"#8946FF"} height={100} width={50} />;
 
   const { getPaginatedPosts } = data;
 

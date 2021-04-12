@@ -59,7 +59,7 @@ export const CommentPageStyles = styled.div`
 `;
 
 const CommentPage = ({ comment }) => {
-  const { id, username, body, createdAt } = comment;
+  const { username, body, createdAt } = comment;
 
   let postedAtDate = formatDistanceToNow(new Date(createdAt), {
     includeSeconds: true,

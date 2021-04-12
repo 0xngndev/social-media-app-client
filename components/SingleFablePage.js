@@ -1,19 +1,17 @@
-//TODO: error handling--spinners--moreshit
-
-import gql from "graphql-tag";
-import styled from "styled-components";
-import useRedirect from "../hooks/useRedirect";
-import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
-import { FaRegComment } from "react-icons/fa";
-import { useQuery } from "@apollo/client";
-import { BsEye } from "react-icons/bs";
-import { MdDateRange } from "react-icons/md";
-import useUser from "./User";
-import useLike from "../hooks/useLike";
 import CommentPage from "./CommentPage";
 import LeaveComment from "./LeaveComment";
-import { StyledPopup } from "./styles/StyledPopup";
+import gql from "graphql-tag";
 import postedAt from "../helpers/postedAt";
+import styled from "styled-components";
+import useRedirect from "../hooks/useRedirect";
+import useUser from "./User";
+import useLike from "../hooks/useLike";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { BsEye } from "react-icons/bs";
+import { FaRegComment } from "react-icons/fa";
+import { MdDateRange } from "react-icons/md";
+import { useQuery } from "@apollo/client";
+import Spinner from "./Spinner";
 
 export const QUERY_SINGLE_POST = gql`
   query getPost($postId: ID!) {
@@ -140,7 +138,8 @@ const SingleFablePage = ({ id }) => {
     },
   });
 
-  if (loading) return <p>Loading...</p>;
+  if (loading)
+    return <Spinner type={"spin"} color={"#8946FF"} height={300} width={200} />;
 
   const { getPost } = data;
 

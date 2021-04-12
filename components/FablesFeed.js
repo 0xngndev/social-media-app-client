@@ -4,6 +4,7 @@ import { gql, useMutation, useQuery } from "@apollo/client";
 import { SortByButtonsStyle } from "./styles/SortByButtonStyle";
 import { useState } from "react";
 import { FaLeaf } from "react-icons/fa";
+import Spinner from "./Spinner";
 
 export const QUERY_FOLLOWS_FABLES = gql`
   query getPostByFollows($sortBy: SortByType!, $page: Int!, $limit: Int!) {
@@ -57,7 +58,8 @@ const FablesFeed = () => {
     },
   });
 
-  if (loading) return "Loading...";
+  if (loading)
+    return <Spinner type={"spin"} color={"#8946FF"} height={100} width={50} />;
 
   const { getPostByFollows } = data;
 

@@ -11,6 +11,7 @@ import { FaRegComment } from "react-icons/fa";
 import { MdDateRange } from "react-icons/md";
 import { useMutation, useQuery } from "@apollo/client";
 import postedAt from "../helpers/postedAt";
+import Spinner from "./Spinner";
 
 const GET_FABLE_BY_ID = gql`
   query getPost($postId: ID!) {
@@ -128,7 +129,8 @@ const PostByUser = ({ id }) => {
     },
   });
 
-  if (loading) return <p>Loading...</p>;
+  if (loading)
+    return <Spinner type={"spin"} color={"#8946FF"} height={75} width={40} />;
 
   const { getPost } = data;
 
