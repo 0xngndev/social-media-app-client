@@ -36,7 +36,7 @@ const CreatePost = ({ close }) => {
       {
         query: QUERY_ALL_FABLES,
         variables: {
-          sortBy: "OLDEST",
+          sortBy: "NEWEST",
           page: 1,
           limit: 6,
         },

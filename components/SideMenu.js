@@ -6,7 +6,6 @@ import CreatePost from "./CreatePost";
 import Logout from "./Logout";
 import useUser from "./User";
 import RegisterForm from "./RegisterForm";
-import { FakeSideMenu } from "./styles/SideMenuStyles";
 import { SideMenuWrapper } from "./styles/SideMenuStyles";
 import { StyledPopup } from "./styles/StyledPopup";
 import { useRouter } from "next/router";
@@ -17,30 +16,31 @@ const SideMenu = () => {
 
   return (
     <>
-      <FakeSideMenu></FakeSideMenu>
       <SideMenuWrapper>
-        <div className="div-logo">
-          <h1 onClick={() => router.push(`/`)}>F</h1>
+        <div className="div-sidemenu-wrap">
+          <div className="div-logo">
+            <h1 onClick={() => router.push(`/`)}>F</h1>
+          </div>
+          <div className="div-list">
+            <ul>
+              <li>
+                <h3 onClick={() => router.push(`/feed`)}>FEED</h3>
+                <h3 onClick={() => router.push(`/discovery`)}>DISCOVERY</h3>
+                <StyledPopup trigger={<h3>CREATE</h3>} modal>
+                  {(close) => <CreatePost close={close} />}
+                </StyledPopup>
+                <StyledPopup trigger={<h3>LOGIN</h3>} modal>
+                  {(close) => <LoginForm close={close} />}
+                </StyledPopup>
+                <StyledPopup trigger={<h3>SIGN UP</h3>} modal>
+                  {(close) => <RegisterForm close={close} />}
+                </StyledPopup>
+                <Logout />
+              </li>
+            </ul>
+          </div>
+          {"Logged in as " + user?.username}
         </div>
-        <div className="div-list">
-          <ul>
-            <li>
-              <h3 onClick={() => router.push(`/feed`)}>FEED</h3>
-              <h3 onClick={() => router.push(`/discovery`)}>DISCOVERY</h3>
-              <StyledPopup trigger={<h3>CREATE</h3>} modal>
-                {(close) => <CreatePost close={close} />}
-              </StyledPopup>
-              <StyledPopup trigger={<h3>LOGIN</h3>} modal>
-                {(close) => <LoginForm close={close} />}
-              </StyledPopup>
-              <StyledPopup trigger={<h3>SIGN UP</h3>} modal>
-                {(close) => <RegisterForm close={close} />}
-              </StyledPopup>
-              <Logout />
-            </li>
-          </ul>
-        </div>
-        {"Logged in as " + user?.username}
       </SideMenuWrapper>
     </>
   );

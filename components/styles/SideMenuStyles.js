@@ -1,34 +1,36 @@
 import styled from "styled-components";
 
-export const FakeSideMenu = styled.aside`
-  width: 15%;
-  background: var(--primaryColor);
-`;
-
 export const SideMenuWrapper = styled.aside`
-  position: fixed;
+  position: sticky;
   z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 15%;
   background: var(--primaryColor);
-  bottom: 0;
   top: 0;
 
   box-shadow: var(--bs);
+
+  .div-sidemenu-wrap {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    text-align: center;
+  }
 
   .div-logo {
     display: flex;
     flex-direction: column;
     text-align: center;
+    align-items: center;
 
     h1 {
       font-size: 4rem;
       color: #fff;
       background-color: #000;
       border-radius: 4px;
-      padding: 0rem 2.5rem;
+      padding: 0rem 2.75rem;
       max-width: 50px;
       cursor: pointer;
     }
