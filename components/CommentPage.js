@@ -1,5 +1,7 @@
+import { formatDistanceToNow } from "date-fns";
 import React from "react";
 import styled from "styled-components";
+import postedAt from "../helpers/postedAt";
 
 export const CommentPageStyles = styled.div`
   display: flex;
@@ -33,12 +35,18 @@ export const CommentPageStyles = styled.div`
 `;
 
 const CommentPage = ({ comment }) => {
-  const { id, username, body } = comment;
+  const { id, username, body, createdAt } = comment;
+
+  let postedAtDate = formatDistanceToNow(new Date(createdAt), {
+    includeSeconds: true,
+  });
 
   return (
     <CommentPageStyles>
       <h3>{username}</h3>
       <p>{body}</p>
+
+      <p>{postedAtDate}</p>
     </CommentPageStyles>
   );
 };

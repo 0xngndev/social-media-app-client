@@ -29,6 +29,7 @@ export const QUERY_SINGLE_POST = gql`
         id
         body
         username
+        createdAt
       }
       author {
         id
