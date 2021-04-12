@@ -9,7 +9,8 @@ export const SideMenuWrapper = styled.aside`
   width: 15%;
   background: var(--primaryColor);
   top: 0;
-
+  bottom: 0;
+  height: 100vh;
   box-shadow: var(--bs);
 
   .div-sidemenu-wrap {

@@ -1,30 +1,54 @@
 import { formatDistanceToNow } from "date-fns";
 import React from "react";
 import styled from "styled-components";
-import postedAt from "../helpers/postedAt";
 
 export const CommentPageStyles = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  border: 3px solid var(--primaryColor);
-  width: 80%;
+  border: 2px solid var(--primaryColor);
   border-radius: 4px;
   padding: 1rem;
-  border-left: 30px solid var(--primaryColor);
+  border-left: 10px solid var(--primaryColor);
   margin-bottom: 2rem;
 
-  h3 {
+  .div-user-date {
     display: flex;
+    flex-direction: row;
     width: 100%;
+    justify-content: space-between;
+
+    h3 {
+      text-align: start;
+      align-self: flex-start;
+      margin: 0;
+      font-size: 1.5rem;
+      padding-left: 1rem;
+      font-weight: 600;
+    }
+    span {
+      font-size: 1rem;
+      color: #737373;
+      justify-content: flex-end;
+      padding-right: 1rem;
+    }
+  }
+
+  .div-separator {
+    display: flex;
+
     align-self: flex-start;
-    margin: 0;
-    padding-left: 1rem;
+    height: 1px;
+    background-color: #737373;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+    opacity: 0.3;
+    width: 40%;
   }
 
   p {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     font-weight: 400;
     align-self: flex-start;
     line-height: 1;
@@ -43,10 +67,12 @@ const CommentPage = ({ comment }) => {
 
   return (
     <CommentPageStyles>
-      <h3>{username}</h3>
+      <div className="div-user-date">
+        <h3>{username}</h3>
+        <span>{`${postedAtDate} ago`}</span>
+      </div>
+      <div className="div-separator"></div>
       <p>{body}</p>
-
-      <p>{postedAtDate}</p>
     </CommentPageStyles>
   );
 };
