@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import FablesHome from "./FablesHome";
 
-const DiscoverHomeStyles = styled.div`
+const DiscoverHomeStyles = styled.section`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -17,6 +18,7 @@ const DiscoverHomeStyles = styled.div`
     text-transform: uppercase;
     padding-top: 4.5rem;
     color: var(--primaryColor);
+    padding-bottom: 4.5rem;
   }
 
   span {
@@ -44,11 +46,23 @@ const DiscoverHomeStyles = styled.div`
   }
 `;
 
+const HomeWrapper = styled.article`
+  display: flex;
+  width: 80%;
+  justify-content: center;
+  align-self: center;
+`;
+
 const DiscoverHome = () => {
   return (
-    <DiscoverHomeStyles>
-      <h1>Discover Rising Tales</h1>
-    </DiscoverHomeStyles>
+    <>
+      <DiscoverHomeStyles>
+        <h1>Discover Rising Tales</h1>
+      </DiscoverHomeStyles>
+      <HomeWrapper>
+        <FablesHome />
+      </HomeWrapper>
+    </>
   );
 };
 
