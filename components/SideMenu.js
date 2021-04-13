@@ -24,18 +24,28 @@ const SideMenu = () => {
           <div className="div-list">
             <ul>
               <li>
-                <h3 onClick={() => router.push(`/feed`)}>FEED</h3>
+                {user && <h3 onClick={() => router.push(`/feed`)}>FEED</h3>}
                 <h3 onClick={() => router.push(`/discovery`)}>DISCOVERY</h3>
-                <StyledPopup trigger={<h3>CREATE</h3>} modal>
-                  {(close) => <CreatePost close={close} />}
-                </StyledPopup>
-                <StyledPopup trigger={<h3>LOGIN</h3>} modal>
-                  {(close) => <LoginForm close={close} />}
-                </StyledPopup>
-                <StyledPopup trigger={<h3>SIGN UP</h3>} modal>
-                  {(close) => <RegisterForm close={close} />}
-                </StyledPopup>
-                <Logout />
+                {user && (
+                  <>
+                    <StyledPopup trigger={<h3>CREATE</h3>} modal>
+                      {(close) => <CreatePost close={close} />}
+                    </StyledPopup>
+                  </>
+                )}
+                {user ? (
+                  <Logout />
+                ) : (
+                  <>
+                    <StyledPopup trigger={<h3>LOGIN</h3>} modal>
+                      {(close) => <LoginForm close={close} />}
+                    </StyledPopup>
+
+                    <StyledPopup trigger={<h3>SIGN UP</h3>} modal>
+                      {(close) => <RegisterForm close={close} />}
+                    </StyledPopup>
+                  </>
+                )}
               </li>
             </ul>
           </div>
