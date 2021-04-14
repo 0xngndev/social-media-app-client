@@ -7,9 +7,9 @@ import { useQuery } from "@apollo/client";
 import { StyledPopup } from "./styles/StyledPopup";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { BiUserCircle } from "react-icons/bi";
-import CreatePost from "./CreatePost";
 import FollowersList from "./FollowersList";
 import Spinner from "./Spinner";
+import useUser from "./User";
 
 const QUERY_SINGLE_USER_ID = gql`
   query getUserById($userId: ID!) {
@@ -131,6 +131,7 @@ const UserPageStyles = styled.div`
 const SingleUserPage = ({ id }) => {
   const handleFollow = useFollow(id);
   const isFollowing = isFollowingFunc(id);
+  const user = useUser();
   const { data, loading, error } = useQuery(QUERY_SINGLE_USER_ID, {
     variables: {
       userId: id,
@@ -151,13 +152,22 @@ const SingleUserPage = ({ id }) => {
   const followersText =
     getUserById.followerCount === 1 ? " Follower" : " Followers";
 
+  const latestPosts = getUserById.posts.map((postId) => postId);
+  const limitedLatestPosts = latestPosts.slice(0, 5);
+
   return (
     <UserPageStyles>
       <div className="div-user">
         <h1>{getUserById?.username}</h1>
-        <button onClick={handleFollow} style={followColor}>
-          {isFollowing ? "Unfollow -" : "Follow +"}
-        </button>
+        {user ? (
+          <button onClick={handleFollow} style={followColor}>
+            {isFollowing ? "Unfollow -" : "Follow +"}
+          </button>
+        ) : (
+          <button style={{ cursor: "not-allowed", backgroundColor: "gray" }}>
+            {isFollowing ? "Unfollow -" : "Follow +"}
+          </button>
+        )}
         <div className="div-follow-direction">
           <div className="div-followers">
             <AiOutlineUserAdd />
@@ -196,9 +206,13 @@ const SingleUserPage = ({ id }) => {
         </div>
         <div className="div-divider"></div>
         <h3>Latest Posts</h3>
-        {getUserById?.posts.map((postId) => {
-          return <PostByUser id={postId} key={postId} />;
-        })}
+        {limitedLatestPosts.length > 0 ? (
+          limitedLatestPosts.map((postId) => {
+            return <PostByUser id={postId} key={postId} />;
+          })
+        ) : (
+          <p>This user has not posted yet.</p>
+        )}
       </div>
     </UserPageStyles>
   );
