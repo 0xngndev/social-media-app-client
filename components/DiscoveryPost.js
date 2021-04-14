@@ -15,10 +15,10 @@ import { Wrapper } from "./styles/FableStyles";
 import { useMutation } from "@apollo/client";
 
 const DiscoveryPost = ({ fable }) => {
-  const handleFollow = useFollow(fable.author.id);
   const handleRouting = useRedirect();
   const isFollowing = isFollowingFunc(fable.author.id);
   const user = useUser();
+  const handleFollow = useFollow(fable.author.id, user);
   const [addView] = useMutation(ADD_VIEW, {
     variables: {
       postId: fable.id,
@@ -52,9 +52,15 @@ const DiscoveryPost = ({ fable }) => {
         <h3 onClick={() => handleRouting("users", fable.author.id)}>
           {fable?.author.username}
         </h3>
-        <button onClick={handleFollow} style={followColor}>
-          {isFollowing ? "Unfollow -" : "Follow +"}
-        </button>
+        {user ? (
+          <button onClick={handleFollow} style={followColor}>
+            {isFollowing ? "Unfollow -" : "Follow +"}
+          </button>
+        ) : (
+          <button style={{ cursor: "not-allowed", backgroundColor: "gray" }}>
+            {isFollowing ? "Unfollow -" : "Follow +"}
+          </button>
+        )}
       </div>
       <p style={{ cursor: "pointer" }}>321 Followers</p>
       <div className="div-divider-short"></div>
