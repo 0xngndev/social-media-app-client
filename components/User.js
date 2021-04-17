@@ -3,7 +3,7 @@ import jwtDecode from "jwt-decode";
 import gql from "graphql-tag";
 import { useEffect, useState } from "react";
 
-const QUERY_GET_USER = gql`
+export const QUERY_GET_USER = gql`
   query getUser($token: String!) {
     getUser(token: $token) {
       id

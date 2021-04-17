@@ -153,7 +153,7 @@ const SingleUserPage = ({ id }) => {
     getUserById.followerCount === 1 ? " Follower" : " Followers";
 
   const latestPosts = getUserById.posts.map((postId) => postId);
-  const limitedLatestPosts = latestPosts.slice(0, 5);
+  const limitedLatestPosts = latestPosts.reverse().slice(0, 5);
 
   return (
     <UserPageStyles>

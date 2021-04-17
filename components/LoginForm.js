@@ -2,18 +2,18 @@
 //In the page
 //Also, add Svgs at the sides
 //And loading
-//Add error if user is already logged in
 //Add "X" upper right corner and give it the close function
+//See if u can refetch onSubmission cause reload is super hacky
 
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import * as Yup from "yup";
 import { ErrorDiv } from "./styles/ErrorDiv";
 import { useFormik } from "formik";
 import { useRouter } from "next/router";
 import { gql, useMutation } from "@apollo/client";
 import { FormStyles, MainWrapper } from "./styles/FormStyles";
-
 import RegisterForm from "./RegisterForm";
+import Router from "next/router";
 
 const LOGIN_ACCOUNT_MUTATION = gql`
   mutation login($username: String!, $password: String!) {
@@ -58,8 +58,10 @@ const LoginForm = ({ close }) => {
 
         setTimeout(() => {
           setSuccessMessage(null);
-
           router.push("/feed");
+          Router.events.on("routeChangeComplete", () => {
+            Router.reload();
+          });
           close();
         }, 2000);
       } catch (error) {

@@ -1,10 +1,14 @@
 import { useRouter } from "next/router";
+import Router from "next/router";
 
 const Logout = () => {
   const router = useRouter();
   const closeSession = () => {
     localStorage.removeItem("token");
     router.push("/");
+    Router.events.on("routeChangeComplete", () => {
+      Router.reload();
+    });
   };
 
   return (
