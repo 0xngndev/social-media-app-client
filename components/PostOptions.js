@@ -1,4 +1,8 @@
+import { useMutation } from "@apollo/client";
+import gql from "graphql-tag";
 import styled from "styled-components";
+import Swal from "sweetalert2";
+import { QUERY_ALL_FABLES } from "./DiscoveryFeed";
 
 const PostOptionsStyle = styled.div`
   display: flex;
@@ -20,6 +24,7 @@ const PostOptionsStyle = styled.div`
     font-weight: 500;
     text-align: center;
     color: var(--primaryColor);
+    cursor: pointer;
 
     &:first-of-type {
       color: #f00;
@@ -33,10 +38,53 @@ const PostOptionsStyle = styled.div`
   }
 `;
 
-const PostOptions = ({ open }) => {
+const DELETE_POST_MUTATION = gql`
+  mutation deletePost($postId: ID!) {
+    deletePost(postId: $postId)
+  }
+`;
+
+const PostOptions = ({ fableId }) => {
+  const [deletePost] = useMutation(DELETE_POST_MUTATION, {
+    variables: {
+      postId: fableId,
+    },
+    refetchQueries: [
+      {
+        query: QUERY_ALL_FABLES,
+        variables: {
+          sortBy: "NEWEST",
+          page: 1,
+          limit: 3,
+        },
+      },
+    ],
+  });
+
+  const handleDelete = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        try {
+          deletePost();
+          Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        } catch (error) {
+          throw new Error(error);
+        }
+      }
+    });
+  };
+
   return (
     <PostOptionsStyle>
-      <h1>DELETE</h1>
+      <h1 onClick={handleDelete}>DELETE</h1>
       <div className="div-separator"></div>
       <h1>EDIT</h1>
     </PostOptionsStyle>
