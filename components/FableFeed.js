@@ -9,10 +9,12 @@ import useUser from "./User";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { ADD_VIEW } from "../graphql/mutations";
 import { FaRegComment } from "react-icons/fa";
-import { BsEye } from "react-icons/bs";
+import { BsEye, BsThreeDotsVertical } from "react-icons/bs";
 import { MdDateRange } from "react-icons/md";
 import { Wrapper } from "./styles/FableStyles";
 import { useMutation } from "@apollo/client";
+import PostOptions from "./PostOptions";
+import Popup from "reactjs-popup";
 
 const Fable = ({ fable }) => {
   const handleFollow = useFollow(fable.author.id);
@@ -53,9 +55,32 @@ const Fable = ({ fable }) => {
           {fable?.author.username}
         </h3>
         {user ? (
-          <button onClick={handleFollow} style={followColor}>
-            {isFollowing ? "Unfollow -" : "Follow +"}
-          </button>
+          <div className="div-followers-menu">
+            <button onClick={handleFollow} style={followColor}>
+              {isFollowing ? "Unfollow -" : "Follow +"}
+            </button>
+            {user.username === fable.author.username ? (
+              <>
+                <Popup
+                  trigger={(open) => (
+                    <button className="button-popup">
+                      <BsThreeDotsVertical />
+                    </button>
+                  )}
+                  position="right center"
+                  closeOnDocumentClick
+                >
+                  <PostOptions
+                    open={open}
+                    fableId={fable?.id}
+                    feedPage={true}
+                  />
+                </Popup>
+              </>
+            ) : (
+              ""
+            )}
+          </div>
         ) : (
           <button style={{ cursor: "not-allowed", backgroundColor: "gray" }}>
             {isFollowing ? "Unfollow -" : "Follow +"}

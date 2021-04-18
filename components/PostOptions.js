@@ -1,8 +1,11 @@
+//TODO: ABSTRACT THE QUERIES
+
 import { useMutation } from "@apollo/client";
 import gql from "graphql-tag";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 import { QUERY_ALL_FABLES } from "./DiscoveryFeed";
+import { QUERY_FOLLOWS_FABLES } from "./FablesFeed";
 import { QUERY_SINGLE_USER_ID } from "./SingleUserPage";
 
 const PostOptionsStyle = styled.div`
@@ -45,7 +48,13 @@ const DELETE_POST_MUTATION = gql`
   }
 `;
 
-const PostOptions = ({ fableId, userPage, discoveryPage, userId }) => {
+const PostOptions = ({
+  fableId,
+  userPage,
+  discoveryPage,
+  userId,
+  feedPage,
+}) => {
   const [deletePostUserPage] = useMutation(DELETE_POST_MUTATION, {
     variables: {
       postId: fableId,
@@ -76,6 +85,22 @@ const PostOptions = ({ fableId, userPage, discoveryPage, userId }) => {
     ],
   });
 
+  const [deletePostFeed] = useMutation(DELETE_POST_MUTATION, {
+    variables: {
+      postId: fableId,
+    },
+    refetchQueries: [
+      {
+        query: QUERY_FOLLOWS_FABLES,
+        variables: {
+          sortBy: "NEWEST",
+          page: 1,
+          limit: 3,
+        },
+      },
+    ],
+  });
+
   const handleDelete = () => {
     Swal.fire({
       title: "Are you sure?",
@@ -94,6 +119,10 @@ const PostOptions = ({ fableId, userPage, discoveryPage, userId }) => {
           }
           if (userPage) {
             deletePostUserPage();
+            Swal.fire("Deleted!", "Your file has been deleted.", "success");
+          }
+          if (feedPage) {
+            deletePostFeed();
             Swal.fire("Deleted!", "Your file has been deleted.", "success");
           }
         } catch (error) {
