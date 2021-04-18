@@ -53,6 +53,17 @@ export const Wrapper = styled.div`
     white-space: normal;
   }
 
+  .div-followers-menu {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    svg {
+      cursor: pointer;
+      padding-left: 1rem;
+    }
+  }
+
   span {
     display: flex;
     cursor: pointer;

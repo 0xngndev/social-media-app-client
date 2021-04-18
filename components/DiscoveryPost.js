@@ -8,7 +8,7 @@ import useRedirect from "../hooks/useRedirect";
 import useUser from "./User";
 import { ADD_VIEW } from "../graphql/mutations";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import { BsEye } from "react-icons/bs";
+import { BsEye, BsThreeDotsVertical } from "react-icons/bs";
 import { FaRegComment } from "react-icons/fa";
 import { MdDateRange } from "react-icons/md";
 import { Wrapper } from "./styles/FableStyles";
@@ -53,13 +53,23 @@ const DiscoveryPost = ({ fable }) => {
           {fable?.author.username}
         </h3>
         {user ? (
-          <button onClick={handleFollow} style={followColor}>
-            {isFollowing ? "Unfollow -" : "Follow +"}
-          </button>
+          <div className="div-followers-menu">
+            <button onClick={handleFollow} style={followColor}>
+              {isFollowing ? "Unfollow -" : "Follow +"}
+            </button>
+            {user.username === fable.author.username ? (
+              <BsThreeDotsVertical />
+            ) : (
+              ""
+            )}
+          </div>
         ) : (
-          <button style={{ cursor: "not-allowed", backgroundColor: "gray" }}>
-            {isFollowing ? "Unfollow -" : "Follow +"}
-          </button>
+          <div className="div-followers-menu">
+            <button style={{ cursor: "not-allowed", backgroundColor: "gray" }}>
+              {isFollowing ? "Unfollow -" : "Follow +"}
+            </button>
+            <BsThreeDotsVertical />
+          </div>
         )}
       </div>
       <p style={{ cursor: "pointer" }}>321 Followers</p>
