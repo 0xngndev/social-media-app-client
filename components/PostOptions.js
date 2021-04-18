@@ -3,6 +3,7 @@ import gql from "graphql-tag";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 import { QUERY_ALL_FABLES } from "./DiscoveryFeed";
+import { QUERY_SINGLE_USER_ID } from "./SingleUserPage";
 
 const PostOptionsStyle = styled.div`
   display: flex;
@@ -44,8 +45,22 @@ const DELETE_POST_MUTATION = gql`
   }
 `;
 
-const PostOptions = ({ fableId }) => {
-  const [deletePost] = useMutation(DELETE_POST_MUTATION, {
+const PostOptions = ({ fableId, userPage, discoveryPage, userId }) => {
+  const [deletePostUserPage] = useMutation(DELETE_POST_MUTATION, {
+    variables: {
+      postId: fableId,
+    },
+    refetchQueries: [
+      {
+        query: QUERY_SINGLE_USER_ID,
+        variables: {
+          userId,
+        },
+      },
+    ],
+  });
+
+  const [deletePostDiscovery] = useMutation(DELETE_POST_MUTATION, {
     variables: {
       postId: fableId,
     },
@@ -73,8 +88,14 @@ const PostOptions = ({ fableId }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         try {
-          deletePost();
-          Swal.fire("Deleted!", "Your file has been deleted.", "success");
+          if (discoveryPage) {
+            deletePostDiscovery();
+            Swal.fire("Deleted!", "Your file has been deleted.", "success");
+          }
+          if (userPage) {
+            deletePostUserPage();
+            Swal.fire("Deleted!", "Your file has been deleted.", "success");
+          }
         } catch (error) {
           throw new Error(error);
         }

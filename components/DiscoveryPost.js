@@ -71,7 +71,11 @@ const DiscoveryPost = ({ fable }) => {
                   position="right center"
                   closeOnDocumentClick
                 >
-                  <PostOptions open={open} fableId={fable?.id} />
+                  <PostOptions
+                    open={open}
+                    fableId={fable?.id}
+                    discoveryPage={true}
+                  />
                 </Popup>
               </>
             ) : (

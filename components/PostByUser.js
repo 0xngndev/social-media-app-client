@@ -187,7 +187,12 @@ const PostByUser = ({ id }) => {
               position="right center"
               closeOnDocumentClick
             >
-              <PostOptions open={open} fableId={getPost?.id} />
+              <PostOptions
+                open={open}
+                fableId={getPost?.id}
+                userPage={true}
+                userId={id}
+              />
             </Popup>
           </>
         ) : (

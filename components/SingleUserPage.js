@@ -11,7 +11,7 @@ import FollowersList from "./FollowersList";
 import Spinner from "./Spinner";
 import useUser from "./User";
 
-const QUERY_SINGLE_USER_ID = gql`
+export const QUERY_SINGLE_USER_ID = gql`
   query getUserById($userId: ID!) {
     getUserById(userId: $userId) {
       id
