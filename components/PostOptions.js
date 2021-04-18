@@ -7,6 +7,8 @@ import Swal from "sweetalert2";
 import { QUERY_ALL_FABLES } from "./DiscoveryFeed";
 import { QUERY_FOLLOWS_FABLES } from "./FablesFeed";
 import { QUERY_SINGLE_USER_ID } from "./SingleUserPage";
+import { StyledPopup } from "./styles/StyledPopup";
+import UpdatePost from "./UpdatePost";
 
 const PostOptionsStyle = styled.div`
   display: flex;
@@ -15,7 +17,7 @@ const PostOptionsStyle = styled.div`
   justify-content: center;
   height: 100%;
   background: #fff;
-
+  width: 100%;
   border-radius: 4px;
   box-shadow: var(--bs);
   border: 1px solid var(--primaryColor);
@@ -54,6 +56,7 @@ const PostOptions = ({
   discoveryPage,
   userId,
   feedPage,
+  open,
 }) => {
   const [deletePostUserPage] = useMutation(DELETE_POST_MUTATION, {
     variables: {
@@ -133,11 +136,15 @@ const PostOptions = ({
   };
 
   return (
-    <PostOptionsStyle>
-      <h1 onClick={handleDelete}>DELETE</h1>
-      <div className="div-separator"></div>
-      <h1>EDIT</h1>
-    </PostOptionsStyle>
+    <>
+      <PostOptionsStyle>
+        <h1 onClick={handleDelete}>DELETE</h1>
+        <div className="div-separator"></div>
+        <StyledPopup trigger={<h1>EDIT</h1>} modal>
+          {(close) => <UpdatePost postId={fableId} close={close} />}
+        </StyledPopup>
+      </PostOptionsStyle>
+    </>
   );
 };
 

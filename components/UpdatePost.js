@@ -21,7 +21,7 @@ const UPDATE_POST_MUTATION = gql`
   }
 `;
 
-const CreatePost = ({ close }) => {
+const UpdatePost = ({ postId, close }) => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
   const [updatePost] = useMutation(UPDATE_POST_MUTATION);

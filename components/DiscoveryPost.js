@@ -69,7 +69,7 @@ const DiscoveryPost = ({ fable }) => {
                     </button>
                   )}
                   position="right center"
-                  closeOnDocumentClick
+                  closeOnDocumentClick={false}
                 >
                   <PostOptions
                     open={open}

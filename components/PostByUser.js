@@ -185,7 +185,7 @@ const PostByUser = ({ id }) => {
                 </button>
               )}
               position="right center"
-              closeOnDocumentClick
+              closeOnDocumentClick={false}
             >
               <PostOptions
                 open={open}
