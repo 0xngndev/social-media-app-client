@@ -54,13 +54,20 @@ export const Wrapper = styled.div`
   }
 
   .div-followers-menu {
+    position: relative;
     display: flex;
     flex-direction: row;
     align-items: center;
 
-    svg {
-      cursor: pointer;
-      padding-left: 1rem;
+    .button-popup {
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: #000;
+      svg {
+        cursor: pointer;
+        padding-left: 1rem;
+      }
     }
   }
 

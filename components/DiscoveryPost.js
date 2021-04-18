@@ -13,6 +13,9 @@ import { FaRegComment } from "react-icons/fa";
 import { MdDateRange } from "react-icons/md";
 import { Wrapper } from "./styles/FableStyles";
 import { useMutation } from "@apollo/client";
+import PostOptions from "./PostOptions";
+import { StyledPopup } from "./styles/StyledPopup";
+import Popup from "reactjs-popup";
 
 const DiscoveryPost = ({ fable }) => {
   const handleRouting = useRedirect();
@@ -58,7 +61,19 @@ const DiscoveryPost = ({ fable }) => {
               {isFollowing ? "Unfollow -" : "Follow +"}
             </button>
             {user.username === fable.author.username ? (
-              <BsThreeDotsVertical />
+              <>
+                <Popup
+                  trigger={(open) => (
+                    <button className="button-popup">
+                      <BsThreeDotsVertical />
+                    </button>
+                  )}
+                  position="right center"
+                  closeOnDocumentClick
+                >
+                  <PostOptions open={open} />
+                </Popup>
+              </>
             ) : (
               ""
             )}
@@ -68,7 +83,6 @@ const DiscoveryPost = ({ fable }) => {
             <button style={{ cursor: "not-allowed", backgroundColor: "gray" }}>
               {isFollowing ? "Unfollow -" : "Follow +"}
             </button>
-            <BsThreeDotsVertical />
           </div>
         )}
       </div>
