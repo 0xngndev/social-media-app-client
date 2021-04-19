@@ -31,6 +31,9 @@ const SideMenu = () => {
                     <StyledPopup trigger={<h3>CREATE</h3>} modal>
                       {(close) => <CreatePost close={close} />}
                     </StyledPopup>
+                    <h3 onClick={() => router.push(`/users/${user?.id}`)}>
+                      PROFILE
+                    </h3>
                   </>
                 )}
                 {user ? (
