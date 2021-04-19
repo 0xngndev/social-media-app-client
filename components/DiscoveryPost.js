@@ -16,8 +16,10 @@ import { useMutation } from "@apollo/client";
 import PostOptions from "./PostOptions";
 import { StyledPopup } from "./styles/StyledPopup";
 import Popup from "reactjs-popup";
+import { useState } from "react";
 
 const DiscoveryPost = ({ fable }) => {
+  const [openPopup, setOpenPopup] = useState(true);
   const handleRouting = useRedirect();
   const isFollowing = isFollowingFunc(fable.author.id);
   const user = useUser();
@@ -69,7 +71,9 @@ const DiscoveryPost = ({ fable }) => {
                     </button>
                   )}
                   position="right center"
-                  closeOnDocumentClick={false}
+                  openPopup={openPopup}
+                  setOpenPopup={setOpenPopup}
+                  closeOnDocumentClick={openPopup}
                 >
                   <PostOptions
                     open={open}

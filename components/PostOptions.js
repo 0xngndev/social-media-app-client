@@ -56,7 +56,8 @@ const PostOptions = ({
   discoveryPage,
   userId,
   feedPage,
-  open,
+  openPopup,
+  setOpenPopup,
 }) => {
   const [deletePostUserPage] = useMutation(DELETE_POST_MUTATION, {
     variables: {
@@ -104,6 +105,11 @@ const PostOptions = ({
     ],
   });
 
+  const deletedSuccessfully = () => {
+    Swal.fire("Deleted!", "Your file has been deleted.", "success");
+    setOpenPopup(!openPopup);
+  };
+
   const handleDelete = () => {
     Swal.fire({
       title: "Are you sure?",
@@ -118,15 +124,15 @@ const PostOptions = ({
         try {
           if (discoveryPage) {
             deletePostDiscovery();
-            Swal.fire("Deleted!", "Your file has been deleted.", "success");
+            deletedSuccessfully();
           }
           if (userPage) {
             deletePostUserPage();
-            Swal.fire("Deleted!", "Your file has been deleted.", "success");
+            deletedSuccessfully();
           }
           if (feedPage) {
             deletePostFeed();
-            Swal.fire("Deleted!", "Your file has been deleted.", "success");
+            deletedSuccessfully();
           }
         } catch (error) {
           throw new Error(error);
@@ -141,7 +147,16 @@ const PostOptions = ({
         <h1 onClick={handleDelete}>DELETE</h1>
         <div className="div-separator"></div>
         <StyledPopup trigger={<h1>EDIT</h1>} modal>
-          {(close) => <UpdatePost postId={fableId} close={close} />}
+          {(close) => (
+            <UpdatePost
+              postId={fableId}
+              close={close}
+              userId={userId}
+              userPage={userPage}
+              discoveryPage={discoveryPage}
+              feedPage={feedPage}
+            />
+          )}
         </StyledPopup>
       </PostOptionsStyle>
     </>

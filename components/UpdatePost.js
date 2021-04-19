@@ -10,8 +10,12 @@ import * as Yup from "yup";
 import { ErrorDiv } from "./styles/ErrorDiv";
 import { Field, useFormik, FormikProvider } from "formik";
 import { useRouter } from "next/router";
+import Swal from "sweetalert2";
 import { gql, useMutation } from "@apollo/client";
 import { FormStyles, MainWrapper } from "./styles/FormStyles";
+import { QUERY_ALL_FABLES } from "./DiscoveryFeed";
+import { QUERY_FOLLOWS_FABLES } from "./FablesFeed";
+import { QUERY_SINGLE_USER_ID } from "./SingleUserPage";
 
 const UPDATE_POST_MUTATION = gql`
   mutation updatePost($postId: ID!, $body: String!, $title: String!) {
@@ -21,10 +25,54 @@ const UPDATE_POST_MUTATION = gql`
   }
 `;
 
-const UpdatePost = ({ postId, close }) => {
+const UpdatePost = ({
+  postId,
+  close,
+  userId,
+  userPage,
+  discoveryPage,
+  feedPage,
+}) => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
   const [updatePost] = useMutation(UPDATE_POST_MUTATION);
+
+  const [updatePostUserPage] = useMutation(UPDATE_POST_MUTATION, {
+    refetchQueries: [
+      {
+        query: QUERY_SINGLE_USER_ID,
+        variables: {
+          userId,
+        },
+      },
+    ],
+  });
+
+  const [updatePostDiscovery] = useMutation(UPDATE_POST_MUTATION, {
+    refetchQueries: [
+      {
+        query: QUERY_ALL_FABLES,
+        variables: {
+          sortBy: "NEWEST",
+          page: 1,
+          limit: 3,
+        },
+      },
+    ],
+  });
+
+  const [updatePostFeed] = useMutation(UPDATE_POST_MUTATION, {
+    refetchQueries: [
+      {
+        query: QUERY_FOLLOWS_FABLES,
+        variables: {
+          sortBy: "NEWEST",
+          page: 1,
+          limit: 3,
+        },
+      },
+    ],
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -39,13 +87,33 @@ const UpdatePost = ({ postId, close }) => {
       const { body, title } = values;
 
       try {
-        const { data } = await updatePost({
-          variables: {
-            postId,
-            body,
-            title,
-          },
-        });
+        if (discoveryPage) {
+          const { data } = await updatePostDiscovery({
+            variables: {
+              postId,
+              body,
+              title,
+            },
+          });
+        }
+        if (feedPage) {
+          const { data } = await updatePostFeed({
+            variables: {
+              postId,
+              body,
+              title,
+            },
+          });
+        }
+        if (userPage) {
+          const { data } = await updatePostUserPage({
+            variables: {
+              postId,
+              body,
+              title,
+            },
+          });
+        }
 
         setSuccessMessage(`Success! Updating Post...`);
         setTimeout(() => {
