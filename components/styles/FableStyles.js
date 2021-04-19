@@ -20,16 +20,6 @@ export const Wrapper = styled.div`
     padding: 0;
     font-weight: 500;
     cursor: pointer;
-    transition: 0.3s;
-
-    &:hover {
-      transition: 0.3s;
-
-      border-radius: 4px;
-      padding: 0 1.5rem;
-      background-color: var(--primaryColor);
-      color: #fff;
-    }
   }
 
   h2 {

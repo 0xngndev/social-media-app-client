@@ -31,6 +31,8 @@ const DiscoveryPost = ({ fable }) => {
 
   const followColor = isFollowing
     ? { backgroundColor: "#b4b4b4" }
+    : user?.username === fable.author.username
+    ? { backgroundColor: "var(--secondaryColor)" }
     : { backgroundColor: "" };
 
   const userLikedPost = () => {
@@ -50,8 +52,24 @@ const DiscoveryPost = ({ fable }) => {
     handleRouting("fables", fable.id);
   };
 
+  const stylePostByUser = {
+    color:
+      user?.username === fable.author.username ? "var(--secondaryColor)" : "",
+  };
+
   return (
-    <Wrapper>
+    <Wrapper
+      style={{
+        border:
+          user?.username === fable.author.username
+            ? "3px solid var(--secondaryColor)"
+            : "",
+        borderTop:
+          user?.username === fable.author.username
+            ? "50px solid var(--secondaryColor)"
+            : "",
+      }}
+    >
       <div className="div-author">
         <h3 onClick={() => handleRouting("users", fable.author.id)}>
           {fable?.author.username}
@@ -101,21 +119,25 @@ const DiscoveryPost = ({ fable }) => {
       </p>
       <div className="div-likes">
         <div>
-          {userLikedPost() ? <AiFillHeart /> : <AiOutlineHeart />}
+          {userLikedPost() ? (
+            <AiFillHeart style={stylePostByUser} />
+          ) : (
+            <AiOutlineHeart style={stylePostByUser} />
+          )}
           <h3>{fable?.likeCount + likesString}</h3>
         </div>
         <div>
-          {<FaRegComment />}
+          {<FaRegComment style={stylePostByUser} />}
           <h3>{fable?.commentCount + commentsString}</h3>
         </div>
       </div>
       <div className="div-likes">
         <div>
-          <BsEye />
+          <BsEye style={stylePostByUser} />
           <h3>{fable?.views + viewString}</h3>
         </div>
         <div>
-          <MdDateRange />
+          <MdDateRange style={stylePostByUser} />
           <h3>{postedAt(fable?.createdAt) + " ago"}</h3>
         </div>
       </div>
