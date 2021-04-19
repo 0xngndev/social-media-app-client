@@ -87,7 +87,6 @@ const Fable = ({ fable }) => {
           </button>
         )}
       </div>
-      <p style={{ cursor: "pointer" }}>321 Followers</p>
       <div className="div-divider-short"></div>
       <h2 onClick={handleClick}>{fable?.title}</h2>
       <div className="div-divider-small"></div>

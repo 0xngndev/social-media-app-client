@@ -1,9 +1,4 @@
-//TODO: Find a way to properly center the form
-//In the page
-//Also, add Svgs at the sides
-//And loading
-//Add error if user is already logged in
-//Add "X" upper right corner and give it the close function
+//TODO: Abstract
 
 import React, { useState } from "react";
 import * as Yup from "yup";
@@ -35,7 +30,6 @@ const UpdatePost = ({
 }) => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
-  const [updatePost] = useMutation(UPDATE_POST_MUTATION);
 
   const [updatePostUserPage] = useMutation(UPDATE_POST_MUTATION, {
     refetchQueries: [

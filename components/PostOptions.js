@@ -56,8 +56,7 @@ const PostOptions = ({
   discoveryPage,
   userId,
   feedPage,
-  openPopup,
-  setOpenPopup,
+  open,
 }) => {
   const [deletePostUserPage] = useMutation(DELETE_POST_MUTATION, {
     variables: {
@@ -107,7 +106,6 @@ const PostOptions = ({
 
   const deletedSuccessfully = () => {
     Swal.fire("Deleted!", "Your file has been deleted.", "success");
-    setOpenPopup(!openPopup);
   };
 
   const handleDelete = () => {

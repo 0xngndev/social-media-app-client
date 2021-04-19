@@ -19,7 +19,6 @@ import Popup from "reactjs-popup";
 import { useState } from "react";
 
 const DiscoveryPost = ({ fable }) => {
-  const [openPopup, setOpenPopup] = useState(true);
   const handleRouting = useRedirect();
   const isFollowing = isFollowingFunc(fable.author.id);
   const user = useUser();
@@ -71,15 +70,9 @@ const DiscoveryPost = ({ fable }) => {
                     </button>
                   )}
                   position="right center"
-                  openPopup={openPopup}
-                  setOpenPopup={setOpenPopup}
-                  closeOnDocumentClick={openPopup}
+                  closeOnDocumentClick={false}
                 >
-                  <PostOptions
-                    open={open}
-                    fableId={fable?.id}
-                    discoveryPage={true}
-                  />
+                  <PostOptions fableId={fable?.id} discoveryPage={true} />
                 </Popup>
               </>
             ) : (
@@ -94,7 +87,6 @@ const DiscoveryPost = ({ fable }) => {
           </div>
         )}
       </div>
-      <p style={{ cursor: "pointer" }}>321 Followers</p>
       <div className="div-divider-short"></div>
       <h2 onClick={handleClick}>{fable?.title}</h2>
       <div className="div-divider-small"></div>
