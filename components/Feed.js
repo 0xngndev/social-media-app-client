@@ -1,4 +1,3 @@
-import React from "react";
 import FablesFeed from "./FablesFeed";
 import { FeedMainWrapper } from "./styles/FeedMainWrapperStyles";
 

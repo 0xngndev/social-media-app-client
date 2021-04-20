@@ -1,7 +1,7 @@
 import React from "react";
-import { StyledPopup } from "./styles/StyledPopup";
-import { HeroStyles } from "./styles/HeroStyles";
 import RegisterForm from "./RegisterForm";
+import { HeroStyles } from "./styles/HeroStyles";
+import { StyledPopup } from "./styles/StyledPopup";
 
 const Hero = () => {
   return (

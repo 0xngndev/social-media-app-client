@@ -28,6 +28,11 @@ export const Wrapper = styled.div`
     cursor: pointer;
     transition: 0.3s;
 
+    &:visited {
+      text-decoration: #e7e7e7;
+      color: #e7e7e7;
+    }
+
     &:hover {
       transition: 0.3s;
       transform: translateY(-5px);

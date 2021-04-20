@@ -6,14 +6,14 @@
 //See if u can refetch onSubmission cause reload is super hacky
 
 import React, { useState } from "react";
-import * as Yup from "yup";
-import { ErrorDiv } from "./styles/ErrorDiv";
-import { useFormik } from "formik";
-import { useRouter } from "next/router";
-import { gql, useMutation } from "@apollo/client";
-import { FormStyles, MainWrapper } from "./styles/FormStyles";
 import RegisterForm from "./RegisterForm";
 import Router from "next/router";
+import * as Yup from "yup";
+import { ErrorDiv } from "./styles/ErrorDiv";
+import { FormStyles, MainWrapper } from "./styles/FormStyles";
+import { gql, useMutation } from "@apollo/client";
+import { useFormik } from "formik";
+import { useRouter } from "next/router";
 
 const LOGIN_ACCOUNT_MUTATION = gql`
   mutation login($username: String!, $password: String!) {

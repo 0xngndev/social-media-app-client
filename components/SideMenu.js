@@ -4,8 +4,8 @@
 import LoginForm from "./LoginForm";
 import CreatePost from "./CreatePost";
 import Logout from "./Logout";
-import useUser from "./User";
 import RegisterForm from "./RegisterForm";
+import useUser from "./User";
 import { SideMenuWrapper } from "./styles/SideMenuStyles";
 import { StyledPopup } from "./styles/StyledPopup";
 import { useRouter } from "next/router";

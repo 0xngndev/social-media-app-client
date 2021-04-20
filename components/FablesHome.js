@@ -1,8 +1,7 @@
 import DiscoveryPost from "./DiscoveryPost";
+import Spinner from "./Spinner";
 import { FableWrapper } from "./styles/FableWrapperStyles";
 import { gql, useQuery } from "@apollo/client";
-import { SortByButtonsStyle } from "./styles/SortByButtonStyle";
-import Spinner from "./Spinner";
 
 export const QUERY_ALL_FABLES = gql`
   query getPaginatedPosts($sortBy: SortByType!, $page: Int!, $limit: Int!) {

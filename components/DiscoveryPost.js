@@ -3,6 +3,8 @@
 
 import isFollowingFunc from "../helpers/isFollowing";
 import postedAt from "../helpers/postedAt";
+import PostOptions from "./PostOptions";
+import Popup from "reactjs-popup";
 import useFollow from "../hooks/useFollow";
 import useRedirect from "../hooks/useRedirect";
 import useUser from "./User";
@@ -13,10 +15,6 @@ import { FaRegComment } from "react-icons/fa";
 import { MdDateRange } from "react-icons/md";
 import { Wrapper } from "./styles/FableStyles";
 import { useMutation } from "@apollo/client";
-import PostOptions from "./PostOptions";
-import { StyledPopup } from "./styles/StyledPopup";
-import Popup from "reactjs-popup";
-import { useState } from "react";
 
 const DiscoveryPost = ({ fable }) => {
   const handleRouting = useRedirect();

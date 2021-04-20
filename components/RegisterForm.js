@@ -5,13 +5,13 @@
 //When refactoring, turn the errors into a custom hook
 
 import React, { useState } from "react";
+import LoginForm from "./LoginForm";
 import * as Yup from "yup";
 import { MainWrapper, FormStyles } from "./styles/FormStyles";
 import { ErrorDiv } from "./styles/ErrorDiv";
 import { useFormik } from "formik";
 import { gql, useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
-import LoginForm from "./LoginForm";
 
 const REGISTER_ACCOUNT_MUTATION = gql`
   mutation register($input: RegisterInput) {

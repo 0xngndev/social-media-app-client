@@ -4,8 +4,6 @@ import React, { useState } from "react";
 import * as Yup from "yup";
 import { ErrorDiv } from "./styles/ErrorDiv";
 import { Field, useFormik, FormikProvider } from "formik";
-import { useRouter } from "next/router";
-import Swal from "sweetalert2";
 import { gql, useMutation } from "@apollo/client";
 import { FormStyles, MainWrapper } from "./styles/FormStyles";
 import { QUERY_ALL_FABLES } from "./DiscoveryFeed";

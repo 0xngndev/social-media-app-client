@@ -1,7 +1,7 @@
-import { useLazyQuery } from "@apollo/client";
-import jwtDecode from "jwt-decode";
 import gql from "graphql-tag";
+import jwtDecode from "jwt-decode";
 import { useEffect, useState } from "react";
+import { useLazyQuery } from "@apollo/client";
 
 export const QUERY_GET_USER = gql`
   query getUser($token: String!) {
