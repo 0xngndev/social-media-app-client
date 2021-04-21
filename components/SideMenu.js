@@ -14,6 +14,12 @@ const SideMenu = () => {
   const router = useRouter();
   const user = useUser();
 
+  const isRouteActive = (route) => router.pathname === route;
+  const activeStyle = (route) =>
+    isRouteActive(route)
+      ? { backgroundColor: "var(--lowOpBlue)", padding: "1rem 0" }
+      : { backgroundColor: "" };
+
   return (
     <>
       <SideMenuWrapper>
@@ -24,14 +30,29 @@ const SideMenu = () => {
           <div className="div-list">
             <ul>
               <li>
-                {user && <h3 onClick={() => router.push(`/feed`)}>FEED</h3>}
-                <h3 onClick={() => router.push(`/discovery`)}>DISCOVERY</h3>
+                {user && (
+                  <h3
+                    style={activeStyle("/feed")}
+                    onClick={() => router.push(`/feed`)}
+                  >
+                    FEED
+                  </h3>
+                )}
+                <h3
+                  style={activeStyle("/discovery")}
+                  onClick={() => router.push(`/discovery`)}
+                >
+                  DISCOVERY
+                </h3>
                 {user && (
                   <>
                     <StyledPopup trigger={<h3>CREATE</h3>} modal>
                       {(close) => <CreatePost close={close} />}
                     </StyledPopup>
-                    <h3 onClick={() => router.push(`/users/${user?.id}`)}>
+                    <h3
+                      style={activeStyle(`/users/[id]`)}
+                      onClick={() => router.push(`/users/${user?.id}`)}
+                    >
                       PROFILE
                     </h3>
                   </>
