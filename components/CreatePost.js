@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import { gql, useMutation } from "@apollo/client";
 import { FormStyles, MainWrapper } from "./styles/FormStyles";
 import { QUERY_ALL_FABLES } from "./DiscoveryFeed";
+import Router from "next/router";
 
 const CREATE_POST_MUTATION = gql`
   mutation createPost($body: String!, $title: String!) {
@@ -68,7 +69,8 @@ const CreatePost = ({ close }) => {
         setSuccessMessage(`Success! Creating Post...`);
         setTimeout(() => {
           setSuccessMessage(null);
-          router.push("/discovery");
+          router.push(`/fables/${data.createPost.id}`);
+
           close();
         }, 2000);
         setErrorMessage(null);
