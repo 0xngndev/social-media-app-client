@@ -15,6 +15,8 @@ import { FaRegComment } from "react-icons/fa";
 import { MdDateRange } from "react-icons/md";
 import { Wrapper } from "./styles/FableStyles";
 import { useMutation } from "@apollo/client";
+import { StyledPopup } from "./styles/StyledPopup";
+import FollowersList from "./FollowersList";
 
 const DiscoveryPost = ({ fable }) => {
   const handleRouting = useRedirect();
@@ -122,7 +124,19 @@ const DiscoveryPost = ({ fable }) => {
           ) : (
             <AiOutlineHeart style={stylePostByUser} />
           )}
-          <h3>{fable?.likeCount + likesString}</h3>
+          <StyledPopup
+            trigger={<h3>{fable?.likeCount + likesString}</h3>}
+            modal
+          >
+            {(close) => (
+              <FollowersList
+                close={close}
+                followers={fable?.likes}
+                follows={false}
+                likes={true}
+              />
+            )}
+          </StyledPopup>
         </div>
         <div>
           {<FaRegComment style={stylePostByUser} />}

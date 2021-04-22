@@ -12,6 +12,8 @@ import { FaRegComment } from "react-icons/fa";
 import { MdDateRange } from "react-icons/md";
 import { PostByUserStyles } from "./styles/PostByUserStyles";
 import { useMutation, useQuery } from "@apollo/client";
+import { StyledPopup } from "./styles/StyledPopup";
+import FollowersList from "./FollowersList";
 
 const GET_FABLE_BY_ID = gql`
   query getPost($postId: ID!) {
@@ -113,7 +115,19 @@ const PostByUser = ({ id }) => {
       <div className="div-comment">
         <div>
           <AiFillHeart />
-          <span>{getPost?.likeCount + likesString}</span>
+          <StyledPopup
+            trigger={<span>{getPost?.likeCount + likesString}</span>}
+            modal
+          >
+            {(close) => (
+              <FollowersList
+                close={close}
+                followers={getPost?.likes}
+                follows={false}
+                likes={true}
+              />
+            )}
+          </StyledPopup>
         </div>
         <div>
           <FaRegComment />
