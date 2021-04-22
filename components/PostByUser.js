@@ -69,6 +69,14 @@ const PostByUser = ({ id }) => {
     handleRouting("fables", id);
   };
 
+  const userLikedPost = () => {
+    const userArray = getPost?.likes?.map(
+      (liker) => liker.username === user?.username
+    );
+    if (userArray.length <= 0) return false;
+    return true;
+  };
+
   const likesString = getPost?.likeCount === 1 ? " Like" : " Likes";
   const commentsString = getPost?.commentCount === 1 ? " Comment" : " Comments";
   const viewString = getPost?.views === 1 ? " view" : " views";
@@ -113,8 +121,9 @@ const PostByUser = ({ id }) => {
       </p>
       <div className="div-sep"></div>
       <div className="div-comment">
-        <div>
-          <AiFillHeart />
+        <div style={{ cursor: "pointer" }}>
+          {userLikedPost() ? <AiFillHeart /> : <AiOutlineHeart />}
+
           <StyledPopup
             trigger={<span>{getPost?.likeCount + likesString}</span>}
             modal
