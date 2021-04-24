@@ -1,34 +1,30 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 500Tales - Work in Progress
+500Tales is a social media app dedicated to the art of short fiction. Users can upload stories up to 500 words, follow other users, comment on other stories, like them and much more. My main motivation behind building this site besides the practive was to honor a craft that I love and I feel lacks a proper platform.
 
-## Getting Started
+## Features
+* Create, read, update, and delete stories
+* Follow other users and be followed by other users
+* Like and comment on different posts
+* Discovery section to find rising stories and new users to follow
+* Dedicated feed with the stories of the users you follow.
+* Pagination and filtering. The user can filter by NEW | OLDEST | TOP | MOST VIEWED | HOT
+* Users can see how many views their stories and those of others got
 
-First, run the development server:
+## Tech Stack
+* GraphQL
+* MongoDB
+* Next.js
+* Apollo Server
+* Apollo Client
+* Node.js
+* Styled-Components
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## What I've Learned
+This project was a fantastic way of sharpening my backend skills, and practice on my logic. The same goes for the frontend, practicing certain data-fetching and encapsulation patterns helped me absorb them. I practiced abstracting logic quite a bit too, although I still believe I could've abstracted more. Perhaps I will do so in future iterations. All of this was practice, though. When it comes to learning, I believe the main thing I learned was to start with the view/UI/design and build the rest from there. In writing terms, I "pantsed" this project. This means I made decisions as I went without a clear view of what I wanted to create exactly. This lead to troubles in the early models that wound up with me writing very similar resolvers to fix very specific issues in the frontend. Lesson learned.
+  
+### List of Things I'm Planning to Add Eventually
+* Ability to save posts
+* Realtime notifications using GraphQL subscriptions
+* Improvements in the UI
+* Ability to upload images
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
