@@ -21,6 +21,9 @@
 
 ## What I've Learned
 This project was a fantastic way of sharpening my backend skills, and practice on my logic. The same goes for the frontend, practicing certain data-fetching and encapsulation patterns helped me absorb them. I practiced abstracting logic quite a bit too, although I still believe I could've abstracted more. Perhaps I will do so in future iterations. All of this was practice, though. When it comes to learning, I believe the main thing I learned was to start with the view/UI/design and build the rest from there. In writing terms, I "pantsed" this project. This means I made decisions as I went without a clear view of what I wanted to create exactly. This lead to troubles in the early models that wound up with me writing very similar resolvers to fix very specific issues in the frontend. Lesson learned.
+
+## Completion Percentage
+90% => Only responsiveness is missing to launch the first iteration.
   
 ### List of Things I'm Planning to Add Eventually
 * Ability to save posts
