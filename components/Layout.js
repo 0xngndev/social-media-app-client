@@ -1,6 +1,8 @@
 import SideMenu from "../components/SideMenu";
 import styled from "styled-components";
 import { createGlobalStyle } from "styled-components";
+import { FaBars } from "react-icons/fa";
+import { useEffect, useState } from "react";
 
 export const GlobalStyles = createGlobalStyle`
 
@@ -47,6 +49,16 @@ const PageWrapper = styled.div`
   flex-direction: row;
   height: 100%;
 
+  svg {
+    fill: #fff;
+    position: relative;
+    top: 15px;
+    left: 15px;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+  }
+
   img {
     position: absolute;
     z-index: -2;
@@ -65,12 +77,41 @@ const SecondWrapper = styled.div`
 `;
 
 const Layout = ({ children }) => {
+  const [showSideBar, setShowSideBar] = useState(false);
+  const [dimensions, setDimensions] = useState({
+    height: window.innerHeight,
+    width: window.innerWidth,
+  });
+
+  useEffect(() => {
+    function handleResize() {
+      setDimensions({
+        height: window.innerHeight,
+        width: window.innerWidth,
+      });
+    }
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  });
+
   return (
     <>
       <PageWrapper>
         <GlobalStyles />
         <img src="/assets/wave.svg" alt="wave" />
-        <SideMenu />
+        {dimensions.width <= 768 && !showSideBar ? (
+          <FaBars onClick={() => setShowSideBar(!showSideBar)} />
+        ) : (
+          <SideMenu
+            width={dimensions.width}
+            setShowSideBar={setShowSideBar}
+            showSideBar={showSideBar}
+          />
+        )}
         <SecondWrapper>{children}</SecondWrapper>
       </PageWrapper>
     </>

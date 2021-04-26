@@ -12,12 +12,23 @@ export const SideMenuWrapper = styled.aside`
   bottom: 0;
   height: 100vh;
   box-shadow: var(--bs);
+  min-width: 182px;
 
   .div-sidemenu-wrap {
     position: sticky;
     top: 0;
     width: 100%;
     text-align: center;
+
+    svg {
+      position: relative;
+      top: 20px;
+      left: 0;
+      width: 30px;
+      height: 30px;
+      fill: #fff;
+      cursor: pointer;
+    }
   }
 
   .div-logo {

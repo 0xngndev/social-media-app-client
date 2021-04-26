@@ -6,11 +6,12 @@ import CreatePost from "./CreatePost";
 import Logout from "./Logout";
 import RegisterForm from "./RegisterForm";
 import useUser from "./User";
+import { AiOutlineClose } from "react-icons/ai";
 import { SideMenuWrapper } from "./styles/SideMenuStyles";
 import { StyledPopup } from "./styles/StyledPopup";
 import { useRouter } from "next/router";
 
-const SideMenu = () => {
+const SideMenu = ({ width, setShowSideBar, showSideBar }) => {
   const router = useRouter();
   const user = useUser();
 
@@ -24,6 +25,11 @@ const SideMenu = () => {
     <>
       <SideMenuWrapper>
         <div className="div-sidemenu-wrap">
+          {width <= 768 ? (
+            <AiOutlineClose onClick={() => setShowSideBar(!showSideBar)} />
+          ) : (
+            ""
+          )}
           <div className="div-logo">
             <h1 onClick={() => router.push(`/`)}>F</h1>
           </div>
