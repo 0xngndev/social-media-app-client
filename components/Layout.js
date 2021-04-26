@@ -1,7 +1,7 @@
 import SideMenu from "../components/SideMenu";
 import styled from "styled-components";
 import { createGlobalStyle } from "styled-components";
-import { FaBars } from "react-icons/fa";
+import { GoThreeBars } from "react-icons/go";
 import { useEffect, useState } from "react";
 
 export const GlobalStyles = createGlobalStyle`
@@ -50,13 +50,18 @@ const PageWrapper = styled.div`
   height: 100%;
 
   svg {
-    fill: #fff;
-    position: relative;
-    top: 15px;
-    left: 15px;
-    width: 25px;
-    height: 25px;
-    cursor: pointer;
+    display: none;
+
+    @media screen and (max-width: 768px) {
+      display: flex;
+      fill: #fff;
+      position: relative;
+      top: 15px;
+      left: 15px;
+      min-width: 25px;
+      min-height: 25px;
+      cursor: pointer;
+    }
   }
 
   img {
@@ -77,40 +82,21 @@ const SecondWrapper = styled.div`
 `;
 
 const Layout = ({ children }) => {
-  const [showSideBar, setShowSideBar] = useState(false);
-  const [dimensions, setDimensions] = useState({
-    height: window.innerHeight,
-    width: window.innerWidth,
-  });
-
-  useEffect(() => {
-    function handleResize() {
-      setDimensions({
-        height: window.innerHeight,
-        width: window.innerWidth,
-      });
-    }
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  });
+  const [isSideMenuActive, setIsSideMenuActive] = useState(false);
 
   return (
     <>
       <PageWrapper>
         <GlobalStyles />
         <img src="/assets/wave.svg" alt="wave" />
-        {dimensions.width <= 768 && !showSideBar ? (
-          <FaBars onClick={() => setShowSideBar(!showSideBar)} />
+        <SideMenu
+          isSideMenuActive={isSideMenuActive}
+          setIsSideMenuActive={setIsSideMenuActive}
+        />
+        {!isSideMenuActive ? (
+          <GoThreeBars onClick={() => setIsSideMenuActive(!isSideMenuActive)} />
         ) : (
-          <SideMenu
-            width={dimensions.width}
-            setShowSideBar={setShowSideBar}
-            showSideBar={showSideBar}
-          />
+          ""
         )}
         <SecondWrapper>{children}</SecondWrapper>
       </PageWrapper>

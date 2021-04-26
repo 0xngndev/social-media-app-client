@@ -10,8 +10,9 @@ import { AiOutlineClose } from "react-icons/ai";
 import { SideMenuWrapper } from "./styles/SideMenuStyles";
 import { StyledPopup } from "./styles/StyledPopup";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
-const SideMenu = ({ width, setShowSideBar, showSideBar }) => {
+const SideMenu = ({ isActive, isSideMenuActive, setIsSideMenuActive }) => {
   const router = useRouter();
   const user = useUser();
 
@@ -23,13 +24,12 @@ const SideMenu = ({ width, setShowSideBar, showSideBar }) => {
 
   return (
     <>
-      <SideMenuWrapper>
+      <SideMenuWrapper isActive={isSideMenuActive ? true : false}>
         <div className="div-sidemenu-wrap">
-          {width <= 768 ? (
-            <AiOutlineClose onClick={() => setShowSideBar(!showSideBar)} />
-          ) : (
-            ""
-          )}
+          <AiOutlineClose
+            isActive={isSideMenuActive ? true : false}
+            onClick={() => setIsSideMenuActive(!isSideMenuActive)}
+          />
           <div className="div-logo">
             <h1 onClick={() => router.push(`/`)}>F</h1>
           </div>

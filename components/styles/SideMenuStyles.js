@@ -14,6 +14,10 @@ export const SideMenuWrapper = styled.aside`
   box-shadow: var(--bs);
   min-width: 182px;
 
+  @media screen and (max-width: 768px) {
+    display: ${(props) => (props.isActive ? "flex" : "none")};
+  }
+
   .div-sidemenu-wrap {
     position: sticky;
     top: 0;
@@ -22,8 +26,10 @@ export const SideMenuWrapper = styled.aside`
 
     svg {
       position: relative;
-      top: 20px;
-      left: 0;
+      top: 30px;
+      right: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       width: 30px;
       height: 30px;
       fill: #fff;
