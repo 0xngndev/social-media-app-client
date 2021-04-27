@@ -17,6 +17,11 @@ export const DiscoverHomeStyles = styled.section`
     padding-top: 4.5rem;
     color: var(--primaryColor);
     padding-bottom: 4.5rem;
+
+    @media screen and (max-width: 505px) {
+      font-size: 3.5rem;
+      text-align: center;
+    }
   }
 
   span {
