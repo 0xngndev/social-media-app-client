@@ -21,6 +21,10 @@ export const HeroStyles = styled.div`
       padding: 0;
       margin: 0;
       line-height: 1.5;
+
+      @media screen and (max-width: 590px) {
+        font-size: 6rem;
+      }
     }
 
     span {
@@ -29,6 +33,11 @@ export const HeroStyles = styled.div`
       color: #949494;
       width: 55%;
       text-align: center;
+
+      @media screen and (max-width: 590px) {
+        width: 80%;
+        font-size: 1.75rem;
+      }
     }
 
     p {
@@ -39,6 +48,10 @@ export const HeroStyles = styled.div`
       font-size: 8rem;
       color: var(--primaryColor);
       line-height: 1;
+
+      @media screen and (max-width: 590px) {
+        font-size: 7rem;
+      }
 
       p {
         color: black;

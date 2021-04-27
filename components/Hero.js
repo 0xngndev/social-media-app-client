@@ -11,7 +11,7 @@ const Hero = () => {
         <h1>WELCOME TO</h1>
 
         <p>
-          500<p>Fables</p>
+          500<p>Tales</p>
         </p>
 
         <span>
