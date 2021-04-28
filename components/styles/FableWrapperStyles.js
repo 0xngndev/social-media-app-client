@@ -7,6 +7,10 @@ export const FableWrapper = styled.div`
   flex-wrap: wrap;
   align-items: center;
 
+  @media screen and (max-width: 901px) {
+    flex-direction: column;
+  }
+
   .div-load-more {
     display: flex;
     justify-content: center;

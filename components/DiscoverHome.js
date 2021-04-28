@@ -7,6 +7,10 @@ const HomeWrapper = styled.article`
   width: 80%;
   justify-content: center;
   align-self: center;
+
+  @media screen and (max-width: 901px) {
+    flex-direction: column;
+  }
 `;
 
 const DiscoverHome = () => {

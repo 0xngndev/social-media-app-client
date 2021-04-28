@@ -13,6 +13,11 @@ export const Wrapper = styled.div`
 
   box-shadow: var(--bs);
 
+  @media screen and (max-width: 901px) {
+    width: 80%;
+    margin-top: 2rem;
+  }
+
   h3 {
     font-size: 1.4rem;
     font-weight: 700;
@@ -20,6 +25,10 @@ export const Wrapper = styled.div`
     padding: 0;
     font-weight: 500;
     cursor: pointer;
+
+    @media screen and (max-width: 901px) {
+      text-align: start;
+    }
   }
 
   h2 {
@@ -27,6 +36,10 @@ export const Wrapper = styled.div`
     font-size: 1.5rem;
     cursor: pointer;
     transition: 0.3s;
+
+    @media screen and (max-width: 901px) {
+      text-align: start;
+    }
 
     &:visited {
       text-decoration: #e7e7e7;
@@ -46,6 +59,10 @@ export const Wrapper = styled.div`
     color: #949494;
 
     white-space: normal;
+
+    @media screen and (max-width: 901px) {
+      text-align: start;
+    }
   }
 
   .div-followers-menu {

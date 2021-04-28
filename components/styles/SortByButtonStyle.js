@@ -7,6 +7,11 @@ export const SortByButtonsStyle = styled.div`
   flex-direction: row;
   width: 100%;
 
+  @media screen and (max-width: 901px) {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
   button {
     outline: none;
     border: none;
@@ -21,6 +26,12 @@ export const SortByButtonsStyle = styled.div`
     margin-left: 0;
     margin-bottom: 4rem;
     cursor: pointer;
+
+    @media screen and (max-width: 901px) {
+      margin-bottom: 2rem;
+      padding: 1rem;
+      width: 50px;
+    }
   }
 
   .button-selected {
@@ -37,5 +48,11 @@ export const SortByButtonsStyle = styled.div`
     margin-left: 0;
     margin-bottom: 4rem;
     cursor: pointer;
+
+    @media screen and (max-width: 901px) {
+      margin-bottom: 2rem;
+      padding: 1rem;
+      width: 50px;
+    }
   }
 `;

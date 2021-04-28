@@ -13,6 +13,10 @@ export const FeedMainWrapper = styled.div`
       font-size: 3rem;
       margin-bottom: 0;
     }
+
+    @media screen and (max-width: 901px) {
+      text-align: center;
+    }
   }
 
   .div-divider {
@@ -20,5 +24,12 @@ export const FeedMainWrapper = styled.div`
     background-color: var(--primaryColor);
     width: 60%;
     margin-bottom: 2.5rem;
+    margin-top: 1rem;
+
+    @media screen and (max-width: 901px) {
+      margin: auto;
+      margin-bottom: 2.5rem;
+      margin-top: 1rem;
+    }
   }
 `;
