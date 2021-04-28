@@ -27,6 +27,7 @@ const SideMenu = ({ isActive, isSideMenuActive, setIsSideMenuActive }) => {
       <SideMenuWrapper isActive={isSideMenuActive ? true : false}>
         <div className="div-sidemenu-wrap">
           <AiOutlineClose
+            className="fa-three-bars"
             isActive={isSideMenuActive ? true : false}
             onClick={() => setIsSideMenuActive(!isSideMenuActive)}
           />

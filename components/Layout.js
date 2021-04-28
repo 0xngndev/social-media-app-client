@@ -49,7 +49,7 @@ const PageWrapper = styled.div`
   flex-direction: row;
   height: 100%;
 
-  svg {
+  .fa-three-bars {
     display: none;
 
     @media screen and (max-width: 768px) {
@@ -94,7 +94,10 @@ const Layout = ({ children }) => {
           setIsSideMenuActive={setIsSideMenuActive}
         />
         {!isSideMenuActive ? (
-          <GoThreeBars onClick={() => setIsSideMenuActive(!isSideMenuActive)} />
+          <GoThreeBars
+            className="fa-three-bars"
+            onClick={() => setIsSideMenuActive(!isSideMenuActive)}
+          />
         ) : (
           ""
         )}
