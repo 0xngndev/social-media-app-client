@@ -15,6 +15,10 @@ export const LeaveCommentStyles = styled.form`
     outline: none;
     padding: 0;
 
+    @media screen and (max-width: 768px) {
+      width: 70%;
+    }
+
     label {
       font-weight: 600;
       font-size: 1.4rem;
@@ -26,6 +30,14 @@ export const LeaveCommentStyles = styled.form`
         border: 1px solid #b4b4b4;
         border-radius: 2px;
         min-height: 80px;
+
+        @media screen and (max-width: 530px) {
+          min-width: 250px;
+        }
+
+        @media screen and (max-width: 340px) {
+          min-width: 190px;
+        }
 
         &:focus {
           outline: none;

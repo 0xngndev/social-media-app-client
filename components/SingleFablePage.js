@@ -84,21 +84,21 @@ const SingleFablePage = ({ id }) => {
         <div className="div-divider"></div>
         <div className="div-likes-comments">
           <div className="div-metrics">
-            <div onClick={handleLikePost}>
+            <div className="div-likes-svg" onClick={handleLikePost}>
               {userLikedPost() ? <AiFillHeart /> : <AiOutlineHeart />}
               <h3>{getPost.likeCount + likesString}</h3>
             </div>
-            <div>
+            <div className="div-comments-svg">
               {<FaRegComment />}
               <h3>{getPost.commentCount + commentsString}</h3>
             </div>
           </div>
           <div className="div-metrics">
-            <div>
+            <div className="div-likes-svg">
               <BsEye />
               <h3>{getPost?.views + viewString}</h3>
             </div>
-            <div>
+            <div className="div-comments-svg">
               <MdDateRange />
               <h3>{postedAt(getPost.createdAt) + " ago"}</h3>
             </div>

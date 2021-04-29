@@ -22,6 +22,10 @@ export const SingleFableStyles = styled.div`
     align-items: center;
     width: 55%;
 
+    @media screen and (max-width: 768px) {
+      width: 90%;
+    }
+
     button {
       outline: none;
       border: none;
@@ -60,11 +64,27 @@ export const SingleFableStyles = styled.div`
       .div-metrics {
         display: flex;
         flex-direction: row;
+        justify-content: flex-start;
+        width: 70%;
+
+        .div-comments-svg {
+          justify-content: flex-end;
+        }
+
+        .div-likes-svg {
+          justify-content: flex-start;
+        }
+
+        h3 {
+          @media screen and (max-width: 768px) {
+            font-size: 1.5rem;
+          }
+        }
 
         div {
           display: flex;
           flex-direction: row;
-          justify-content: flex-start;
+          justify-content: flex-end;
 
           svg {
             padding-right: 0.5rem;
@@ -72,6 +92,11 @@ export const SingleFableStyles = styled.div`
             width: 20px;
             cursor: pointer;
             color: var(--primaryColor);
+
+            @media screen and (max-width: 768px) {
+              height: 15px;
+              width: 15px;
+            }
           }
         }
       }
