@@ -129,10 +129,7 @@ const PostByUser = ({ id }) => {
         <div style={{ cursor: "pointer" }}>
           {userLikedPost() ? <AiFillHeart /> : <AiOutlineHeart />}
 
-          <StyledPopup
-            trigger={<span>{getPost?.likeCount + likesString}</span>}
-            modal
-          >
+          <StyledPopup trigger={<span>{getPost?.likeCount}</span>} modal>
             {(close) => (
               <FollowersList
                 close={close}
@@ -145,11 +142,11 @@ const PostByUser = ({ id }) => {
         </div>
         <div>
           <FaRegComment />
-          <span>{getPost?.commentCount + commentsString}</span>
+          <span>{getPost?.commentCount}</span>
         </div>
         <div>
           <BsEye />
-          <span>{getPost?.views + viewString}</span>
+          <span>{getPost?.views}</span>
         </div>
       </div>
     </PostByUserStyles>

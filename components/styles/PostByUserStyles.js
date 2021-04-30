@@ -9,7 +9,7 @@ export const PostByUserStyles = styled.div`
   padding: 1.5rem;
   box-shadow: var(--bs);
   margin-bottom: 2rem;
-  width: 60%;
+  width: 100%;
 
   .post-user-date {
     display: flex;
@@ -85,8 +85,8 @@ export const PostByUserStyles = styled.div`
   .div-comment {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
+    justify-content: flex-start;
+    max-width: 100%;
     margin-top: 1.5rem;
 
     div {
@@ -97,6 +97,7 @@ export const PostByUserStyles = styled.div`
 
       span {
         padding-right: 2rem;
+        font-weight: 600;
         &:hover {
           text-decoration: none;
         }
@@ -109,11 +110,16 @@ export const PostByUserStyles = styled.div`
         width: 20px;
         cursor: pointer;
         color: var(--primaryColor);
-      }
-    }
 
-    .span-last {
-      padding-right: 0rem;
+        @media screen and (max-width: 768) {
+          height: 15px;
+          width: 20px;
+        }
+      }
+
+      .span-last {
+        padding-right: 0rem;
+      }
     }
   }
 `;
