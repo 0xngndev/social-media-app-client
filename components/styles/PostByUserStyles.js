@@ -9,6 +9,26 @@ export const PostByUserStyles = styled.div`
   padding: 1.5rem;
   box-shadow: var(--bs);
   margin-bottom: 2rem;
+  width: 60%;
+
+  .post-user-date {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 1rem;
+    svg {
+      fill: var(--primaryColor);
+      padding-right: 0.5rem;
+      height: 20px;
+      width: 20px;
+    }
+
+    .span-last {
+      font-size: 1.3rem;
+      font-weight: 500;
+    }
+  }
 
   .div-title-settings {
     position: relative;
@@ -39,7 +59,7 @@ export const PostByUserStyles = styled.div`
       margin: 0;
       padding: 0;
       justify-content: flex-start;
-      line-height: 2;
+      line-height: 1;
       cursor: pointer;
     }
   }
@@ -59,6 +79,7 @@ export const PostByUserStyles = styled.div`
 
     background-color: #949494;
     height: 1px;
+    width: calc(100% - 2rem);
   }
 
   .div-comment {

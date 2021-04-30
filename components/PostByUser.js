@@ -109,7 +109,12 @@ const PostByUser = ({ id }) => {
           ""
         )}
       </div>
-
+      <div className="post-user-date">
+        <MdDateRange />
+        <span className="span-last">
+          {postedAt(getPost?.createdAt) + " ago"}
+        </span>
+      </div>
       <p>
         {getPost?.excerpt + "..."}
         <p
@@ -145,12 +150,6 @@ const PostByUser = ({ id }) => {
         <div>
           <BsEye />
           <span>{getPost?.views + viewString}</span>
-        </div>
-        <div>
-          <MdDateRange />
-          <span className="span-last">
-            {postedAt(getPost?.createdAt) + " ago"}
-          </span>
         </div>
       </div>
     </PostByUserStyles>
