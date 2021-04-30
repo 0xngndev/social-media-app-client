@@ -77,10 +77,6 @@ const PostByUser = ({ id }) => {
     return true;
   };
 
-  const likesString = getPost?.likeCount === 1 ? " Like" : " Likes";
-  const commentsString = getPost?.commentCount === 1 ? " Comment" : " Comments";
-  const viewString = getPost?.views === 1 ? " view" : " views";
-
   return (
     <PostByUserStyles>
       {error && <p>{error}</p>}

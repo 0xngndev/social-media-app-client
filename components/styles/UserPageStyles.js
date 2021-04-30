@@ -24,7 +24,7 @@ export const UserPageStyles = styled.div`
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 0 3rem;
+      padding: 0 1rem;
       padding-top: 1rem;
 
       svg {
