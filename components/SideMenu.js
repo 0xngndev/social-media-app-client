@@ -80,7 +80,6 @@ const SideMenu = ({ isActive, isSideMenuActive, setIsSideMenuActive }) => {
               </li>
             </ul>
           </div>
-          {"Logged in as " + user?.username}
         </div>
       </SideMenuWrapper>
     </>

@@ -4,9 +4,7 @@ import { CommentPageStyles } from "./styles/CommentPageStyles";
 const CommentPage = ({ comment }) => {
   const { username, body, createdAt } = comment;
 
-  let postedAtDate = formatDistanceToNow(new Date(createdAt), {
-    includeSeconds: true,
-  });
+  let postedAtDate = formatDistanceToNow(new Date(createdAt));
 
   return (
     <CommentPageStyles>
