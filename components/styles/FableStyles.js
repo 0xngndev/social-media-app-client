@@ -19,7 +19,7 @@ export const Wrapper = styled.div`
   }
 
   h3 {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     font-weight: 700;
     margin: 0;
     padding: 0;
@@ -28,6 +28,46 @@ export const Wrapper = styled.div`
 
     @media screen and (max-width: 901px) {
       text-align: start;
+    }
+  }
+
+  .div-likes-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-top: 1rem;
+
+    div {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: flex-start;
+
+      svg {
+        padding-right: 0.5rem;
+        height: 20px;
+        width: 20px;
+        cursor: pointer;
+        color: var(--primaryColor);
+      }
+    }
+
+    .div-date-views {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      h3 {
+        font-size: 1.3rem;
+
+        line-height: 1;
+        margin-bottom: 1rem;
+      }
+
+      svg {
+        height: 100%;
+        margin-bottom: 1rem;
+      }
     }
   }
 
@@ -54,7 +94,7 @@ export const Wrapper = styled.div`
 
   p {
     margin: 0;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-weight: 400;
     color: #949494;
 
@@ -138,6 +178,11 @@ export const Wrapper = styled.div`
       flex-direction: row;
       justify-content: center;
       align-items: center;
+
+      h3 {
+        font-size: 1.3rem;
+        line-height: 1;
+      }
 
       svg {
         padding-right: 0.5rem;

@@ -52,6 +52,7 @@ export const SingleFableStyles = styled.div`
       margin: 0;
       padding: 0;
       align-self: flex-start;
+      white-space: pre-wrap;
     }
 
     .div-likes-comments {

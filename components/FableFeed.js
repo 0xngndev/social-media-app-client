@@ -107,6 +107,16 @@ const Fable = ({ fable }) => {
           </button>
         )}
       </div>
+      <div className="div-likes-col">
+        <div className="div-date-views">
+          <BsEye style={stylePostByUser} />
+          <h3>{fable?.views + viewString}</h3>
+        </div>
+        <div className="div-date-views">
+          <MdDateRange style={stylePostByUser} />
+          <h3>{postedAt(fable?.createdAt) + " ago"}</h3>
+        </div>
+      </div>
       <div className="div-divider-short"></div>
       <h2 onClick={handleClick}>{fable?.title}</h2>
       <div className="div-divider-small"></div>
@@ -143,16 +153,6 @@ const Fable = ({ fable }) => {
         <div>
           {<FaRegComment style={stylePostByUser} />}
           <h3>{fable?.commentCount + commentsString}</h3>
-        </div>
-      </div>
-      <div className="div-likes">
-        <div>
-          <BsEye style={stylePostByUser} />
-          <h3>{fable?.views + viewString}</h3>
-        </div>
-        <div>
-          <MdDateRange style={stylePostByUser} />
-          <h3>{postedAt(fable.createdAt) + " ago"}</h3>
         </div>
       </div>
     </Wrapper>
