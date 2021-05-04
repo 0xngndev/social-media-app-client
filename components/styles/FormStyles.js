@@ -89,6 +89,10 @@ export const FormStyles = styled.form`
         border-radius: 2px;
         min-height: 27px;
 
+        @media screen and (max-width: 768px) {
+          min-width: 300px;
+        }
+
         &:focus {
           outline: none;
         }
@@ -101,6 +105,10 @@ export const FormStyles = styled.form`
         border: 1px solid #b4b4b4;
         border-radius: 2px;
         min-height: 80px;
+
+        @media screen and (max-width: 768px) {
+          min-width: 300px;
+        }
 
         &:focus {
           outline: none;
