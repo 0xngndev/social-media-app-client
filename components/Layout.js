@@ -55,9 +55,9 @@ const PageWrapper = styled.div`
     @media screen and (max-width: 768px) {
       display: flex;
       fill: #fff;
-      position: relative;
-      top: 15px;
-      left: 15px;
+      position: absolute;
+      top: 7.5px;
+      left: 10px;
       min-width: 25px;
       min-height: 25px;
       cursor: pointer;
