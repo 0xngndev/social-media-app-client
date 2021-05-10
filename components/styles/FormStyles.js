@@ -76,10 +76,15 @@ export const FormStyles = styled.form`
     border: none;
     outline: none;
     padding: 0;
+    max-width: 500px;
 
     label {
       font-weight: 400;
       font-size: 1.4rem;
+
+      .ql-container .ql-snow {
+        min-height: 100px;
+      }
 
       input {
         display: block;

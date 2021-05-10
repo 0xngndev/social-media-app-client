@@ -16,5 +16,9 @@ export const StyledPopup = styled(Popup)`
     pointer-events: auto;
     background: white;
     border-radius: 12px 12px 6px 6px;
+
+    @media screen and (max-width: 768px) {
+      margin: 1rem;
+    }
   }
 `;

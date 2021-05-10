@@ -43,7 +43,7 @@ export const QUERY_FOLLOWS_FABLES = gql`
 `;
 
 const FablesFeed = () => {
-  const [queryLimit, setQueryLimit] = useState(3);
+  const [queryLimit, setQueryLimit] = useState(6);
   const [queryBy, setQueryBy] = useState("NEWEST");
   const [activeButton, setActiveButton] = useState("NEWEST");
 
@@ -64,7 +64,7 @@ const FablesFeed = () => {
 
   const handleRefetch = () => {
     if (getPostByFollows.next !== null) {
-      setQueryLimit((prevState) => prevState + 3);
+      setQueryLimit((prevState) => prevState + 6);
       refetch({
         sortBy: queryBy,
         page: 1,
@@ -98,9 +98,7 @@ const FablesFeed = () => {
         })}
         <div className="div-load-more">
           <button type="button" onClick={handleRefetch}>
-            {getPostByFollows.next === null
-              ? "NO MORE FABLES TO FETCH"
-              : "LOAD MORE"}
+            {getPostByFollows.next === null ? "NO TALES REMAIN" : "LOAD MORE"}
           </button>
         </div>
       </FableWrapper>
