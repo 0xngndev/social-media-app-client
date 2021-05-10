@@ -32,7 +32,7 @@ const SideMenu = ({ isActive, isSideMenuActive, setIsSideMenuActive }) => {
             onClick={() => setIsSideMenuActive(!isSideMenuActive)}
           />
           <div className="div-logo">
-            <h1 onClick={() => router.push(`/`)}>F</h1>
+            <h1 onClick={() => router.push(`/`)}>T</h1>
           </div>
           <div className="div-list">
             <ul>
